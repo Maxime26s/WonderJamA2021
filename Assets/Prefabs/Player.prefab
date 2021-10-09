@@ -4825,6 +4825,7 @@ GameObject:
   - component: {fileID: -2071673051017158774}
   - component: {fileID: 2242493522965790522}
   - component: {fileID: 344412443225711433}
+  - component: {fileID: 475079470}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -4922,12 +4923,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   groundCheckLength: 0.6
-  grounded: 0
   groundRayCount: 5
+  airSpeed: 1
+  maxAirVelocity: 4
+  grapplingSpeed: 5000
   walkParticles: {fileID: 864644224690613793}
   jumpParticles: {fileID: 1665847407802225057}
   grappleController: {fileID: 2985875634783464466}
   throwRocksController: {fileID: 344412443225711433}
+  currentState: 0
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5067,8 +5071,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lr: {fileID: 5462298493919187793}
-  maxDistance: 20
-  isGrappling: 0
+  characterController: {fileID: 7562826569245713172}
+  maxDistance: 10
+  spring: 3
+  damper: 0.5
+  massScale: 15
 --- !u!114 &-2071673051017158774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5137,6 +5144,18 @@ MonoBehaviour:
   rockHolding: {fileID: 0}
   topBar: {fileID: 0}
   offset: {x: 0, y: -2, z: 0}
+--- !u!75 &475079470
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562826569245713171}
+  m_Enabled: 1
+  m_Force: {x: 0, y: -20, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1 &7919989587595348933
 GameObject:
   m_ObjectHideFlags: 0

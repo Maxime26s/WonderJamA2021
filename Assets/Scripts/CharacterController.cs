@@ -84,6 +84,7 @@ public class CharacterController : MonoBehaviour {
             if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right)) {
                 rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
             }
+            gameObject.GetComponent<GrappleController>().ChangeDistance(-desiredVerticalDirection / 50f);
         }
     }
 
