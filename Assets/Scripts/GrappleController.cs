@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class GrappleController : MonoBehaviour {
     public LineRenderer lr;
-
+    public CharacterController characterController = null;
     public float maxDistance = 100;
     private Vector3 aimDirection;
 
     private Vector3 grapplePoint;
     private SpringJoint joint;
-    public bool isGrappling = false;
 
+
+    public float spring = 8f;
+            public float damper = 0.5f;
+            public float massScale = 1f;
 
     private void Start() {
         aimDirection = new Vector3(0, maxDistance, 0);
@@ -22,13 +25,10 @@ public class GrappleController : MonoBehaviour {
     }
 
     private void OnGrapple() {
-        if (!joint && !gameObject.GetComponent<CharacterController>().grounded) {
-            //Debug.DrawLine(transform.position, transform.position + aimDirection, Color.yellow, 1f);
-            BeginGrapple();
-        } else {
-            ///Debug.DrawLine(transform.position, transform.position + aimDirection, Color.red, 1f);
+        if (characterController.GetState() == PlayerState.Grappling)
             EndGrapple();
-        }
+        else if (characterController.GetState() == PlayerState.InAir)
+            BeginGrapple();
     }
     public void OnAim(InputValue input) {
         //Debug.DrawRay(transform.position, new Vector3(input.Get<Vector2>().x, input.Get<Vector2>().y, 0), Color.blue, 0.2f);
@@ -41,7 +41,7 @@ public class GrappleController : MonoBehaviour {
     }
 
     void BeginGrapple() {
-        isGrappling = true;
+        characterController.SetState(PlayerState.Grappling);
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
         if (FanShappedRayCast(transform.position, aimDirection, out hit, maxDistance, 100, 20)) {
@@ -52,13 +52,13 @@ public class GrappleController : MonoBehaviour {
 
             float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            joint.maxDistance = maxDistance / 25;
-            joint.minDistance = maxDistance / 25;
+            joint.maxDistance = maxDistance / 15f + distanceFromPoint / 15f;
+            joint.minDistance = maxDistance / 7f + distanceFromPoint / 7f;
 
             //edit values to change gameplay
-            joint.spring = 8f;
-            joint.damper = 0.5f;
-            joint.massScale = 1f;
+            joint.spring = spring;
+            joint.damper = damper;
+            joint.massScale = massScale;
 
             lr.positionCount = 2;
         }
@@ -89,7 +89,7 @@ public class GrappleController : MonoBehaviour {
             //Debug.DrawRay(origin, iterationDirectionLeft * 50, Color.green, 5f);
             //Debug.DrawRay(origin, iterationDirectionRight * 50, Color.red, 5f);
 
-            if (Physics.Raycast(origin, iterationDirectionLeft, out hitInfo, maxDistance))
+            if (Physics.Raycast(origin, iterationDirectionLeft, out  hitInfo, maxDistance))
                 return true;
             if (Physics.Raycast(origin, iterationDirectionRight, out hitInfo, maxDistance))
                 return true;
@@ -98,7 +98,7 @@ public class GrappleController : MonoBehaviour {
     }
 
     void EndGrapple() {
-        isGrappling = false;
+        characterController.SetState(PlayerState.InAir);
         lr.positionCount = 0;
         Destroy(joint);
     }

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
-{
+
+public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker }
+
+public class CharacterController : MonoBehaviour {
     [Header("References")]
-    public Rigidbody rigidbody = null;
+    public new Rigidbody rigidbody = null;
 
     [Header("Horizontal Speed")]
     public float speed = 2f;
@@ -22,9 +24,16 @@ public class CharacterController : MonoBehaviour
     [Header("Ground Checking")]
     public LayerMask groundRaycastLayerMask = new LayerMask();
     public float groundCheckLength = 1.1f;
-    public bool grounded = false;
     public int groundRayCount = 5;
     public Ray groundRay = new Ray();
+
+    [Header("InAir")]
+    public float airSpeed = 1f;
+    public float maxAirVelocity = 4f;
+
+    [Header("Grappling")]
+    public float grapplingSpeed = 5000f;
+
 
     [Header("FXs")]
     public ParticleSystem walkParticles = null;
@@ -34,19 +43,47 @@ public class CharacterController : MonoBehaviour
     public GrappleController grappleController;
     public ThrowRocksController throwRocksController;
 
+    [Header("StateMachine")]
+    public PlayerState currentState = PlayerState.OnGround;
+
     private enum Direction { Left, Right };
+
     private float desiredHorizontalDirection;
     private float desiredVerticalDirection;
 
-    private void ManageInputs()
-    {
-        if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left))
-        {
-            rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+
+    public void SetState(PlayerState newState) {
+        currentState = newState;
+    }
+
+    public PlayerState GetState() {
+        return currentState;
+    }
+
+    private void ManageInputs() {
+        if (GetState() == PlayerState.OnGround) {
+            if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
+                rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+            }
+            if (desiredHorizontalDirection > 0 && !OverMaxVelocity(Direction.Right)) {
+                rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+            }
         }
-        if (desiredHorizontalDirection > 0 && !OverMaxVelocity(Direction.Right))
-        {
-            rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+        else if (GetState() == PlayerState.InAir) {
+            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
+                rigidbody.AddForce(desiredHorizontalDirection * airSpeed * Time.deltaTime, 0f, 0f);
+            }
+            if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right)) {
+                rigidbody.AddForce(desiredHorizontalDirection * airSpeed * Time.deltaTime, 0f, 0f);
+            }
+        }
+        else if (GetState() == PlayerState.Grappling) {
+            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
+                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            }
+            if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right)) {
+                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            }
         }
     }
 
@@ -64,37 +101,32 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void CheckGrounded()
-    {
-        if (gameObject.GetComponent<GrappleController>().isGrappling)
-        {
-            grounded = false;
+    private void CheckGrounded() {
+
+        if (GetState() == PlayerState.Grappling)
             return;
-        }
 
         for (int i = 0; i < groundRayCount; i++)
         {
             Vector3 raypos = transform.position + new Vector3(-(transform.localScale.x / 2f) + i * (transform.localScale.x / (groundRayCount - 1)), 0f, 0f);
             Debug.DrawRay(raypos, Vector3.down * groundCheckLength, Color.red);
             groundRay = new Ray(raypos, Vector3.down);
-            if (Physics.Raycast(groundRay, groundCheckLength, groundRaycastLayerMask))
-            {
-                grounded = true;
+            if (Physics.Raycast(groundRay, groundCheckLength, groundRaycastLayerMask)) {
+                SetState(PlayerState.OnGround);
                 return;
             }
+            SetState(PlayerState.InAir);
         }
-        grounded = false;
     }
 
-    private void HandleJump()
-    {
-        if (!grounded)
+    private void HandleJump() {
+        if (currentState != PlayerState.OnGround)
             return;
         if (resetVelocityOnJump)
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, 0f);
         rigidbody.AddForce(0f, jumpHeight, 0f);
         PlayJumpFX();
-        grounded = false;
+        SetState(PlayerState.InAir);
     }
 
     private void ApplyGroundFriction()
@@ -117,16 +149,12 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    void CheckWalkFX()
-    {
-        if (grounded)
-        {
+    void CheckWalkFX() {
+        if (GetState() == PlayerState.OnGround) {
             var em = walkParticles.emission;
             em.enabled = true;
         }
-
-        else
-        {
+        else {
             var em = walkParticles.emission;
             em.enabled = false;
         }
@@ -137,12 +165,14 @@ public class CharacterController : MonoBehaviour
         jumpParticles.Play();
     }
 
-    void Update()
-    {
-        ApplyGroundFriction();
-        CheckGrounded();
+    void Update() {
+        if (currentState == PlayerState.OnGround) {
+            ApplyGroundFriction();
+        }
         ManageInputs();
         CheckWalkFX();
+        CheckGrounded();
+
     }
 
     private bool OverMaxVelocity(Direction direction)
@@ -183,5 +213,18 @@ public class CharacterController : MonoBehaviour
         disableJump = false;
         rigidbody.velocity = Vector3.zero;
         transform.SetParent(null);
+    }
+    
+    private bool OverMaxAirVelocity(Direction direction) {
+        if (direction == Direction.Left) {
+            if (rigidbody.velocity.x <= -maxAirVelocity) {
+                return true;
+            }
+        } else {
+            if (rigidbody.velocity.x >= maxAirVelocity) {
+                return true;
+            }
+        }
+        return false;
     }
 }
