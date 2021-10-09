@@ -48,6 +48,9 @@ public class CharacterController : MonoBehaviour
         if (Physics.Raycast(groundRay, groundCheckLength, groundRaycastLayerMask)) {
             grounded = true;
         }
+        else {
+            grounded = false;
+        }
     }
 
     private void HandleJump() {
