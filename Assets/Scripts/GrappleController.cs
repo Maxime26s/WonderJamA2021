@@ -110,7 +110,7 @@ public class GrappleController : MonoBehaviour {
         }
     }
 
-    void SilenceGrapple() {
+    public void SilenceGrapple(float silenceDuration) {
         //make the grapple disabled
     }
 }
