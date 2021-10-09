@@ -4923,6 +4923,7 @@ MonoBehaviour:
     m_Bits: 1
   groundCheckLength: 0.6
   groundRayCount: 5
+  airSpeed: 250
   walkParticles: {fileID: 864644224690613793}
   jumpParticles: {fileID: 1665847407802225057}
   currentState: 0
@@ -5066,7 +5067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lr: {fileID: 5462298493919187793}
   characterController: {fileID: 7562826569245713172}
-  maxDistance: 20
+  maxDistance: 10
 --- !u!114 &-2071673051017158774
 MonoBehaviour:
   m_ObjectHideFlags: 0
