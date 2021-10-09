@@ -45,6 +45,7 @@ public class CharacterController : MonoBehaviour {
 
     [Header("StateMachine")]
     public PlayerState currentState = PlayerState.OnGround;
+    public bool alive = true;
 
     private enum Direction { Left, Right };
 
@@ -61,7 +62,7 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void ManageInputs() {
-        if (GetState() == PlayerState.OnGround) {
+        if (GetState() == PlayerState.OnGround || GetState() == PlayerState.Pachinker) {
             if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
                 rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
             }
@@ -167,13 +168,15 @@ public class CharacterController : MonoBehaviour {
     }
 
     void Update() {
-        if (currentState == PlayerState.OnGround) {
+        if (currentState == PlayerState.OnGround || currentState == PlayerState.Pachinker) {
             ApplyGroundFriction();
         }
         ManageInputs();
         CheckWalkFX();
-        CheckGrounded();
-
+        if(currentState != PlayerState.Pachinker)
+        {
+            CheckGrounded();
+        }
     }
 
     private bool OverMaxVelocity(Direction direction)
@@ -204,6 +207,9 @@ public class CharacterController : MonoBehaviour {
         rigidbody.velocity = Vector3.zero;
         transform.SetParent(Camera.main.gameObject.transform);
         transform.localPosition = new Vector3(0, 11.25f, 25);
+        currentState = PlayerState.Pachinker;
+        PlayerManager.Instance.livingPlayers.Remove(this.gameObject);
+        PlayerManager.Instance.deadPlayers.Add(this.gameObject);
     }
 
     public void MoveToClimbing()
@@ -214,6 +220,8 @@ public class CharacterController : MonoBehaviour {
         disableJump = false;
         rigidbody.velocity = Vector3.zero;
         transform.SetParent(null);
+        PlayerManager.Instance.livingPlayers.Add(this.gameObject);
+        PlayerManager.Instance.deadPlayers.Remove(this.gameObject);
     }
     
     private bool OverMaxAirVelocity(Direction direction) {
