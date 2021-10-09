@@ -10,6 +10,9 @@ EditorUserSettings:
       flags: 0
     RecentlyUsedScenePath-1:
       value: 22424703114646680e0b0227036c75332605173a3f66333e243d04
+<<<<<<< HEAD
+      flags: 0
+=======
       flags: 0
     RecentlyUsedScenePath-2:
       value: 22424703114646680e0b0227036c72110e590d24253c3f
@@ -32,6 +35,7 @@ EditorUserSettings:
     RecentlyUsedScenePath-8:
       value: 22424703114646680e0b0227036c6f1c170e1d381f2d2a352e3d5326ece92021
       flags: 0
+>>>>>>> main
     UnityEditor.ShaderGraph.Blackboard:
       value: 18135939215a0a5004000b0e15254b524c030a3f2964643d120d1230e9e93a3fd6e826abbd3c3e302a07a37e0901373ae01e0008f707250d171df81a53a5405d41895ac825e0100ec20313c0d91cddccd3d0c7efcca9bd80908fecb0f9cfddf1eff4e7a1b1eae482f0fdaee1e1928b86d888ed909c96879fea828182e68083838c82d38fc49a
       flags: 0
