@@ -4824,6 +4824,7 @@ GameObject:
   - component: {fileID: 2985875634783464466}
   - component: {fileID: -2071673051017158774}
   - component: {fileID: 2242493522965790522}
+  - component: {fileID: 961323390}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -4915,6 +4916,7 @@ MonoBehaviour:
   jumpHeight: 500
   gravityMultiplier: 1
   resetVelocityOnJump: 1
+  disableJump: 1
   groundRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -5092,6 +5094,42 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2242493522965790522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562826569245713171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b86fbd6426b2ce4ca2a4d74406d5a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStarted: 0
+--- !u!114 &961323390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562826569245713171}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231835685ff91774c823062244d4efe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocks:
+  - {fileID: 4941482925960248107, guid: 76cb9da799aa50f478359dc0048573b8, type: 3}
+  - {fileID: 4941482925960248107, guid: ce964c00ca41ab048a090a576506a885, type: 3}
+  - {fileID: 4941482925960248107, guid: 47d606e3973e5cf478c3c8ae51bd0d56, type: 3}
+  - {fileID: 4941482925960248107, guid: 9df9161e2593b92489c7e3914622d3c6, type: 3}
+  - {fileID: 4941482925960248107, guid: d82348e071e556c439b0eb4ca479eaf8, type: 3}
+  - {fileID: 4941482925960248107, guid: fb553ba003faa92449757f487148abb0, type: 3}
+  nextRock: 0
+  rocksCoolDown: 1
+  disableThrowing: 0
+  rockHolding: {fileID: 0}
 --- !u!1 &7919989587595348933
 GameObject:
   m_ObjectHideFlags: 0
@@ -9956,15 +9994,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &2242493522965790522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7562826569245713171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b86fbd6426b2ce4ca2a4d74406d5a20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
