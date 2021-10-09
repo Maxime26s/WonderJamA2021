@@ -9,6 +9,8 @@ public class Flipper : MonoBehaviour
     public bool flipping = false;
     public GameObject endPoint;
 
+    public GameObject flipParticles = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +51,11 @@ public class Flipper : MonoBehaviour
             StartCoroutine(Flip(duration, angle, restAngle));
             if (collision.gameObject.TryGetComponent(out Rigidbody rb))
             {
-                rb.AddForce(CalculateForce(collision.transform.position, collision.contacts[0].point), ForceMode.VelocityChange);
+                Vector3 calculatedForce = CalculateForce(collision.transform.position, collision.contacts[0].point);
+                calculatedForce = new Vector3(calculatedForce.x, calculatedForce.y, 0f);
+                GameObject particles = Instantiate(flipParticles, collision.contacts[0].point, Quaternion.identity);
+                particles.transform.forward = calculatedForce;
+                rb.AddForce(calculatedForce, ForceMode.VelocityChange);
             }
         }
     }
@@ -57,6 +63,6 @@ public class Flipper : MonoBehaviour
     public Vector3 CalculateForce(Vector3 objectPosition, Vector3 contactPoint)
     {
         float proportionalForce = (contactPoint - transform.parent.transform.position).magnitude / (endPoint.transform.position - transform.parent.transform.position).magnitude;
-        return (objectPosition - contactPoint) * power * proportionalForce;
+        return (objectPosition - contactPoint).normalized * power * proportionalForce;
     }
 }

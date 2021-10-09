@@ -4823,6 +4823,8 @@ GameObject:
   - component: {fileID: 5462298493919187793}
   - component: {fileID: 2985875634783464466}
   - component: {fileID: -2071673051017158774}
+  - component: {fileID: 2242493522965790522}
+  - component: {fileID: 344412443225711433}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -4838,7 +4840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7562826569245713171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.8, y: 0.5, z: 0.8}
   m_Children:
   - {fileID: 1598619176069143943}
@@ -4908,18 +4910,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48c76356c1c09e47825682fc87ba27e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 7562826569245713173}
   speed: 5000
   maxVelocity: 5
   groundFriction: 30
   jumpHeight: 500
   gravityMultiplier: 1
   resetVelocityOnJump: 1
+  disableJump: 0
   groundRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 1
   groundCheckLength: 0.6
-  grounded: 0
   groundRayCount: 5
+  walkParticles: {fileID: 864644224690613793}
+  jumpParticles: {fileID: 1665847407802225057}
+  currentState: 0
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5059,8 +5065,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lr: {fileID: 5462298493919187793}
+  characterController: {fileID: 7562826569245713172}
   maxDistance: 20
-  isGrappling: 0
 --- !u!114 &-2071673051017158774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5091,6 +5097,42 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2242493522965790522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562826569245713171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b86fbd6426b2ce4ca2a4d74406d5a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStarted: 0
+--- !u!114 &344412443225711433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562826569245713171}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231835685ff91774c823062244d4efe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocks:
+  - {fileID: 4941482925960248107, guid: 76cb9da799aa50f478359dc0048573b8, type: 3}
+  - {fileID: 4941482925960248107, guid: ce964c00ca41ab048a090a576506a885, type: 3}
+  - {fileID: 4941482925960248107, guid: 47d606e3973e5cf478c3c8ae51bd0d56, type: 3}
+  - {fileID: 4941482925960248107, guid: d82348e071e556c439b0eb4ca479eaf8, type: 3}
+  - {fileID: 4941482925960248107, guid: 9df9161e2593b92489c7e3914622d3c6, type: 3}
+  - {fileID: 4941482925960248107, guid: fb553ba003faa92449757f487148abb0, type: 3}
+  nextRock: 0
+  rocksCoolDown: 0
+  disableThrowing: 1
+  rockHolding: {fileID: 0}
 --- !u!1 &7919989587595348933
 GameObject:
   m_ObjectHideFlags: 0
@@ -5103,7 +5145,7 @@ GameObject:
   - component: {fileID: 1665847407802225057}
   - component: {fileID: 525259816237577603}
   m_Layer: 6
-  m_Name: Jumping
+  m_Name: JumpParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5138,7 +5180,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -5259,7 +5301,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5374,9 +5416,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 1
-      minScalar: 1
+      minMaxState: 3
+      scalar: 0.3
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5427,7 +5469,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -5480,7 +5522,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -5698,7 +5740,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: -0.05
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -6121,33 +6163,33 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
       scalar: 1
-      minScalar: 1
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
           value: 1
-          inSlope: 1
+          inSlope: 0
           outSlope: 0
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -2
+          outSlope: -2
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
