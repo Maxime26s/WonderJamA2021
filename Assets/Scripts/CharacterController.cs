@@ -79,11 +79,19 @@ public class CharacterController : MonoBehaviour {
             }
         }
         else if (GetState() == PlayerState.Grappling) {
-            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
-                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            Vector3 direction = grappleController.joint.connectedAnchor - transform.position;
+            Vector3 dirLeft = new Vector3(-direction.y, direction.x).normalized;
+
+            
+
+            if (desiredHorizontalDirection < 0) {
+                rigidbody.AddForce(dirLeft * grapplingSpeed * Time.deltaTime);
+                Debug.DrawRay(transform.position, dirLeft * grapplingSpeed);
             }
-            if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right)) {
-                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            if (desiredHorizontalDirection > 0) {
+                rigidbody.AddForce(-dirLeft * grapplingSpeed * Time.deltaTime);
+                Debug.DrawRay(transform.position, -dirLeft * grapplingSpeed);
+
             }
             gameObject.GetComponent<GrappleController>().ChangeDistance(-desiredVerticalDirection * Time.deltaTime * climbSpeed);
         }
