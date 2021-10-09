@@ -49,10 +49,14 @@ public class Flipper : MonoBehaviour
             StartCoroutine(Flip(duration, angle, restAngle));
             if (collision.gameObject.TryGetComponent(out Rigidbody rb))
             {
-                float proportionalForce = (collision.contacts[0].point - transform.parent.transform.position).magnitude / (endPoint.transform.position - transform.parent.transform.position).magnitude;
-                rb.AddForce((collision.transform.position - collision.contacts[0].point) * power * proportionalForce, ForceMode.VelocityChange);
-
+                rb.AddForce(CalculateForce(collision.transform.position, collision.contacts[0].point), ForceMode.VelocityChange);
             }
         }
+    }
+
+    public Vector3 CalculateForce(Vector3 objectPosition, Vector3 contactPoint)
+    {
+        float proportionalForce = (contactPoint - transform.parent.transform.position).magnitude / (endPoint.transform.position - transform.parent.transform.position).magnitude;
+        return (objectPosition - contactPoint) * power * proportionalForce;
     }
 }

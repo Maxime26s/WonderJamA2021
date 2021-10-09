@@ -7,7 +7,7 @@ public class Boulder : MonoBehaviour
     public float minStartAngle, maxStartAngle;
     public Vector2 startForce;
     public Rigidbody rb;
-    public EffectController effectController;
+    EffectController effectController;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -25,7 +25,7 @@ public class Boulder : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision.relativeVelocity.magnitude >= effectController.shakeThreshold)
+        if (collision != null && effectController != null && collision.relativeVelocity.magnitude >= effectController.shakeThreshold)
             effectController.StartShake(collision.relativeVelocity.magnitude);
     }
 }
