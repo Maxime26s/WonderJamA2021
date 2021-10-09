@@ -24,14 +24,13 @@ public class CharacterController : MonoBehaviour {
     public int groundRayCount = 5;
     public Ray groundRay = new Ray();
 
+    [Header("FXs")]
+    public ParticleSystem walkParticles = null;
+    public ParticleSystem jumpParticles = null;
+
     private enum Direction { Left, Right };
     private float desiredHorizontalDirection;
     private float desiredVerticalDirection;
-
-    // Update is called once per frame
-    private void Start() {
-        Physics.gravity = new Vector3(0, -9.8f * gravityMultiplier, 0);
-    }
 
     private void ManageInputs() {
         if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
@@ -92,6 +91,7 @@ public class CharacterController : MonoBehaviour {
         if (resetVelocityOnJump)
             GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, 0f, 0f);
         GetComponent<Rigidbody>().AddForce(0f, jumpHeight, 0f);
+        PlayJumpFX();
         grounded = false;
     }
 
@@ -111,10 +111,28 @@ public class CharacterController : MonoBehaviour {
         }
     }
 
+    void CheckWalkFX() {
+        if (grounded) {
+            var em = walkParticles.emission;
+            em.enabled = true;
+        }
+
+        else {
+            var em = walkParticles.emission;
+            em.enabled = false;
+        }
+    }
+
+    void PlayJumpFX() {
+        jumpParticles.Play();
+    }
+
     void Update() {
+
         ApplyGroundFriction();
         CheckGrounded();
         ManageInputs();
+        CheckWalkFX();
     }
 
     private bool OverMaxVelocity(Direction direction) {
