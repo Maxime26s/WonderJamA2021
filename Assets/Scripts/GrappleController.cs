@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class GrappleController : MonoBehaviour {
@@ -18,16 +19,33 @@ public class GrappleController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            isGrappling = !isGrappling;
-            if (!joint) {
-                //Debug.DrawLine(transform.position, transform.position + aimDirection, Color.yellow, 1f);
-                BeginGrapple();
-            } else {
-                ///Debug.DrawLine(transform.position, transform.position + aimDirection, Color.red, 1f);
-                EndGrapple();
-            }
+        //if (Input.GetKeyDown(KeyCode.E)) {
+        isGrappling = !isGrappling;
+        if (!joint) {
+            //Debug.DrawLine(transform.position, transform.position + aimDirection, Color.yellow, 1f);
+            // BeginGrapple();
+        } else {
+            ///Debug.DrawLine(transform.position, transform.position + aimDirection, Color.red, 1f);
+            //EndGrapple();
         }
+        //}
+    }
+
+    private void OnGrapple() {
+        if (!joint && !gameObject.GetComponent<CharacterController>().grounded) {
+            //Debug.DrawLine(transform.position, transform.position + aimDirection, Color.yellow, 1f);
+            isGrappling = !isGrappling;
+            BeginGrapple();
+        } else {
+            ///Debug.DrawLine(transform.position, transform.position + aimDirection, Color.red, 1f);
+            isGrappling = !isGrappling;
+            EndGrapple();
+        }
+    }
+    public void OnAim(InputValue input) {
+        Vector3 inputDirection = new Vector3(-input.Get<Vector2>().x, input.Get<Vector2>().y, 0);
+        Debug.DrawRay(transform.position, inputDirection, Color.blue, 0.2f);
+        aimDirection = inputDirection;
     }
 
     private void LateUpdate() {
@@ -37,7 +55,7 @@ public class GrappleController : MonoBehaviour {
     void BeginGrapple() {
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
-        if (FanShappedRayCast(transform.position, Vector3.up, out hit, maxDistance, 100, 20)) {
+        if (FanShappedRayCast(transform.position, aimDirection, out hit, maxDistance, 100, 20)) {
             grapplePoint = hit.point;
             joint = gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour {
@@ -24,7 +25,8 @@ public class CharacterController : MonoBehaviour {
     public Ray groundRay = new Ray();
 
     private enum Direction { Left, Right };
-
+    private float desiredHorizontalDirection;
+    private float desiredVerticalDirection;
 
     // Update is called once per frame
     private void Start() {
@@ -32,15 +34,36 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void ManageInputs() {
-        if (Input.GetKey(KeyCode.A) && !OverMaxVelocity(Direction.Left)) {
-            rigidbody.AddForce(-speed * Time.deltaTime, 0f, 0f);
+        if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
+            rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
         }
-        if (Input.GetKey(KeyCode.D) && !OverMaxVelocity(Direction.Right)) {
-            rigidbody.AddForce(speed * Time.deltaTime, 0f, 0f);
+        if (desiredHorizontalDirection > 0 && !OverMaxVelocity(Direction.Right)) {
+            rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
         }
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        //if (Input.GetKeyDown(KeyCode.Space)) {
+        //    HandleJump();
+        //}
+
+        //rigidbody.AddForce(new Vector3(desiredHorizontalDirection, 0, desiredVerticalDirection) * (speed * Time.deltaTime));
+    }
+
+    public void OnMove(InputValue input) {
+        desiredHorizontalDirection = input.Get<Vector2>().x;
+        desiredVerticalDirection = input.Get<Vector2>().y;
+
+
+        //if (Input.GetKey(KeyCode.A) && !OverMaxVelocity(Direction.Left)) {
+            //rigidbody.AddForce(-speed * Time.deltaTime, 0f, 0f);
+        //}
+        //if (Input.GetKey(KeyCode.D) && !OverMaxVelocity(Direction.Right)) {
+            //rigidbody.AddForce(speed * Time.deltaTime, 0f, 0f);
+        //}
+    }
+
+    public void OnJump() {
+        //if (Input.GetKeyDown(KeyCode.Space)) {
             HandleJump();
-        }
+        //}
     }
 
     private void CheckGrounded() {

@@ -227,6 +227,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2071673051017158774, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: cf0b0aeb4723be949b2691b60028b4e6, type: 3}
+    - target: {fileID: -2071673051017158774, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7562826569245713169, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
