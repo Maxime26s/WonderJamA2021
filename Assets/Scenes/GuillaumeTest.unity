@@ -318,27 +318,19 @@ PrefabInstance:
       objectReference: {fileID: 4065991381678042265, guid: f8090aefb53fe8a40af75e78c5f9c0a6, type: 3}
     - target: {fileID: 2985875634783464466, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: damper
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2985875634783464466, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: spring
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2985875634783464466, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: massScale
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7562826569245713171, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: m_Name
       value: Player (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562826569245713172, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-      propertyPath: rigidbody
-      value: 
-      objectReference: {fileID: 764001760}
-    - target: {fileID: 7562826569245713172, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-      propertyPath: maxVelocity
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7562826569245713173, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: m_Drag
@@ -552,11 +544,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a5ad1d10c3b2dd4dac5f84cfb206806, type: 3}
---- !u!54 &764001760 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 7562826569245713173, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-  m_PrefabInstance: {fileID: 563316977}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &781268696 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5389514867296306124, guid: 6a5ad1d10c3b2dd4dac5f84cfb206806, type: 3}

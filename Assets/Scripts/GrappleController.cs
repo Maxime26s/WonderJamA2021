@@ -10,7 +10,7 @@ public class GrappleController : MonoBehaviour {
     private Vector3 aimDirection;
 
     private Vector3 grapplePoint;
-    private SpringJoint joint;
+    public SpringJoint joint;
     public bool canGrapple = true;
 
     public float spring;
@@ -19,10 +19,6 @@ public class GrappleController : MonoBehaviour {
 
     public GameObject rope;
     public GameObject ropeRef;
-
-    public float spring = 8f;
-            public float damper = 0.5f;
-            public float massScale = 1f;
 
     private void Start() {
         aimDirection = new Vector3(0, maxDistance, 0);
@@ -48,10 +44,10 @@ public class GrappleController : MonoBehaviour {
     }
 
     void BeginGrapple() {
-        characterController.SetState(PlayerState.Grappling);
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
         if (FanShappedRayCast(transform.position, aimDirection, out hit, maxDistance, 100, 20)) {
+            characterController.SetState(PlayerState.Grappling);
             grapplePoint = hit.point;
             //ropeRef = Instantiate(rope);
             //ropeRef.transform.SetParent(gameObject.transform);
@@ -62,8 +58,8 @@ public class GrappleController : MonoBehaviour {
 
             float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            joint.maxDistance = maxDistance / 15f + distanceFromPoint / 15f;
-            joint.minDistance = maxDistance / 7f + distanceFromPoint / 7f;
+            joint.maxDistance = distanceFromPoint / 1.1f;
+            joint.minDistance = distanceFromPoint / 1.2f;
 
             //edit values to change gameplay
             joint.spring = spring;
@@ -121,16 +117,29 @@ public class GrappleController : MonoBehaviour {
         }
     }
 
-    public void SilenceGrapple() {
-        StartCoroutine("DisableCoroutine");
+    public void SilenceGrapple(float time) {
+        StartCoroutine("DisableCoroutine", time);
     }
 
-    IEnumerator DisableCoroutine() {
+    IEnumerator DisableCoroutine(float time) {
         canGrapple = false;
         EndGrapple();
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(time);
 
         canGrapple = true;
+    }
+
+    public void ChangeDistance(float val) {
+        //if joint too small to shrink further
+        if (val < 0 && joint.maxDistance < joint.maxDistance / 20f) {
+            return;
+        }
+        //if joint too big to enlarge
+        if (val > 0 && joint.maxDistance > maxDistance) {
+            return;
+        }
+        joint.maxDistance += val;
+        joint.minDistance += val;
     }
 }
