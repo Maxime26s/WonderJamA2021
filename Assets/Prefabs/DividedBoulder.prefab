@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4941482925960248108}
   - component: {fileID: 6137504309514656579}
   m_Layer: 0
-  m_Name: BombBoulder
+  m_Name: DividedBoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,6 +130,7 @@ MonoBehaviour:
   maxStartAngle: -40
   startForce: {x: 250, y: 500}
   rb: {fileID: 4941482925960248108}
+  effectController: {fileID: 0}
   life: 4
   ttl: 7.5
   radius: 5

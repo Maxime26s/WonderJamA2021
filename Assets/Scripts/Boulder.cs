@@ -25,7 +25,6 @@ public class Boulder : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.relativeVelocity.magnitude);
         if (collision.relativeVelocity.magnitude >= effectController.shakeThreshold)
             effectController.StartShake(collision.relativeVelocity.magnitude);
     }
