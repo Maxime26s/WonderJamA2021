@@ -4924,7 +4924,7 @@ MonoBehaviour:
     m_Bits: 1
   groundCheckLength: 0.6
   groundRayCount: 5
-  airSpeed: 1
+  airSpeed: 1500
   maxAirVelocity: 4
   grapplingSpeed: 1500
   climbSpeed: 5
@@ -4933,6 +4933,7 @@ MonoBehaviour:
   grappleController: {fileID: 2985875634783464466}
   throwRocksController: {fileID: 344412443225711433}
   currentState: 0
+  alive: 1
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
