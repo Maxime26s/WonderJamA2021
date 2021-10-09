@@ -44,10 +44,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.075
   angle: -20
-  power: 35
+  power: 20
   restAngle: 0
   flipping: 0
   endPoint: {fileID: 6701676701665875134}
+  flipParticles: {fileID: 0}
 --- !u!1 &8480132285001655268
 GameObject:
   m_ObjectHideFlags: 0
