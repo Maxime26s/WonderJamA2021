@@ -16,6 +16,7 @@ public class CharacterController : MonoBehaviour {
     public float jumpHeight = 10f;
     public float gravityMultiplier = 4f;
     public bool resetVelocityOnJump = false;
+    public bool disableJump = false;
 
     [Header("Ground Checking")]
     public LayerMask groundRaycastLayerMask = new LayerMask();
@@ -47,7 +48,9 @@ public class CharacterController : MonoBehaviour {
     }
 
     public void OnJump() {
-        HandleJump();
+        if (!disableJump) {
+            HandleJump();
+        }
     }
 
     private void CheckGrounded() {

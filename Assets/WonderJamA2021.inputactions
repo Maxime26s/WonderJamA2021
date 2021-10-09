@@ -259,7 +259,7 @@
                 {
                     "name": "",
                     "id": "1f79ccd7-5629-420f-ace8-f1dcae4b2e93",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/#(p)",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
