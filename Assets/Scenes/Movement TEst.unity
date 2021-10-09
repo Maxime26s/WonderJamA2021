@@ -3259,12 +3259,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2985875634783464466, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-      propertyPath: damper
-      value: 1
+      propertyPath: maxDistance
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7562826569245713171, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562826569245713172, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
+      propertyPath: climbSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7562826569245713175, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: m_RootOrder

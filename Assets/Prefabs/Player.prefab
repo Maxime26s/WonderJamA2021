@@ -4927,6 +4927,7 @@ MonoBehaviour:
   airSpeed: 1
   maxAirVelocity: 4
   grapplingSpeed: 1500
+  climbSpeed: 5
   walkParticles: {fileID: 864644224690613793}
   jumpParticles: {fileID: 1665847407802225057}
   grappleController: {fileID: 2985875634783464466}
@@ -5072,7 +5073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lr: {fileID: 5462298493919187793}
   characterController: {fileID: 7562826569245713172}
-  maxDistance: 10
+  maxDistance: 5
   joint: {fileID: 0}
   canGrapple: 1
   spring: 100
