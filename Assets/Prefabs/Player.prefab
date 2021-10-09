@@ -5073,7 +5073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lr: {fileID: 5462298493919187793}
   characterController: {fileID: 7562826569245713172}
-  maxDistance: 5
+  maxDistance: 6
   joint: {fileID: 0}
   canGrapple: 1
   spring: 100

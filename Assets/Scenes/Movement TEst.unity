@@ -1028,7 +1028,7 @@ PrefabInstance:
       objectReference: {fileID: 1083608535}
     - target: {fileID: 7023769327964176088, guid: 1178045054a02d344a9c24c6a147a0e8, type: 3}
       propertyPath: m_VersionIndex
-      value: 2697
+      value: 2700
       objectReference: {fileID: 0}
     - target: {fileID: 7023769327964176088, guid: 1178045054a02d344a9c24c6a147a0e8, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -1814,7 +1814,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2349440
+  m_Name: pb_Mesh-2515468
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3258,17 +3258,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2985875634783464466, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-      propertyPath: maxDistance
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 7562826569245713171, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562826569245713172, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-      propertyPath: climbSpeed
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7562826569245713175, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: m_RootOrder
