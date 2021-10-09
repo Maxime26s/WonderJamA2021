@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour {
-    [Header("References")]
-    public Rigidbody rigidbody = null;
+    //[Header("References")]
+    //public Rigidbody rigidbody = null;
 
     [Header("Horizontal Speed")]
     public float speed = 2f;
@@ -35,10 +35,10 @@ public class CharacterController : MonoBehaviour {
 
     private void ManageInputs() {
         if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
-            rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+            GetComponent<Rigidbody>().AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
         }
         if (desiredHorizontalDirection > 0 && !OverMaxVelocity(Direction.Right)) {
-            rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+            GetComponent<Rigidbody>().AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
         }
         //if (Input.GetKeyDown(KeyCode.Space)) {
         //    HandleJump();
@@ -67,6 +67,11 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void CheckGrounded() {
+        if (gameObject.GetComponent<GrappleController>().isGrappling) {
+            grounded = false;
+            return;
+        }
+
         for (int i = 0; i < groundRayCount; i++) {
             Vector3 raypos = transform.position + new Vector3(-(transform.localScale.x/2f) + i*(transform.localScale.x/(groundRayCount - 1)),0f,0f);
             Debug.DrawRay(raypos, Vector3.down * groundCheckLength, Color.red);
@@ -76,6 +81,7 @@ public class CharacterController : MonoBehaviour {
                 return;
             }
         }
+
         grounded = false;
     }
 
@@ -84,24 +90,24 @@ public class CharacterController : MonoBehaviour {
         if (!grounded)
             return;
         if (resetVelocityOnJump)
-            rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, 0f);
-        rigidbody.AddForce(0f, jumpHeight, 0f);
+            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, 0f, 0f);
+        GetComponent<Rigidbody>().AddForce(0f, jumpHeight, 0f);
         grounded = false;
     }
 
     private void ApplyGroundFriction() {
-        if (rigidbody.velocity.x > 0) { // Going Right
-            float verification = rigidbody.velocity.x - groundFriction * Time.deltaTime;
+        if (GetComponent<Rigidbody>().velocity.x > 0) { // Going Right
+            float verification = GetComponent<Rigidbody>().velocity.x - groundFriction * Time.deltaTime;
             if (verification < 0)
-                rigidbody.velocity -= new Vector3(rigidbody.velocity.x, 0, 0);
+                GetComponent<Rigidbody>().velocity -= new Vector3(GetComponent<Rigidbody>().velocity.x, 0, 0);
             else
-                rigidbody.velocity -= new Vector3(groundFriction, 0, 0) * Time.deltaTime;
+                GetComponent<Rigidbody>().velocity -= new Vector3(groundFriction, 0, 0) * Time.deltaTime;
         } else {                          // Going Left
-            float verification = rigidbody.velocity.x + groundFriction * Time.deltaTime;
+            float verification = GetComponent<Rigidbody>().velocity.x + groundFriction * Time.deltaTime;
             if (verification > 0)
-                rigidbody.velocity -= new Vector3(rigidbody.velocity.x, 0, 0);
+                GetComponent<Rigidbody>().velocity -= new Vector3(GetComponent<Rigidbody>().velocity.x, 0, 0);
             else
-                rigidbody.velocity += new Vector3(groundFriction, 0, 0) * Time.deltaTime;
+                GetComponent<Rigidbody>().velocity += new Vector3(groundFriction, 0, 0) * Time.deltaTime;
         }
     }
 
@@ -113,11 +119,11 @@ public class CharacterController : MonoBehaviour {
 
     private bool OverMaxVelocity(Direction direction) {
         if (direction == Direction.Left) {
-            if (rigidbody.velocity.x <= -maxVelocity) {
+            if (GetComponent<Rigidbody>().velocity.x <= -maxVelocity) {
                 return true;
             }
         } else {
-            if (rigidbody.velocity.x >= maxVelocity) {
+            if (GetComponent<Rigidbody>().velocity.x >= maxVelocity) {
                 return true;
             }
         }
