@@ -52,6 +52,8 @@ public class CharacterController : MonoBehaviour {
     private float desiredHorizontalDirection;
     private float desiredVerticalDirection;
 
+    public GameObject meshObject;
+
 
     public void SetState(PlayerState newState) {
         currentState = newState;
@@ -93,6 +95,17 @@ public class CharacterController : MonoBehaviour {
     {
         desiredHorizontalDirection = input.Get<Vector2>().x;
         desiredVerticalDirection = input.Get<Vector2>().y;
+        if (currentState == PlayerState.OnGround) {
+            if (desiredHorizontalDirection < 0) {
+                transform.right = Vector3.right;
+            } else if (desiredHorizontalDirection > 0) {
+                transform.right = Vector3.left;
+            } else {
+                transform.right = Vector3.forward;
+            }
+        } else {
+
+        }
     }
 
     public void OnJump()
@@ -171,7 +184,7 @@ public class CharacterController : MonoBehaviour {
         if (currentState == PlayerState.OnGround) {
             ApplyGroundFriction();
         }
-        if (currentState == PlayerState.Walking) {
+        if (currentState == PlayerState.OnGround) {
             AnimateWalking();
         }
         ManageInputs();
@@ -180,8 +193,16 @@ public class CharacterController : MonoBehaviour {
 
     }
 
-    private void AnimateWalking() {
+    private void Start() {
+        meshObject.transform.Rotate(-5, 0, 0);
+    }
 
+    private void AnimateWalking() {
+        //forward
+        //meshObject.transform.Rotate(0,5,0);
+        //Sidways
+        //meshObject.transform.Rotate(5,0,0);
+        meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f,0,0);
     }
 
     private bool OverMaxVelocity(Direction direction)
