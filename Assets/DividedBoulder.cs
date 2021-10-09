@@ -61,6 +61,8 @@ public class DividedBoulder : Boulder
                     rb2.AddForce(flipper.CalculateForce(go2.transform.position, point), ForceMode.VelocityChange);
                 }
 
+                Destroy(go1, 12.5f);
+                Destroy(go2, 12.5f);
                 Destroy(gameObject);
             }
         }

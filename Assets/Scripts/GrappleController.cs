@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class GrappleController : MonoBehaviour {
     public LineRenderer lr;
-
+    public CharacterController characterController = null;
     public float maxDistance = 100;
     private Vector3 aimDirection;
 
     private Vector3 grapplePoint;
     private SpringJoint joint;
-    public bool isGrappling = false;
     public bool canGrapple = true;
 
     public float spring;
@@ -29,13 +28,10 @@ public class GrappleController : MonoBehaviour {
     }
 
     private void OnGrapple() {
-        if (!joint && canGrapple && !gameObject.GetComponent<CharacterController>().grounded) {
-            //Debug.DrawLine(transform.position, transform.position + aimDirection, Color.yellow, 1f);
-            BeginGrapple();
-        } else {
-            ///Debug.DrawLine(transform.position, transform.position + aimDirection, Color.red, 1f);
+        if (characterController.GetState() == PlayerState.Grappling)
             EndGrapple();
-        }
+        else if (canGrapple && characterController.GetState() == PlayerState.InAir)
+            BeginGrapple();
     }
     public void OnAim(InputValue input) {
         //Debug.DrawRay(transform.position, new Vector3(input.Get<Vector2>().x, input.Get<Vector2>().y, 0), Color.blue, 0.2f);
@@ -48,10 +44,10 @@ public class GrappleController : MonoBehaviour {
     }
 
     void BeginGrapple() {
+        characterController.SetState(PlayerState.Grappling);
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
         if (FanShappedRayCast(transform.position, aimDirection, out hit, maxDistance, 100, 20)) {
-            isGrappling = true;
             grapplePoint = hit.point;
             //ropeRef = Instantiate(rope);
             //ropeRef.transform.SetParent(gameObject.transform);
@@ -108,7 +104,7 @@ public class GrappleController : MonoBehaviour {
     }
 
     void EndGrapple() {
-        isGrappling = false;
+        characterController.SetState(PlayerState.InAir);
         lr.positionCount = 0;
         Destroy(joint);
         //Destroy(ropeRef);

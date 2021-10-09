@@ -9,10 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 001e37aa633093f4c95675915f884076
   - enabled: 1
+    path: Assets/Scenes/Instructions.unity
+    guid: 30fe12de1c095a8469d42bbb165dedfb
+  - enabled: 1
     path: Assets/Scenes/PlayerSelect.unity
     guid: 9e744b3600e298947a5979475080d95e
   - enabled: 1
-    path: Assets/Scenes/Instructions.unity
-    guid: 30fe12de1c095a8469d42bbb165dedfb
+    path: Assets/Scenes/Gamehihi.unity
+    guid: 17b1fa6132e154645b1ac4ae24177e60
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9f4abe5d543e7224da2e20dcf7daf062, type: 2}
