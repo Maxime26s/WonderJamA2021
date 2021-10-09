@@ -59,7 +59,7 @@ public class GrappleController : MonoBehaviour {
             float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
             joint.maxDistance = distanceFromPoint / 1.1f;
-            joint.minDistance = distanceFromPoint / 1.2f;
+            joint.minDistance = 0.2f;
 
             //edit values to change gameplay
             joint.spring = spring;
@@ -140,6 +140,5 @@ public class GrappleController : MonoBehaviour {
             return;
         }
         joint.maxDistance += val;
-        joint.minDistance += val;
     }
 }

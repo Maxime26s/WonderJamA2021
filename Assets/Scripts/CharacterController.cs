@@ -46,6 +46,7 @@ public class CharacterController : MonoBehaviour {
 
     [Header("StateMachine")]
     public PlayerState currentState = PlayerState.OnGround;
+    public bool alive = true;
 
     private enum Direction { Left, Right };
 
@@ -64,7 +65,7 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void ManageInputs() {
-        if (GetState() == PlayerState.OnGround) {
+        if (GetState() == PlayerState.OnGround || GetState() == PlayerState.Pachinker) {
             if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
                 rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
             }
@@ -81,11 +82,19 @@ public class CharacterController : MonoBehaviour {
             }
         }
         else if (GetState() == PlayerState.Grappling) {
-            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
-                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            Vector3 direction = grappleController.joint.connectedAnchor - transform.position;
+            Vector3 dirLeft = new Vector3(-direction.y, direction.x).normalized;
+
+            
+
+            if (desiredHorizontalDirection < 0) {
+                rigidbody.AddForce(dirLeft * grapplingSpeed * Time.deltaTime);
+                Debug.DrawRay(transform.position, dirLeft * grapplingSpeed);
             }
-            if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right)) {
-                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            if (desiredHorizontalDirection > 0) {
+                rigidbody.AddForce(-dirLeft * grapplingSpeed * Time.deltaTime);
+                Debug.DrawRay(transform.position, -dirLeft * grapplingSpeed);
+
             }
             gameObject.GetComponent<GrappleController>().ChangeDistance(-desiredVerticalDirection * Time.deltaTime * climbSpeed);
         }
@@ -181,7 +190,7 @@ public class CharacterController : MonoBehaviour {
     }
 
     void Update() {
-        if (currentState == PlayerState.OnGround) {
+        if (currentState == PlayerState.OnGround || currentState == PlayerState.Pachinker) {
             ApplyGroundFriction();
         }
         if (currentState == PlayerState.OnGround) {
@@ -189,8 +198,10 @@ public class CharacterController : MonoBehaviour {
         }
         ManageInputs();
         CheckWalkFX();
-        CheckGrounded();
-
+        if(currentState != PlayerState.Pachinker)
+        {
+            CheckGrounded();
+        }
     }
 
     private void Start() {
@@ -233,6 +244,9 @@ public class CharacterController : MonoBehaviour {
         rigidbody.velocity = Vector3.zero;
         transform.SetParent(Camera.main.gameObject.transform);
         transform.localPosition = new Vector3(0, 11.25f, 25);
+        currentState = PlayerState.Pachinker;
+        PlayerManager.Instance.livingPlayers.Remove(this.gameObject);
+        PlayerManager.Instance.deadPlayers.Add(this.gameObject);
     }
 
     public void MoveToClimbing()
@@ -243,6 +257,8 @@ public class CharacterController : MonoBehaviour {
         disableJump = false;
         rigidbody.velocity = Vector3.zero;
         transform.SetParent(null);
+        PlayerManager.Instance.livingPlayers.Add(this.gameObject);
+        PlayerManager.Instance.deadPlayers.Remove(this.gameObject);
     }
     
     private bool OverMaxAirVelocity(Direction direction) {
