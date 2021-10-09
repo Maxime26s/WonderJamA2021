@@ -12,6 +12,7 @@ public class BombBoulder : Boulder
     protected override void Start()
     {
         base.Start();
+
         Destroy(gameObject, ttl);
         maxLife = life;
         Color color = new Color(1, (float)(life - 1) / maxLife, 0, 1);
@@ -24,8 +25,10 @@ public class BombBoulder : Boulder
         base.Update();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
+        base.OnCollisionEnter(collision);
+
         if (--life <= 0)
             Destroy(gameObject);
         else

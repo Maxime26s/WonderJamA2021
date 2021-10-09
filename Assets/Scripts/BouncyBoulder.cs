@@ -18,8 +18,10 @@ public class BouncyBoulder : Boulder
         base.Update();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
+        base.OnCollisionEnter(collision);
+
         Vector3 point = collision.contacts[0].point;
         Vector3 normal = (point - gameObject.transform.position).normalized;
         Vector3 velocity = Vector3.Dot(rb.velocity, normal) * normal;
