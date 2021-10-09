@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
+
+public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker }
+
 public class CharacterController : MonoBehaviour {
     [Header("References")]
-    public Rigidbody rigidbody = null;
+    public new Rigidbody rigidbody = null;
 
     [Header("Horizontal Speed")]
     public float speed = 2f;
@@ -20,7 +23,6 @@ public class CharacterController : MonoBehaviour {
     [Header("Ground Checking")]
     public LayerMask groundRaycastLayerMask = new LayerMask();
     public float groundCheckLength = 1.1f;
-    public bool grounded = false;
     public int groundRayCount = 5;
     public Ray groundRay = new Ray();
 
@@ -28,9 +30,22 @@ public class CharacterController : MonoBehaviour {
     public ParticleSystem walkParticles = null;
     public ParticleSystem jumpParticles = null;
 
+    [Header("StateMachine")]
+    public PlayerState currentState = PlayerState.OnGround;
+
     private enum Direction { Left, Right };
+
     private float desiredHorizontalDirection;
     private float desiredVerticalDirection;
+
+
+    public void SetState(PlayerState newState) {
+        currentState = newState;
+    }
+
+    public PlayerState GetState() {
+        return currentState;
+    }
 
     private void ManageInputs() {
         if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
@@ -51,31 +66,30 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void CheckGrounded() {
-        if (gameObject.GetComponent<GrappleController>().isGrappling) {
-            grounded = false;
+
+        if (GetState() == PlayerState.Grappling)
             return;
-        }
 
         for (int i = 0; i < groundRayCount; i++) {
             Vector3 raypos = transform.position + new Vector3(-(transform.localScale.x/2f) + i*(transform.localScale.x/(groundRayCount - 1)),0f,0f);
             Debug.DrawRay(raypos, Vector3.down * groundCheckLength, Color.red);
             groundRay = new Ray(raypos, Vector3.down);
             if (Physics.Raycast(groundRay, groundCheckLength, groundRaycastLayerMask)) {
-                grounded = true;
+                SetState(PlayerState.OnGround);
                 return;
             }
+            SetState(PlayerState.InAir);
         }
-        grounded = false;
     }
 
     private void HandleJump() {
-        if (!grounded)
+        if (currentState != PlayerState.OnGround)
             return;
         if (resetVelocityOnJump)
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, 0f);
         rigidbody.AddForce(0f, jumpHeight, 0f);
         PlayJumpFX();
-        grounded = false;
+        SetState(PlayerState.InAir);
     }
 
     private void ApplyGroundFriction() {
@@ -95,11 +109,10 @@ public class CharacterController : MonoBehaviour {
     }
 
     void CheckWalkFX() {
-        if (grounded) {
+        if (GetState() == PlayerState.OnGround) {
             var em = walkParticles.emission;
             em.enabled = true;
         }
-
         else {
             var em = walkParticles.emission;
             em.enabled = false;
@@ -111,10 +124,13 @@ public class CharacterController : MonoBehaviour {
     }
 
     void Update() {
-        ApplyGroundFriction();
-        CheckGrounded();
-        ManageInputs();
+        if (currentState == PlayerState.OnGround) {
+            ManageInputs();
+            ApplyGroundFriction();
+        }
         CheckWalkFX();
+        CheckGrounded();
+
     }
 
     private bool OverMaxVelocity(Direction direction) {
