@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 
 
-public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker }
+public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker, Walking }
 
 public class CharacterController : MonoBehaviour {
     [Header("References")]
@@ -33,6 +33,7 @@ public class CharacterController : MonoBehaviour {
 
     [Header("Grappling")]
     public float grapplingSpeed = 5000f;
+    public float climbSpeed = 50f;
 
 
     [Header("FXs")]
@@ -79,13 +80,21 @@ public class CharacterController : MonoBehaviour {
             }
         }
         else if (GetState() == PlayerState.Grappling) {
-            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
-                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            Vector3 direction = grappleController.joint.connectedAnchor - transform.position;
+            Vector3 dirLeft = new Vector3(-direction.y, direction.x).normalized;
+
+            
+
+            if (desiredHorizontalDirection < 0) {
+                rigidbody.AddForce(dirLeft * grapplingSpeed * Time.deltaTime);
+                Debug.DrawRay(transform.position, dirLeft * grapplingSpeed);
             }
-            if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right)) {
-                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            if (desiredHorizontalDirection > 0) {
+                rigidbody.AddForce(-dirLeft * grapplingSpeed * Time.deltaTime);
+                Debug.DrawRay(transform.position, -dirLeft * grapplingSpeed);
+
             }
-            gameObject.GetComponent<GrappleController>().ChangeDistance(-desiredVerticalDirection / 50f);
+            gameObject.GetComponent<GrappleController>().ChangeDistance(-desiredVerticalDirection * Time.deltaTime * climbSpeed);
         }
     }
 
@@ -171,12 +180,19 @@ public class CharacterController : MonoBehaviour {
         if (currentState == PlayerState.OnGround || currentState == PlayerState.Pachinker) {
             ApplyGroundFriction();
         }
+        if (currentState == PlayerState.Walking) {
+            AnimateWalking();
+        }
         ManageInputs();
         CheckWalkFX();
         if(currentState != PlayerState.Pachinker)
         {
             CheckGrounded();
         }
+    }
+
+    private void AnimateWalking() {
+
     }
 
     private bool OverMaxVelocity(Direction direction)
