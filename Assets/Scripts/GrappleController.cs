@@ -12,7 +12,14 @@ public class GrappleController : MonoBehaviour {
     private Vector3 grapplePoint;
     private SpringJoint joint;
     public bool isGrappling = false;
+    public bool canGrapple = true;
 
+    public float spring;
+    public float damper;
+    public float massScale;
+
+    public GameObject rope;
+    public GameObject ropeRef;
 
     private void Start() {
         aimDirection = new Vector3(0, maxDistance, 0);
@@ -22,7 +29,7 @@ public class GrappleController : MonoBehaviour {
     }
 
     private void OnGrapple() {
-        if (!joint && !gameObject.GetComponent<CharacterController>().grounded) {
+        if (!joint && canGrapple && !gameObject.GetComponent<CharacterController>().grounded) {
             //Debug.DrawLine(transform.position, transform.position + aimDirection, Color.yellow, 1f);
             BeginGrapple();
         } else {
@@ -41,24 +48,27 @@ public class GrappleController : MonoBehaviour {
     }
 
     void BeginGrapple() {
-        isGrappling = true;
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
         if (FanShappedRayCast(transform.position, aimDirection, out hit, maxDistance, 100, 20)) {
+            isGrappling = true;
             grapplePoint = hit.point;
+            //ropeRef = Instantiate(rope);
+            //ropeRef.transform.SetParent(gameObject.transform);
+            //ropeRef.GetComponent<RopeManager>().Setup(gameObject, hit);
             joint = gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = grapplePoint;
 
             float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            joint.maxDistance = maxDistance / 25;
-            joint.minDistance = maxDistance / 25;
+            joint.maxDistance = maxDistance / 25 + distanceFromPoint / 2;
+            joint.minDistance = maxDistance / 25 + distanceFromPoint / 5;
 
             //edit values to change gameplay
-            joint.spring = 8f;
-            joint.damper = 0.5f;
-            joint.massScale = 1f;
+            joint.spring = spring;
+            joint.damper = damper;
+            joint.massScale = massScale;
 
             lr.positionCount = 2;
         }
@@ -101,6 +111,7 @@ public class GrappleController : MonoBehaviour {
         isGrappling = false;
         lr.positionCount = 0;
         Destroy(joint);
+        //Destroy(ropeRef);
     }
 
     void DrawRope() {
@@ -110,7 +121,16 @@ public class GrappleController : MonoBehaviour {
         }
     }
 
-    void SilenceGrapple() {
-        //make the grapple disabled
+    public void SilenceGrapple() {
+        StartCoroutine("DisableCoroutine");
+    }
+
+    IEnumerator DisableCoroutine() {
+        canGrapple = false;
+        EndGrapple();
+
+        yield return new WaitForSeconds(5f);
+
+        canGrapple = true;
     }
 }

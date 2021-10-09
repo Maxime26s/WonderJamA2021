@@ -4911,7 +4911,7 @@ MonoBehaviour:
   speed: 5000
   maxVelocity: 5
   groundFriction: 30
-  jumpHeight: 500
+  jumpHeight: 300
   gravityMultiplier: 1
   resetVelocityOnJump: 1
   groundRaycastLayerMask:
@@ -5061,6 +5061,10 @@ MonoBehaviour:
   lr: {fileID: 5462298493919187793}
   maxDistance: 20
   isGrappling: 0
+  canGrapple: 1
+  spring: 0
+  damper: 0
+  massScale: 0
 --- !u!114 &-2071673051017158774
 MonoBehaviour:
   m_ObjectHideFlags: 0
