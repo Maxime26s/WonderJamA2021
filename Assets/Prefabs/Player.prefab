@@ -102,6 +102,7 @@ MonoBehaviour:
   rigidbody: {fileID: 7562826569245713173}
   speed: 5000
   maxVelocity: 5
+  groundFriction: 30
   jumpHeight: 500
   gravityMultiplier: 4
   resetVelocityOnJump: 1
@@ -110,6 +111,7 @@ MonoBehaviour:
     m_Bits: 1
   groundCheckLength: 0.6
   grounded: 0
+  groundRayCount: 5
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
