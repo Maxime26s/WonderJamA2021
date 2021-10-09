@@ -110,4 +110,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae23869f23ecac4994ac5aa0f2abce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 1.5
+  power: 10
+  flipParticles: {fileID: 1078221177088095891, guid: c32af15e451f83549ba46ad33f21957d, type: 3}

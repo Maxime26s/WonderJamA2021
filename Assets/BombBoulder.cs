@@ -15,8 +15,6 @@ public class BombBoulder : Boulder
 
         Destroy(gameObject, ttl);
         maxLife = life;
-        Color color = new Color(1, (float)(life - 1) / maxLife, 0, 1);
-        GetComponent<Renderer>().material.color = color;
     }
 
     // Update is called once per frame

@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7021c27cf528f45b7f40ebfa2fa7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minStartAngle: -140
-  maxStartAngle: -40
+  minStartAngle: -125
+  maxStartAngle: -55
   startForce: {x: 250, y: 500}
   rb: {fileID: 4941482925960248108}
   silenceDuration: 2.5

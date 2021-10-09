@@ -22,7 +22,7 @@ public class SilencerBoulder : Boulder
     {
         base.OnCollisionEnter(collision);
 
-        //if(collision.gameObject.TryGetComponent(out GrapleCountroler controller))
-        //controller.DisableHook(silenceDuration);
+        if(collision.gameObject.TryGetComponent(out GrappleController controller))
+            controller.SilenceGrapple(silenceDuration);
     }
 }

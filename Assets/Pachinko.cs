@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pachinko : MonoBehaviour
 {
     public float power;
+    public GameObject flipParticles = null;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,8 @@ public class Pachinko : MonoBehaviour
             Vector3 velocity = Vector3.Dot(rb.velocity, normal) * normal;
 
             rb.velocity = velocity;
+            GameObject particles = Instantiate(flipParticles, collision.contacts[0].point, Quaternion.identity);
+            particles.transform.forward = (collision.transform.position - point);
             rb.AddForce((collision.transform.position - point) * power, ForceMode.VelocityChange);
         }
     }
