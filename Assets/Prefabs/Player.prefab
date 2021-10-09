@@ -102,11 +102,11 @@ MonoBehaviour:
   maxVelocity: 5
   jumpHeight: 500
   gravityMultiplier: 4
-  resetVelocityOnJump: 0
+  resetVelocityOnJump: 1
   groundRaycastLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  groundCheckLength: 1.1
+    m_Bits: 1
+  groundCheckLength: 0.6
   grounded: 0
 --- !u!54 &7562826569245713173
 Rigidbody:
