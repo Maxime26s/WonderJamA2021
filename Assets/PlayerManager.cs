@@ -7,6 +7,8 @@ public class PlayerManager : MonoBehaviour
 {
     
     public List<GameObject> playerList;
+    public List<GameObject> deadPlayers;
+    public List<GameObject> livingPlayers;
     public static PlayerManager Instance { get; set; }
     public int nbPlayer = 0;
     public int maxPlayers = 0;
@@ -32,6 +34,7 @@ public class PlayerManager : MonoBehaviour
         {
             newPlayer.transform.SetParent(transform);
             playerList.Add(newPlayer.gameObject);
+            livingPlayers.Add(newPlayer.gameObject);
             nbPlayer++;
         }
     }
