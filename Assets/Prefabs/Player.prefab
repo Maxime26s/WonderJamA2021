@@ -4922,11 +4922,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   groundCheckLength: 0.6
+  grounded: 0
   groundRayCount: 5
-  airSpeed: 250
   walkParticles: {fileID: 864644224690613793}
   jumpParticles: {fileID: 1665847407802225057}
-  currentState: 0
+  grappleController: {fileID: 2985875634783464466}
+  throwRocksController: {fileID: 344412443225711433}
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5066,8 +5067,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lr: {fileID: 5462298493919187793}
-  characterController: {fileID: 7562826569245713172}
-  maxDistance: 10
+  maxDistance: 20
+  isGrappling: 0
 --- !u!114 &-2071673051017158774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5131,9 +5132,11 @@ MonoBehaviour:
   - {fileID: 4941482925960248107, guid: 9df9161e2593b92489c7e3914622d3c6, type: 3}
   - {fileID: 4941482925960248107, guid: fb553ba003faa92449757f487148abb0, type: 3}
   nextRock: 0
-  rocksCoolDown: 0
+  rocksCoolDown: 1
   disableThrowing: 1
   rockHolding: {fileID: 0}
+  topBar: {fileID: 0}
+  offset: {x: 0, y: -2, z: 0}
 --- !u!1 &7919989587595348933
 GameObject:
   m_ObjectHideFlags: 0

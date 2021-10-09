@@ -39,6 +39,9 @@ public class CharacterController : MonoBehaviour {
     public ParticleSystem walkParticles = null;
     public ParticleSystem jumpParticles = null;
 
+    [Header("Components")]
+    public GrappleController grappleController;
+    public ThrowRocksController throwRocksController;
 
     [Header("StateMachine")]
     public PlayerState currentState = PlayerState.OnGround;
@@ -85,13 +88,16 @@ public class CharacterController : MonoBehaviour {
         }
     }
 
-    public void OnMove(InputValue input) {
+    public void OnMove(InputValue input)
+    {
         desiredHorizontalDirection = input.Get<Vector2>().x;
         desiredVerticalDirection = input.Get<Vector2>().y;
     }
 
-    public void OnJump() {
-        if (!disableJump) {
+    public void OnJump()
+    {
+        if (!disableJump)
+        {
             HandleJump();
         }
     }
@@ -101,8 +107,9 @@ public class CharacterController : MonoBehaviour {
         if (GetState() == PlayerState.Grappling)
             return;
 
-        for (int i = 0; i < groundRayCount; i++) {
-            Vector3 raypos = transform.position + new Vector3(-(transform.localScale.x/2f) + i*(transform.localScale.x/(groundRayCount - 1)),0f,0f);
+        for (int i = 0; i < groundRayCount; i++)
+        {
+            Vector3 raypos = transform.position + new Vector3(-(transform.localScale.x / 2f) + i * (transform.localScale.x / (groundRayCount - 1)), 0f, 0f);
             Debug.DrawRay(raypos, Vector3.down * groundCheckLength, Color.red);
             groundRay = new Ray(raypos, Vector3.down);
             if (Physics.Raycast(groundRay, groundCheckLength, groundRaycastLayerMask)) {
@@ -123,14 +130,18 @@ public class CharacterController : MonoBehaviour {
         SetState(PlayerState.InAir);
     }
 
-    private void ApplyGroundFriction() {
-        if (rigidbody.velocity.x > 0) { // Going Right
+    private void ApplyGroundFriction()
+    {
+        if (rigidbody.velocity.x > 0)
+        { // Going Right
             float verification = rigidbody.velocity.x - groundFriction * Time.deltaTime;
             if (verification < 0)
                 rigidbody.velocity -= new Vector3(rigidbody.velocity.x, 0, 0);
             else
                 rigidbody.velocity -= new Vector3(groundFriction, 0, 0) * Time.deltaTime;
-        } else {                                        // Going Left
+        }
+        else
+        {                                        // Going Left
             float verification = rigidbody.velocity.x + groundFriction * Time.deltaTime;
             if (verification > 0)
                 rigidbody.velocity -= new Vector3(rigidbody.velocity.x, 0, 0);
@@ -150,7 +161,8 @@ public class CharacterController : MonoBehaviour {
         }
     }
 
-    void PlayJumpFX() {
+    void PlayJumpFX()
+    {
         jumpParticles.Play();
     }
 
@@ -164,19 +176,46 @@ public class CharacterController : MonoBehaviour {
 
     }
 
-    private bool OverMaxVelocity(Direction direction) {
-        if (direction == Direction.Left) {
-            if (rigidbody.velocity.x <= -maxVelocity) {
+    private bool OverMaxVelocity(Direction direction)
+    {
+        if (direction == Direction.Left)
+        {
+            if (rigidbody.velocity.x <= -maxVelocity)
+            {
                 return true;
             }
-        } else {
-            if (rigidbody.velocity.x >= maxVelocity) {
+        }
+        else
+        {
+            if (rigidbody.velocity.x >= maxVelocity)
+            {
                 return true;
             }
         }
         return false;
     }
 
+    public void MoveToPachinko()
+    {
+        throwRocksController.enabled = true;
+        throwRocksController.disableThrowing = false;
+        grappleController.enabled = false;
+        disableJump = true;
+        rigidbody.velocity = Vector3.zero;
+        transform.SetParent(Camera.main.gameObject.transform);
+        transform.localPosition = new Vector3(0, 11.25f, 25);
+    }
+
+    public void MoveToClimbing()
+    {
+        throwRocksController.enabled = false;
+        throwRocksController.disableThrowing = true;
+        grappleController.enabled = true;
+        disableJump = false;
+        rigidbody.velocity = Vector3.zero;
+        transform.SetParent(null);
+    }
+    
     private bool OverMaxAirVelocity(Direction direction) {
         if (direction == Direction.Left) {
             if (rigidbody.velocity.x <= -maxAirVelocity) {

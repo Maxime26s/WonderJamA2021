@@ -126,10 +126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1965cbdc0364d74c947a69f22f2d78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minStartAngle: -140
-  maxStartAngle: -40
+  minStartAngle: -125
+  maxStartAngle: -55
   startForce: {x: 250, y: 500}
   rb: {fileID: 4941482925960248108}
   life: 5
   cdTime: 0.1
+  divisionPower: 0
   cd: 0
