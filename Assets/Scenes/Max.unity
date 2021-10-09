@@ -487,7 +487,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2610
+  m_Name: pb_Mesh-286290
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1333,7 +1333,7 @@ PrefabInstance:
       objectReference: {fileID: 614567977}
     - target: {fileID: 7023769327964176088, guid: 1178045054a02d344a9c24c6a147a0e8, type: 3}
       propertyPath: m_VersionIndex
-      value: 2691
+      value: 2694
       objectReference: {fileID: 0}
     - target: {fileID: 7023769327964176088, guid: 1178045054a02d344a9c24c6a147a0e8, type: 3}
       propertyPath: m_Tangents.Array.data[0].x

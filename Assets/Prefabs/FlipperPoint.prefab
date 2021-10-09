@@ -48,7 +48,7 @@ MonoBehaviour:
   restAngle: 0
   flipping: 0
   endPoint: {fileID: 6701676701665875134}
-  flipParticles: {fileID: 0}
+  flipParticles: {fileID: 1078221177088095891, guid: c32af15e451f83549ba46ad33f21957d, type: 3}
 --- !u!1 &8480132285001655268
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +58,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8680272306697967911}
-  - component: {fileID: 1843221555}
   m_Layer: 0
   m_Name: FlipperPoint
   m_TagString: Untagged
@@ -82,18 +81,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1843221555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8480132285001655268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8961d22830189184880efcd893a3daa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2208550067455349512
 PrefabInstance:
   m_ObjectHideFlags: 0
