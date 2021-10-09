@@ -214,6 +214,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5aa0c1e6-4ecd-4572-9059-f242fdfaafd1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grapple",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a403fb0c-bb12-40a2-99bc-84c0d289f1a6",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
