@@ -269,23 +269,6 @@ PrefabInstance:
       objectReference: {fileID: 1602836859}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce964c00ca41ab048a090a576506a885, type: 3}
---- !u!1 &475079469 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7562826569245713171, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-  m_PrefabInstance: {fileID: 7562826567449204794}
-  m_PrefabAsset: {fileID: 0}
---- !u!75 &475079470
-ConstantForce:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475079469}
-  m_Enabled: 1
-  m_Force: {x: 0, y: -9, z: 0}
-  m_RelativeForce: {x: 0, y: 0, z: 0}
-  m_Torque: {x: 0, y: 0, z: 0}
-  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1 &566813481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1028,7 @@ PrefabInstance:
       objectReference: {fileID: 1083608535}
     - target: {fileID: 7023769327964176088, guid: 1178045054a02d344a9c24c6a147a0e8, type: 3}
       propertyPath: m_VersionIndex
-      value: 2694
+      value: 2697
       objectReference: {fileID: 0}
     - target: {fileID: 7023769327964176088, guid: 1178045054a02d344a9c24c6a147a0e8, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -3275,18 +3258,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2985875634783464466, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-      propertyPath: spring
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2985875634783464466, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-      propertyPath: massScale
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2985875634783464466, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
-      propertyPath: maxDistance
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 7562826569245713171, guid: f20e81be1e2d3634cb9e072276e19d79, type: 3}
       propertyPath: m_Name
       value: Player
