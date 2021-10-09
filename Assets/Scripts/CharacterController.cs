@@ -226,6 +226,8 @@ public class CharacterController : MonoBehaviour {
         currentState = PlayerState.Pachinker;
         PlayerManager.Instance.livingPlayers.Remove(this.gameObject);
         PlayerManager.Instance.deadPlayers.Add(this.gameObject);
+        GameManager.Instance.tgm.players.Remove(this.gameObject);
+        transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
     }
 
     public void MoveToClimbing()

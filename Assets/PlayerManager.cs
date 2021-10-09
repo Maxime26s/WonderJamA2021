@@ -47,5 +47,4 @@ public class PlayerManager : MonoBehaviour
         Debug.Log(levelLoader);
         levelLoader.LoadNextLevel();
     }
-
 }
