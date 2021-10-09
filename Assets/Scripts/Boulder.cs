@@ -12,6 +12,7 @@ public class Boulder : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        Destroy(gameObject, 12.5f);
         float angle = Mathf.Deg2Rad * Random.Range(minStartAngle, maxStartAngle);
         rb.AddForce(new Vector3(Mathf.Cos(angle) * startForce.x, Mathf.Sin(angle) * startForce.y), ForceMode.Impulse);
         effectController = Camera.main.gameObject.GetComponent<EffectController>();
