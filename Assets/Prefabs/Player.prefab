@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7562826569245713168}
   - component: {fileID: 5462298493919187793}
   - component: {fileID: 2985875634783464466}
+  - component: {fileID: -2071673051017158774}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -99,9 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48c76356c1c09e47825682fc87ba27e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 7562826569245713173}
   speed: 5000
   maxVelocity: 5
+  groundFriction: 30
   jumpHeight: 500
   gravityMultiplier: 4
   resetVelocityOnJump: 1
@@ -110,6 +111,7 @@ MonoBehaviour:
     m_Bits: 1
   groundCheckLength: 0.6
   grounded: 0
+  groundRayCount: 5
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,7 +161,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2f254a28d1d294e48b871670140e2603, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -250,3 +252,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lr: {fileID: 5462298493919187793}
   maxDistance: 20
+--- !u!114 &-2071673051017158774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562826569245713171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: cf0b0aeb4723be949b2691b60028b4e6, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
