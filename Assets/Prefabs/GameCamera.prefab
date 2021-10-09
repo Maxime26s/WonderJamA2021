@@ -228,7 +228,7 @@ BoxCollider:
   m_GameObject: {fileID: 2361369602794252475}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -491,7 +491,6 @@ GameObject:
   - component: {fileID: 2361369604775589771}
   - component: {fileID: 2361369604775589780}
   - component: {fileID: 2361369604775589781}
-  - component: {fileID: 2361369604775589770}
   - component: {fileID: 2361369604775589769}
   - component: {fileID: 2361369604775589768}
   - component: {fileID: 2361369604775589775}
@@ -569,19 +568,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2361369604775589782}
   m_Enabled: 1
---- !u!114 &2361369604775589770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2361369604775589782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3793459ab85077342b75f9debedd5ade, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 4941482925960248107, guid: d82348e071e556c439b0eb4ca479eaf8, type: 3}
 --- !u!114 &2361369604775589769
 MonoBehaviour:
   m_ObjectHideFlags: 0

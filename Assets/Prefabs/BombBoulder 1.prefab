@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4941482925960248108}
   - component: {fileID: 6137504309514656579}
   m_Layer: 0
-  m_Name: BombBoulder
+  m_Name: BombBoulder 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
