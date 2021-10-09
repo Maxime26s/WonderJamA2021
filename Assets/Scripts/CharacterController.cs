@@ -27,9 +27,18 @@ public class CharacterController : MonoBehaviour {
     public int groundRayCount = 5;
     public Ray groundRay = new Ray();
 
+    [Header("InAir")]
+    public float airSpeed = 1f;
+    public float maxAirVelocity = 4f;
+
+    [Header("Grappling")]
+    public float grapplingSpeed = 5000f;
+
+
     [Header("FXs")]
     public ParticleSystem walkParticles = null;
     public ParticleSystem jumpParticles = null;
+
 
     [Header("StateMachine")]
     public PlayerState currentState = PlayerState.OnGround;
@@ -49,11 +58,29 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void ManageInputs() {
-        if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
-            rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+        if (GetState() == PlayerState.OnGround) {
+            if (desiredHorizontalDirection < 0 && !OverMaxVelocity(Direction.Left)) {
+                rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+            }
+            if (desiredHorizontalDirection > 0 && !OverMaxVelocity(Direction.Right)) {
+                rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+            }
         }
-        if (desiredHorizontalDirection > 0 && !OverMaxVelocity(Direction.Right)) {
-            rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
+        else if (GetState() == PlayerState.InAir) {
+            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
+                rigidbody.AddForce(desiredHorizontalDirection * airSpeed * Time.deltaTime, 0f, 0f);
+            }
+            if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right)) {
+                rigidbody.AddForce(desiredHorizontalDirection * airSpeed * Time.deltaTime, 0f, 0f);
+            }
+        }
+        else if (GetState() == PlayerState.Grappling) {
+            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
+                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            }
+            if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right)) {
+                rigidbody.AddForce(desiredHorizontalDirection * grapplingSpeed * Time.deltaTime, 0f, 0f);
+            }
         }
     }
 
@@ -128,9 +155,9 @@ public class CharacterController : MonoBehaviour {
 
     void Update() {
         if (currentState == PlayerState.OnGround) {
-            ManageInputs();
             ApplyGroundFriction();
         }
+        ManageInputs();
         CheckWalkFX();
         CheckGrounded();
 
@@ -143,6 +170,19 @@ public class CharacterController : MonoBehaviour {
             }
         } else {
             if (rigidbody.velocity.x >= maxVelocity) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool OverMaxAirVelocity(Direction direction) {
+        if (direction == Direction.Left) {
+            if (rigidbody.velocity.x <= -maxAirVelocity) {
+                return true;
+            }
+        } else {
+            if (rigidbody.velocity.x >= maxAirVelocity) {
                 return true;
             }
         }

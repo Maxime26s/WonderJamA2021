@@ -13,6 +13,10 @@ public class GrappleController : MonoBehaviour {
     private SpringJoint joint;
 
 
+    public float spring = 8f;
+            public float damper = 0.5f;
+            public float massScale = 1f;
+
     private void Start() {
         aimDirection = new Vector3(0, maxDistance, 0);
     }
@@ -48,13 +52,13 @@ public class GrappleController : MonoBehaviour {
 
             float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            joint.maxDistance = maxDistance / 25;
-            joint.minDistance = maxDistance / 25;
+            joint.maxDistance = maxDistance / 15f + distanceFromPoint / 15f;
+            joint.minDistance = maxDistance / 7f + distanceFromPoint / 7f;
 
             //edit values to change gameplay
-            joint.spring = 8f;
-            joint.damper = 0.5f;
-            joint.massScale = 1f;
+            joint.spring = spring;
+            joint.damper = damper;
+            joint.massScale = massScale;
 
             lr.positionCount = 2;
         }
@@ -85,7 +89,7 @@ public class GrappleController : MonoBehaviour {
             //Debug.DrawRay(origin, iterationDirectionLeft * 50, Color.green, 5f);
             //Debug.DrawRay(origin, iterationDirectionRight * 50, Color.red, 5f);
 
-            if (Physics.Raycast(origin, iterationDirectionLeft, out hitInfo, maxDistance))
+            if (Physics.Raycast(origin, iterationDirectionLeft, out  hitInfo, maxDistance))
                 return true;
             if (Physics.Raycast(origin, iterationDirectionRight, out hitInfo, maxDistance))
                 return true;
