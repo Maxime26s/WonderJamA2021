@@ -4926,7 +4926,7 @@ MonoBehaviour:
   groundRayCount: 5
   airSpeed: 1
   maxAirVelocity: 4
-  grapplingSpeed: 5000
+  grapplingSpeed: 1500
   walkParticles: {fileID: 864644224690613793}
   jumpParticles: {fileID: 1665847407802225057}
   grappleController: {fileID: 2985875634783464466}
@@ -5073,9 +5073,13 @@ MonoBehaviour:
   lr: {fileID: 5462298493919187793}
   characterController: {fileID: 7562826569245713172}
   maxDistance: 10
-  spring: 3
-  damper: 0.5
+  joint: {fileID: 0}
+  canGrapple: 1
+  spring: 100
+  damper: 1
   massScale: 15
+  rope: {fileID: 0}
+  ropeRef: {fileID: 0}
 --- !u!114 &-2071673051017158774
 MonoBehaviour:
   m_ObjectHideFlags: 0
