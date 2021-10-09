@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 
 
-public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker }
+public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker, Walking }
 
 public class CharacterController : MonoBehaviour {
     [Header("References")]
@@ -169,9 +169,16 @@ public class CharacterController : MonoBehaviour {
         if (currentState == PlayerState.OnGround) {
             ApplyGroundFriction();
         }
+        if (currentState == PlayerState.Walking) {
+            AnimateWalking();
+        }
         ManageInputs();
         CheckWalkFX();
         CheckGrounded();
+
+    }
+
+    private void AnimateWalking() {
 
     }
 
