@@ -31,17 +31,17 @@ public class Flipper : MonoBehaviour
             while (time < duration)
             {
                 time += Time.deltaTime;
-                transform.parent.transform.eulerAngles += new Vector3(0, 0, angleBySecond) * Time.deltaTime;
+                transform.parent.transform.eulerAngles += new Vector3(0,0, angleBySecond) * Time.deltaTime;
                 yield return null;
             }
-            transform.parent.transform.eulerAngles = new Vector3(0, 0, angle);
+            transform.parent.transform.eulerAngles = new Vector3(transform.parent.transform.eulerAngles.x, transform.parent.transform.eulerAngles.y, angle);
             while (time > 0)
             {
                 time -= Time.deltaTime;
-                transform.parent.transform.eulerAngles -= new Vector3(0, 0, angleBySecond) * Time.deltaTime;
+                transform.parent.transform.eulerAngles -= new Vector3(0,0, angleBySecond) * Time.deltaTime;
                 yield return null;
             }
-            transform.parent.transform.eulerAngles = new Vector3(0, 0, restAngle);
+            transform.parent.transform.eulerAngles = new Vector3(transform.parent.transform.eulerAngles.x, transform.parent.transform.eulerAngles.y, restAngle);
             flipping = false;
         }
         if (!flipping)
