@@ -5,7 +5,7 @@ using UnityEngine;
 public class ThrowRocksController : MonoBehaviour
 {
     public List<GameObject> rocks;
-    public int nextRock = Random.Range(0, 5);
+    public int nextRock = 0;
     public float rocksCoolDown;
     public bool disableThrowing = false;
     public GameObject rockHolding;
