@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
-
+using System;
+using TMPro;
 
 public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker }
 
@@ -55,6 +56,7 @@ public class CharacterController : MonoBehaviour
     private float desiredVerticalDirection;
 
     public GameObject meshObject;
+    public TextMeshProUGUI text;
 
 
     public void SetState(PlayerState newState)
@@ -76,12 +78,18 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    internal void SetText(int nbPlayer, Color32 color32)
+    {
+        text.text = "P" + (nbPlayer + 1);
+        text.color = color32;
+    }
+
     private IEnumerator RagdollPlayer(float time)
     {
         grappleController.EndGrapple();
 
         rigidbody.freezeRotation = false;
-        rigidbody.AddTorque(Random.Range(-50f, 50f), Random.Range(-50f, 50f), Random.Range(-50f, 50f));
+        rigidbody.AddTorque(UnityEngine.Random.Range(-50f, 50f), UnityEngine.Random.Range(-50f, 50f), UnityEngine.Random.Range(-50f, 50f));
 
         yield return new WaitForSeconds(time);
 
