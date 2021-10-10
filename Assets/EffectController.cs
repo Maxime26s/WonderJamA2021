@@ -1,39 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class EffectController : MonoBehaviour
 {
-    public float magnitude, duration, shakeThreshold, maxShake;
-    // Start is called before the first frame update
-    void Start()
-    {
+    public static EffectController Instance { get; private set; }
 
+    private CinemachineVirtualCamera cinemachineVirtualCamera;
+    private float shakeTimer, startingIntensity, shakeTimerTotal;
+    public float magnitude, duration, shakeThreshold, maxShake;
+
+    private void Awake()
+    {
+        Instance = this;
+        cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
+    }
+
+    // Start is called before the first frame update
+    public void ShakeCamera(float intensity)
+    {
+        float calculatedDuration = duration * Mathf.Clamp((intensity - shakeThreshold) / (maxShake - shakeThreshold), 0, 1);
+        float calculatedIntensity = magnitude * Mathf.Clamp((intensity - shakeThreshold) / (maxShake - shakeThreshold), 0, 1);
+
+        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = calculatedIntensity;
+
+        startingIntensity = calculatedIntensity;
+        shakeTimerTotal = calculatedDuration;
+        shakeTimer = calculatedDuration;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    public void StartShake(float velocity)
-    {
-        IEnumerator Shake(float duration, float magnitude)
+        if (shakeTimer > 0)
         {
-            Vector3 originalPos = transform.localPosition;
-            float elapsed = 0.0f;
-            while (elapsed < duration)
+            shakeTimer -= Time.deltaTime;
+            if (shakeTimer <= 0f)
             {
-                Vector2 range = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * magnitude;
-                transform.localPosition = new Vector3(originalPos.x + range.x, originalPos.y + range.y, originalPos.z);
-                elapsed += Time.deltaTime;
-                yield return null;
+                CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
+                Mathf.Lerp(startingIntensity, 0f, 1 - shakeTimer / shakeTimerTotal);
             }
-
-            transform.localPosition = originalPos;
         }
-        StartCoroutine(Shake(duration * (velocity - shakeThreshold) / (maxShake - shakeThreshold), magnitude * (velocity - shakeThreshold) / (maxShake - shakeThreshold)));
-    }
 
+    }
 }
