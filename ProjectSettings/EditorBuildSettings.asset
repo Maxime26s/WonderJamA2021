@@ -17,8 +17,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Gamehihi.unity
     guid: 17b1fa6132e154645b1ac4ae24177e60
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/proto.unity
     guid: e7f41f7d064f6ee439aa716ea19c3124
+  - enabled: 1
+    path: Assets/Scenes/newProto.unity
+    guid: 1f50fdc695ad2e34d8bf9ec524c75f24
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9f4abe5d543e7224da2e20dcf7daf062, type: 2}

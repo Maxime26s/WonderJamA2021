@@ -103,7 +103,7 @@ public class GrappleController : MonoBehaviour {
         return false;
     }
 
-    void EndGrapple() {
+    public void EndGrapple() {
         characterController.SetState(PlayerState.InAir);
         lr.positionCount = 0;
         Destroy(joint);
