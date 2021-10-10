@@ -57,20 +57,15 @@ public class GameManager : MonoBehaviour
 
         tgm = Camera.main.transform.parent.GetComponentInChildren<TargetGroupManager>();
 
-        int offset = -8;
+        foreach (var go in playerList)
+            go.GetComponent<CharacterController>().MoveToClimbing();
+
         for (int i = 0; i < livingPlayers.Count; i++)
         {
             livingPlayers[i].transform.position = spawnPoints[i].transform.position;
             livingPlayers[i].transform.localScale = new Vector3(1f, 1f, 1f);
             tgm.players.Add(livingPlayers[i]);
-            offset += 6;
         }
-        /*
-        foreach (GameObject player in deadPlayers)
-        {
-            player.transform.position = pachinkoSpawnPoint.transform.position;
-            player.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        }*/
     }
 
     private void CleanUp()
@@ -82,7 +77,6 @@ public class GameManager : MonoBehaviour
         {
             go.transform.parent = PlayerManager.Instance.gameObject.transform;
             livingPlayers.Add(go);
-            go.GetComponent<CharacterController>().MoveToClimbing();
         }
     }
 

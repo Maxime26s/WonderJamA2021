@@ -298,7 +298,7 @@ public class CharacterController : MonoBehaviour
         transform.SetParent(Camera.main.gameObject.transform);
         transform.position = GameManager.Instance.pachinkoSpawnPoint.transform.position;
         PlayerManager.Instance.livingPlayers.Remove(gameObject);
-        GameManager.Instance.livingPlayers.Remove(gameObject);
+        Debug.Log(GameManager.Instance.livingPlayers.Remove(gameObject));
         transform.position = GameManager.Instance.pachinkoSpawnPoint.transform.position;
         transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
@@ -326,15 +326,15 @@ public class CharacterController : MonoBehaviour
         grappleController.enabled = true;
         disableJump = false;
         rigidbody.velocity = Vector3.zero;
-        transform.SetParent(null);
-        GameManager.Instance.livingPlayers.Add(gameObject);
-        GameManager.Instance.deadPlayers.Remove(gameObject);
+        //GameManager.Instance.livingPlayers.Add(gameObject);
+        //GameManager.Instance.deadPlayers.Remove(gameObject);
         PlayerManager.Instance.livingPlayers.Add(gameObject);
         PlayerManager.Instance.deadPlayers.Remove(gameObject);
         transform.localScale = new Vector3(1f, 1f, 1f);
         rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         GetComponent<Collider>().enabled = true;
-        GameManager.Instance.IsLevelEnd();
+        currentState = PlayerState.OnGround;
+        //GameManager.Instance.IsLevelEnd();
     }
 
     private bool OverMaxAirVelocity(Direction direction)
