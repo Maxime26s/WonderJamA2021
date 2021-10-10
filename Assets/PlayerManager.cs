@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
             playerList = new List<GameObject>();
         }
     }

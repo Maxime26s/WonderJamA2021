@@ -128,6 +128,12 @@ MonoBehaviour:
   deadPlayers: []
   livingPlayers: []
   wonPlayers: []
+  displayPlayer: {fileID: 7111791571223170271, guid: fb0fde4178994324099bf25b61a0d0fa, type: 3}
+  spawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   nbPlayer: 0
   maxPlayers: 4
   gameStarted: 0
