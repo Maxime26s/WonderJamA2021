@@ -6,7 +6,7 @@ public class Intro : MonoBehaviour
 {
     public GameObject faceCamera;
     public GameObject fallCamera;
-    public Canvas canvas;
+    public GameObject canvas;
     public bool walking;
 
     private bool firstTime = true;
@@ -152,8 +152,6 @@ public class Intro : MonoBehaviour
             foreach(GameObject camera in cameras)
                 camera.transform.Rotate(0f, 0f, 90f, Space.Self);
 
-            Destroy(gameObject);
-
             StartCoroutine("Finish");
         }
     }
@@ -161,6 +159,6 @@ public class Intro : MonoBehaviour
     public IEnumerator Finish()
     {
         yield return new WaitForSeconds(2f);
-        canvas.enabled = true;
+        canvas.SetActive(true);
     }
 }
