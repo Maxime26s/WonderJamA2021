@@ -12,6 +12,7 @@ public class RaisingWater : MonoBehaviour
     void Start()
     {
         timeRunning = 0;
+        fakeWater.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", GetComponent<MeshRenderer>().material.GetColor("Color_7D9A58EC"));
     }
 
     // Update is called once per frame
