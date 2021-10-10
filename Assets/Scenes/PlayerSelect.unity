@@ -1826,21 +1826,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
-      propertyPath: scenes.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
-      propertyPath: scenes.Array.data[0]
-      value: 
-      objectReference: {fileID: 102900000, guid: 69826ee0c8548c344b0741580ef465f8, type: 3}
-    - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
-      propertyPath: scenes.Array.data[1]
-      value: 
-      objectReference: {fileID: 102900000, guid: 61e83bee089d4614786d469dee99c533, type: 3}
-    - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
-      propertyPath: scenes.Array.data[2]
-      value: 
-      objectReference: {fileID: 102900000, guid: 7756d289a57e0764893be66fcd298954, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
