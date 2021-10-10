@@ -191,6 +191,7 @@ public class CharacterController : MonoBehaviour {
         //rigidbody.freezeRotation = true;
         //inAirAfterGrappling = false;
         rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        OrientPlayerAccordingToGroundSpeed();
         transform.eulerAngles = new Vector3(0, 0, 0);
         inAirAfterGrappling = false;
 
@@ -264,8 +265,10 @@ public class CharacterController : MonoBehaviour {
         if (currentState == PlayerState.OnGround || currentState == PlayerState.Pachinker)
             ApplyGroundFriction();
 
-        if (currentState == PlayerState.OnGround)
+        if (currentState == PlayerState.OnGround) {
+            OrientPlayerAccordingToGroundSpeed();
             AnimateWalking();
+        }
 
         if (currentState == PlayerState.Grappling)
             AngleSwingingCharacter();
