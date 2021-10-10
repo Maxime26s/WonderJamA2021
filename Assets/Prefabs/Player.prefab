@@ -5205,7 +5205,7 @@ MonoBehaviour:
   groundRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  groundCheckLength: 1.5
+  groundCheckLength: 1.1
   groundRayCount: 5
   airSpeed: 1500
   maxAirVelocity: 4

@@ -12,13 +12,13 @@ public class CharacterController : MonoBehaviour
     public new Rigidbody rigidbody = null;
 
     [Header("Horizontal Speed")]
-    public float speed = 2f;
-    public float maxVelocity = 2f;
-    public float groundFriction = 1f;
+    public float speed = 5000f;
+    public float maxVelocity = 5f;
+    public float groundFriction = 30f;
 
     [Header("Vertical Speed")]
-    public float jumpHeight = 10f;
-    public float gravityMultiplier = 4f;
+    public float jumpHeight = 500f;
+    public float gravityMultiplier = 1f;
     public bool resetVelocityOnJump = false;
     public bool disableJump = false;
 
@@ -59,12 +59,18 @@ public class CharacterController : MonoBehaviour
 
     public void SetState(PlayerState newState)
     {
-        currentState = newState;
+        if (currentState == newState)
+            return;
 
-        if (currentState == PlayerState.InAir || currentState == PlayerState.OnGround)
-        {
+        currentState = newState;
+        
+        if (currentState == PlayerState.InAir || currentState == PlayerState.OnGround) {
+            float yRotation = meshObject.transform.rotation.eulerAngles.y;
             meshObject.transform.up = Vector3.up;
+            meshObject.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+            meshObject.transform.localScale = new Vector3(Mathf.Abs(meshObject.transform.localScale.x), Mathf.Abs(meshObject.transform.localScale.y), Mathf.Abs(meshObject.transform.localScale.z));
         }
+        
     }
 
     public PlayerState GetState()
@@ -124,15 +130,11 @@ public class CharacterController : MonoBehaviour
             OrientPlayerAccordingToRotation();
     }
 
-    void OrientPlayerAccordingToRotation()
-    {
-        if (desiredHorizontalDirection < 0)
-        {
-            meshObject.transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
-        else if (desiredHorizontalDirection > 0)
-        {
-            meshObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+    void OrientPlayerAccordingToRotation() {
+        if (desiredHorizontalDirection < 0) {
+            meshObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        } else if (desiredHorizontalDirection > 0) {
+            meshObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
@@ -160,8 +162,8 @@ public class CharacterController : MonoBehaviour
                 SetState(PlayerState.OnGround);
                 return;
             }
-            SetState(PlayerState.InAir);
         }
+        SetState(PlayerState.InAir);
     }
 
     private void HandleJump()
@@ -238,18 +240,23 @@ public class CharacterController : MonoBehaviour
         if (Mathf.Abs(rigidbody.velocity.x) > 0.1f && currentState == PlayerState.OnGround)
             meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f, 0, 0);
     }
-
-    private void AngleSwingingCharacter()
-    {
+	
+    private void AngleSwingingCharacter() {
+        /*
         Quaternion lookRotation;
         Vector3 direction;
         float turnSpeed = 1f;
-
+        */
         //find the vector pointing from our position to the target
-        direction = (grappleController.joint.connectedAnchor - transform.position).normalized;
+        //direction = (grappleController.joint.connectedAnchor - transform.position).normalized;
+        meshObject.transform.right = -rigidbody.velocity;
+        if (rigidbody.velocity.x <= 0f) {
+            meshObject.transform.localScale = new Vector3(1f, 0.64251f, 1f);
+        }
+        if (rigidbody.velocity.x > 0f) {
+            meshObject.transform.localScale = new Vector3(1f, -0.64251f, 1f);
+        }
 
-        //create the rotation we need to be in to look at the target
-        meshObject.transform.up = direction;
     }
 
     private bool OverMaxVelocity(Direction direction)
@@ -289,9 +296,10 @@ public class CharacterController : MonoBehaviour
         disableJump = true;
         rigidbody.velocity = Vector3.zero;
         transform.SetParent(Camera.main.gameObject.transform);
-        transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
+        transform.position = GameManager.Instance.pachinkoSpawnPoint.transform.position;
         PlayerManager.Instance.livingPlayers.Remove(gameObject);
-        transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
+        Debug.Log(GameManager.Instance.livingPlayers.Remove(gameObject));
+        transform.position = GameManager.Instance.pachinkoSpawnPoint.transform.position;
         transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         GetComponent<Collider>().enabled = false;
@@ -318,13 +326,15 @@ public class CharacterController : MonoBehaviour
         grappleController.enabled = true;
         disableJump = false;
         rigidbody.velocity = Vector3.zero;
-        transform.SetParent(null);
+        //GameManager.Instance.livingPlayers.Add(gameObject);
+        //GameManager.Instance.deadPlayers.Remove(gameObject);
         PlayerManager.Instance.livingPlayers.Add(gameObject);
         PlayerManager.Instance.deadPlayers.Remove(gameObject);
         transform.localScale = new Vector3(1f, 1f, 1f);
         rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         GetComponent<Collider>().enabled = true;
-        GameManager.Instance.IsLevelEnd();
+        currentState = PlayerState.OnGround;
+        //GameManager.Instance.IsLevelEnd();
     }
 
     private bool OverMaxAirVelocity(Direction direction)
