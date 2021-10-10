@@ -62,7 +62,7 @@ public class Flipper : MonoBehaviour
 
     public Vector3 CalculateForce(Vector3 objectPosition, Vector3 contactPoint)
     {
-        float proportionalForce = (contactPoint - transform.parent.transform.position).magnitude / (endPoint.transform.position - transform.parent.transform.position).magnitude;
+        float proportionalForce = Mathf.Clamp((contactPoint - transform.parent.transform.position).magnitude / (endPoint.transform.position - transform.parent.transform.position).magnitude, 0.5f, 1);
         return (objectPosition - contactPoint).normalized * power * proportionalForce;
     }
 }
