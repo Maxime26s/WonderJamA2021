@@ -127,10 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eda8fd414b620d4aaebe9dfcb5905ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minStartAngle: -125
-  maxStartAngle: -55
+  minStartAngle: -90
+  maxStartAngle: -90
   startForce: {x: 250, y: 500}
   rb: {fileID: 4941482925960248108}
+  deathParticle: {fileID: 0}
+  isHeld: 0
   bounceMultiplier: 0.25
 --- !u!114 &7612269106985664061
 MonoBehaviour:

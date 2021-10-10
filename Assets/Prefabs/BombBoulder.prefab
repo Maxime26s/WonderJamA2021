@@ -131,6 +131,7 @@ MonoBehaviour:
   maxStartAngle: -55
   startForce: {x: 250, y: 500}
   rb: {fileID: 4941482925960248108}
+  deathParticle: {fileID: 2312591318274358134, guid: 1da655c814936ba4d899c3d5aec7ae37, type: 3}
   life: 4
   ttl: 7.5
   radius: 15
