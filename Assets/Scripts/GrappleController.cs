@@ -45,20 +45,26 @@ public class GrappleController : MonoBehaviour {
 
     void BeginGrapple() {
         RaycastHit hit;
+        Rigidbody rbHit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
-        if (FanShappedRayCast(transform.position, aimDirection, out hit, maxDistance, 100, 20)) {
+        if (FanShappedRayCast(transform.position, aimDirection, maxDistance, 100, 20, out hit)) {
+            rbHit = hit.rigidbody;
             characterController.SetState(PlayerState.Grappling);
-            grapplePoint = hit.point;
-            //ropeRef = Instantiate(rope);
-            //ropeRef.transform.SetParent(gameObject.transform);
-            //ropeRef.GetComponent<RopeManager>().Setup(gameObject, hit);
+
             joint = gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
-            joint.connectedAnchor = grapplePoint;
+            grapplePoint = hit.point;
 
             float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            joint.maxDistance = distanceFromPoint / 1.1f;
+            if (rbHit) {
+                joint.connectedAnchor = grapplePoint;
+                joint.connectedBody = rbHit;
+                joint.maxDistance = 10f;
+            } else {
+                joint.connectedAnchor = grapplePoint;
+                joint.maxDistance = distanceFromPoint / 1.1f;
+            }
             joint.minDistance = 0.2f;
 
             //edit values to change gameplay
@@ -70,12 +76,13 @@ public class GrappleController : MonoBehaviour {
         }
     }
 
-    bool FanShappedRayCast(Vector3 origin, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int numberOfRaycast, float arcAngle) {
+    bool FanShappedRayCast(Vector3 origin, Vector3 direction, float maxDistance, int numberOfRaycast, float arcAngle, out RaycastHit hitInfo) {
         hitInfo = new RaycastHit();
 
         //Debug.DrawRay(origin, direction * 50, Color.cyan, 5f);
         if (Physics.Raycast(origin, direction, out hitInfo, maxDistance))
-            return true;
+            if (hitInfo.transform.tag != "Wall")
+                return true;
 
         direction = new Vector3(direction.x, -direction.y, direction.z);
         float anglePerLeftCast = arcAngle / numberOfRaycast * Mathf.Deg2Rad;
@@ -95,10 +102,12 @@ public class GrappleController : MonoBehaviour {
             //Debug.DrawRay(origin, iterationDirectionLeft * 50, Color.green, 5f);
             //Debug.DrawRay(origin, iterationDirectionRight * 50, Color.red, 5f);
 
-            if (Physics.Raycast(origin, iterationDirectionLeft, out  hitInfo, maxDistance))
-                return true;
+            if (Physics.Raycast(origin, iterationDirectionLeft, out hitInfo, maxDistance))
+                if (hitInfo.transform.tag != "Wall")
+                    return true;
             if (Physics.Raycast(origin, iterationDirectionRight, out hitInfo, maxDistance))
-                return true;
+                if (hitInfo.transform.tag != "Wall")
+                    return true;
         }
         return false;
     }
@@ -113,7 +122,10 @@ public class GrappleController : MonoBehaviour {
     void DrawRope() {
         if (joint) {
             lr.SetPosition(0, transform.position);
-            lr.SetPosition(1, grapplePoint);
+            if (joint.connectedBody)
+                lr.SetPosition(1, joint.connectedBody.position);
+            else
+                lr.SetPosition(1, grapplePoint);
         }
     }
 
@@ -132,7 +144,7 @@ public class GrappleController : MonoBehaviour {
 
     public void ChangeDistance(float val) {
         //if joint too small to shrink further
-        if (val < 0 && joint.maxDistance < joint.maxDistance / 20f) {
+        if (val < 0 && joint.maxDistance < maxDistance / 20f) {
             return;
         }
         //if joint too big to enlarge

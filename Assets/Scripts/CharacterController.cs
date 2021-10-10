@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 
 
-public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker, Walking }
+public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker }
 
 public class CharacterController : MonoBehaviour
 {
@@ -60,6 +60,10 @@ public class CharacterController : MonoBehaviour
     public void SetState(PlayerState newState)
     {
         currentState = newState;
+
+        if (currentState == PlayerState.InAir || currentState == PlayerState.OnGround) {
+            meshObject.transform.up = Vector3.up;
+        }
     }
 
     public PlayerState GetState()
@@ -79,27 +83,19 @@ public class CharacterController : MonoBehaviour
             {
                 rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
             }
-        }
-        else if (GetState() == PlayerState.InAir)
-        {
-            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left))
-            {
+        } else if (GetState() == PlayerState.InAir) {
+            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
                 rigidbody.AddForce(desiredHorizontalDirection * airSpeed * Time.deltaTime, 0f, 0f);
             }
             if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right))
             {
                 rigidbody.AddForce(desiredHorizontalDirection * airSpeed * Time.deltaTime, 0f, 0f);
             }
-        }
-        else if (GetState() == PlayerState.Grappling)
-        {
+        } else if (GetState() == PlayerState.Grappling) {
             Vector3 direction = grappleController.joint.connectedAnchor - transform.position;
             Vector3 dirLeft = new Vector3(-direction.y, direction.x).normalized;
 
-
-
-            if (desiredHorizontalDirection < 0)
-            {
+            if (desiredHorizontalDirection < 0) {
                 rigidbody.AddForce(dirLeft * grapplingSpeed * Time.deltaTime);
                 Debug.DrawRay(transform.position, dirLeft * grapplingSpeed);
             }
@@ -113,38 +109,23 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void OnMove(InputValue input)
-    {
+    public void OnMove(InputValue input) {
         desiredHorizontalDirection = input.Get<Vector2>().x;
         desiredVerticalDirection = input.Get<Vector2>().y;
-        if (currentState == PlayerState.OnGround)
-        {
-            if (desiredHorizontalDirection < 0)
-            {
-                meshObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
-                //transform.right = Vector3.right;
-            }
-            else if (desiredHorizontalDirection > 0)
-            {
-                meshObject.transform.rotation = Quaternion.Euler(-90, 0, -180);
-                //transform.right = Vector3.left;
-            }
-            else
-            {
-                //transform.right = Vector3.forward;
-                meshObject.transform.rotation = Quaternion.Euler(-90, 0, -90);
-            }
-        }
-        else
-        {
+        if (currentState != PlayerState.Ragdoll)
+            OrientPlayerAccordingToRotation();
+    }
 
+    void OrientPlayerAccordingToRotation() {
+        if (desiredHorizontalDirection < 0) {
+            meshObject.transform.rotation = Quaternion.Euler(0, 90, 0);
+        } else if (desiredHorizontalDirection > 0) {
+            meshObject.transform.rotation = Quaternion.Euler(0, -90, 0);
         }
     }
 
-    public void OnJump()
-    {
-        if (!disableJump)
-        {
+    public void OnJump() {
+        if (!disableJump) {
             HandleJump();
         }
     }
@@ -155,8 +136,7 @@ public class CharacterController : MonoBehaviour
         if (GetState() == PlayerState.Grappling)
             return;
 
-        for (int i = 0; i < groundRayCount; i++)
-        {
+        for (int i = 0; i < groundRayCount; i++) {
             Vector3 raypos = transform.position + new Vector3(-(transform.localScale.x / 2f) + i * (transform.localScale.x / (groundRayCount - 1)), 0f, 0f);
             Debug.DrawRay(raypos, Vector3.down * groundCheckLength, Color.red);
             groundRay = new Ray(raypos, Vector3.down);
@@ -180,18 +160,14 @@ public class CharacterController : MonoBehaviour
         SetState(PlayerState.InAir);
     }
 
-    private void ApplyGroundFriction()
-    {
-        if (rigidbody.velocity.x > 0)
-        { // Going Right
+    private void ApplyGroundFriction() {
+        if (rigidbody.velocity.x > 0) { // Going Right
             float verification = rigidbody.velocity.x - groundFriction * Time.deltaTime;
             if (verification < 0)
                 rigidbody.velocity -= new Vector3(rigidbody.velocity.x, 0, 0);
             else
                 rigidbody.velocity -= new Vector3(groundFriction, 0, 0) * Time.deltaTime;
-        }
-        else
-        {                                        // Going Left
+        } else {                                        // Going Left
             float verification = rigidbody.velocity.x + groundFriction * Time.deltaTime;
             if (verification > 0)
                 rigidbody.velocity -= new Vector3(rigidbody.velocity.x, 0, 0);
@@ -206,64 +182,57 @@ public class CharacterController : MonoBehaviour
         {
             var em = walkParticles.emission;
             em.enabled = true;
-        }
-        else
-        {
+        } else {
             var em = walkParticles.emission;
             em.enabled = false;
         }
     }
 
-    void PlayJumpFX()
-    {
+    void PlayJumpFX() {
         jumpParticles.Play();
     }
 
-    void Update()
-    {
+    void Update() {
         if (currentState == PlayerState.OnGround || currentState == PlayerState.Pachinker)
-        {
             ApplyGroundFriction();
-        }
+
         if (currentState == PlayerState.OnGround)
-        {
             AnimateWalking();
-        }
+
+        if (currentState == PlayerState.Grappling)
+            AngleSwingingCharacter();
+
         ManageInputs();
         CheckWalkFX();
-        if (currentState != PlayerState.Pachinker)
-        {
+        if (currentState != PlayerState.Pachinker) {
             CheckGrounded();
         }
     }
 
-    private void Start()
-    {
-        meshObject.transform.Rotate(-5, 0, 0);
+    private void AnimateWalking() {
+        if (Mathf.Abs(rigidbody.velocity.x) > 0.1f && currentState == PlayerState.OnGround)
+            meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f, 0, 0);
     }
 
-    private void AnimateWalking()
-    {
-        //forward
-        //meshObject.transform.Rotate(0,5,0);
-        //Sidways
-        //meshObject.transform.Rotate(5,0,0);
-        //meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f, 0, 0);
+    private void AngleSwingingCharacter() {
+        Quaternion lookRotation;
+        Vector3 direction;
+        float turnSpeed = 1f;
+
+        //find the vector pointing from our position to the target
+        direction = (grappleController.joint.connectedAnchor - transform.position).normalized;
+
+        //create the rotation we need to be in to look at the target
+        meshObject.transform.up = direction;
     }
 
-    private bool OverMaxVelocity(Direction direction)
-    {
-        if (direction == Direction.Left)
-        {
-            if (rigidbody.velocity.x <= -maxVelocity)
-            {
+    private bool OverMaxVelocity(Direction direction) {
+        if (direction == Direction.Left) {
+            if (rigidbody.velocity.x <= -maxVelocity) {
                 return true;
             }
-        }
-        else
-        {
-            if (rigidbody.velocity.x >= maxVelocity)
-            {
+        } else {
+            if (rigidbody.velocity.x >= maxVelocity) {
                 return true;
             }
         }
@@ -325,8 +294,7 @@ public class CharacterController : MonoBehaviour
         GetComponent<Collider>().enabled = false;
     }
 
-    public void MoveToClimbing()
-    {
+    public void MoveToClimbing() {
         throwRocksController.enabled = false;
         throwRocksController.disableThrowing = true;
         grappleController.enabled = true;
@@ -340,12 +308,9 @@ public class CharacterController : MonoBehaviour
         GetComponent<Collider>().enabled = true;
     }
 
-    private bool OverMaxAirVelocity(Direction direction)
-    {
-        if (direction == Direction.Left)
-        {
-            if (rigidbody.velocity.x <= -maxAirVelocity)
-            {
+    private bool OverMaxAirVelocity(Direction direction) {
+        if (direction == Direction.Left) {
+            if (rigidbody.velocity.x <= -maxAirVelocity) {
                 return true;
             }
         }
