@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,42 +17,27 @@ public class GameManager : MonoBehaviour
 
     public List<int> scores;
 
-    public GameObject spawnPoint;
-    public GameObject pachinkoSawnPoint;
+    public List<GameObject> spawnPoints;
+    public GameObject pachinkoSpawnPoint;
     public TargetGroupManager tgm;
 
     public void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
-
+            Destroy(this);
         }
         else
         {
             Instance = this;
             DontDestroyOnLoad(this);
             playerList = new List<GameObject>();
-        }
-
-        playerList = PlayerManager.Instance.playerList;
-        deadPlayers = PlayerManager.Instance.deadPlayers;
-        livingPlayers = PlayerManager.Instance.livingPlayers;
-        wonPlayers = PlayerManager.Instance.wonPlayers;
-
-        scores = new List<int> { 0, 0, 0, 0 };
-
-        int offset = -8;
-        foreach (GameObject player in livingPlayers)
-        {
-            player.transform.position = spawnPoint.transform.position + new Vector3(offset, 0, 0);
-            player.transform.localScale = new Vector3(1f, 1f, 1f);
-            tgm.players.Add(player);
-            offset += 6;
-        }
-        foreach (GameObject player in deadPlayers)
-        {
-            player.transform.position = pachinkoSawnPoint.transform.position;
-            player.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            playerList = PlayerManager.Instance.playerList;
+            deadPlayers = PlayerManager.Instance.deadPlayers;
+            livingPlayers = PlayerManager.Instance.livingPlayers;
+            wonPlayers = PlayerManager.Instance.wonPlayers;
+            InitMap();
+            scores = new List<int> { 0, 0, 0, 0 };
         }
     }
 
@@ -64,6 +50,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void InitMap()
+    {
+        spawnPoints = GameObject.FindGameObjectsWithTag("spawnpoint").ToList();
+        pachinkoSpawnPoint = GameObject.FindGameObjectWithTag("deathSpawn");
+
+        tgm = Camera.main.transform.parent.GetComponentInChildren<TargetGroupManager>();
+
+        int offset = -8;
+        for (int i = 0; i < livingPlayers.Count; i++)
+        {
+            livingPlayers[i].transform.position = spawnPoints[i].transform.position;
+            livingPlayers[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            tgm.players.Add(livingPlayers[i]);
+            offset += 6;
+        }
+        /*
+        foreach (GameObject player in deadPlayers)
+        {
+            player.transform.position = pachinkoSpawnPoint.transform.position;
+            player.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }*/
+    }
+
     private void CleanUp()
     {
         livingPlayers.Clear();
@@ -71,8 +80,9 @@ public class GameManager : MonoBehaviour
         wonPlayers.Clear();
         foreach (var go in playerList)
         {
-            go.transform.parent = gameObject.transform;
+            go.transform.parent = PlayerManager.Instance.gameObject.transform;
             livingPlayers.Add(go);
+            go.GetComponent<CharacterController>().MoveToClimbing();
         }
     }
 
