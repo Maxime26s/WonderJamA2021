@@ -266,6 +266,17 @@
                     "action": "StartAction",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7be71fe7-3ade-4450-9792-7733d53e21db",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "StartAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
