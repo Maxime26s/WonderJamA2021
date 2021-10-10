@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 5084631964566352543}
   - component: {fileID: 2603124090777113333}
   - component: {fileID: 6211004383294782919}
-  m_Layer: 0
+  - component: {fileID: 3833247758686784492}
+  m_Layer: 31
   m_Name: LEDLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1387,6 +1388,23 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 2147483647
   m_Mesh: {fileID: 0}
+--- !u!114 &3833247758686784492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3114642748805721469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a657fa890ba7c9741aaa8b99a81d7e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 0}
+  intensity: 5
+  randomColor: 0
+  flashingSpeed: 0
+  ttl: 0

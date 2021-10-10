@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5389514867296306112}
   - component: {fileID: 5389514867296306113}
   - component: {fileID: 5389514867296306114}
-  - component: {fileID: 5389514867296306119}
   - component: {fileID: -8691195687093711620}
   m_Layer: 0
   m_Name: Pachinko
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5389514867296306124}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
   m_LocalPosition: {x: -0.00000014328, y: 0.00000082533, z: -0.11446}
-  m_LocalScale: {x: 0.13172, y: 0.40589482, z: 0.13172}
+  m_LocalScale: {x: 0.15, y: 1.628811, z: 0.15}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -99,20 +98,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &5389514867296306119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5389514867296306124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae23869f23ecac4994ac5aa0f2abce8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  power: 30
-  flipParticles: {fileID: 1078221177088095891, guid: c32af15e451f83549ba46ad33f21957d, type: 3}
 --- !u!54 &-8691195687093711620
 Rigidbody:
   m_ObjectHideFlags: 0

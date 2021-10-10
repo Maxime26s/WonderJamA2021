@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2913483103631276956
+--- !u!1 &3813140524023246580
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6347835506783983806}
-  - component: {fileID: 352287743535275853}
-  - component: {fileID: 932958781381365081}
+  - component: {fileID: 9213965165561737145}
+  - component: {fileID: 7291102157813299191}
+  - component: {fileID: 7511586565348508233}
   m_Layer: 0
-  m_Name: PenguinMesh
+  m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6347835506783983806
+--- !u!4 &9213965165561737145
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2913483103631276956}
+  m_GameObject: {fileID: 3813140524023246580}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -1.49, z: 0}
-  m_LocalScale: {x: 66, y: 66, z: 100}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7562826569245713175}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!33 &352287743535275853
+--- !u!33 &7291102157813299191
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2913483103631276956}
-  m_Mesh: {fileID: -5495902117074765545, guid: 42a3003dcc357154cbd2e54f301a3622, type: 3}
---- !u!23 &932958781381365081
+  m_GameObject: {fileID: 3813140524023246580}
+  m_Mesh: {fileID: -5495902117074765545, guid: c52a6de973edb6942b7894ddb313b5ec, type: 3}
+--- !u!23 &7511586565348508233
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2913483103631276956}
+  m_GameObject: {fileID: 3813140524023246580}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e5302669f08af540815a882428c85fe, type: 2}
+  - {fileID: 2100000, guid: 32860559f1fed10459a7773ff61bea62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5003,12 +5003,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7562826569245713171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.5, z: 0.8}
   m_Children:
   - {fileID: 1598619176069143943}
   - {fileID: 9122389971367747639}
-  - {fileID: 6347835506783983806}
+  - {fileID: 9213965165561737145}
   - {fileID: 3142831144250115798}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -5036,7 +5036,7 @@ MonoBehaviour:
   groundRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  groundCheckLength: 0.6
+  groundCheckLength: 1.15
   groundRayCount: 5
   airSpeed: 1500
   maxAirVelocity: 4
@@ -5048,7 +5048,7 @@ MonoBehaviour:
   throwRocksController: {fileID: 344412443225711433}
   currentState: 0
   alive: 1
-  meshObject: {fileID: 2913483103631276956}
+  meshObject: {fileID: 3813140524023246580}
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5076,8 +5076,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.2387558, y: 2, z: 1.4304965}
+  m_Center: {x: -0.044671483, y: 0, z: -0.02193354}
 --- !u!120 &5462298493919187793
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -5135,22 +5135,13 @@ LineRenderer:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: -0.20083334
-        outSlope: -0.20083334
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.19917011
-        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.5660378, g: 0.22308649, b: 0, a: 1}
-      key1: {r: 0.26415092, g: 0.22587119, b: 0.16571732, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5273,7 +5264,7 @@ MonoBehaviour:
   disableThrowing: 1
   rockHolding: {fileID: 0}
   topBar: {fileID: 0}
-  offset: {x: 0, y: -2, z: 0}
+  offset: {x: 0, y: -1, z: 0}
 --- !u!75 &475079470
 ConstantForce:
   m_ObjectHideFlags: 0
