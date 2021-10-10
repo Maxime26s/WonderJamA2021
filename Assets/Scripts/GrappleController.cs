@@ -19,6 +19,8 @@ public class GrappleController : MonoBehaviour {
 
     public GameObject rope;
     public GameObject ropeRef;
+    public GameObject target;
+    public Vector3 offset;
 
     private void Start() {
         aimDirection = new Vector3(0, maxDistance, 0);
@@ -33,38 +35,54 @@ public class GrappleController : MonoBehaviour {
         else if (canGrapple && characterController.GetState() == PlayerState.InAir)
             BeginGrapple();
     }
-    public void OnAim(InputValue input) {
+    public void OnAim(InputValue input)
+    {
         //Debug.DrawRay(transform.position, new Vector3(input.Get<Vector2>().x, input.Get<Vector2>().y, 0), Color.blue, 0.2f);
         Vector3 inputDirection = new Vector3(input.Get<Vector2>().x, input.Get<Vector2>().y, 0);
         aimDirection = inputDirection;
     }
 
     private void LateUpdate() {
+        ChangeAnchorPoint();
         DrawRope();
+    }
+
+    private void ChangeAnchorPoint()
+    {
+        if (target != null)
+        {
+            grapplePoint = target.transform.position + offset;
+            joint.connectedAnchor = grapplePoint;
+        }
+        else
+        {
+            EndGrapple();
+        }
     }
 
     void BeginGrapple() {
         RaycastHit hit;
-        Rigidbody rbHit;
+        //Rigidbody rbHit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
         if (FanShappedRayCast(transform.position, aimDirection, maxDistance, 100, 20, out hit)) {
-            rbHit = hit.rigidbody;
+            target = hit.rigidbody.gameObject;
             characterController.SetState(PlayerState.Grappling);
 
             joint = gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             grapplePoint = hit.point;
+            offset = hit.point - target.transform.position;
 
             float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            if (rbHit) {
-                joint.connectedAnchor = grapplePoint;
-                joint.connectedBody = rbHit;
-                joint.maxDistance = 10f;
-            } else {
-                joint.connectedAnchor = grapplePoint;
-                joint.maxDistance = distanceFromPoint / 1.1f;
-            }
+            //if (rbHit) {
+            //    joint.connectedAnchor = grapplePoint;
+            //    joint.connectedBody = rbHit;
+            //    joint.maxDistance = 10f;
+            //} else {
+            joint.connectedAnchor = grapplePoint;
+            joint.maxDistance = distanceFromPoint / 1.1f;
+            //}
             joint.minDistance = 0.2f;
 
             //edit values to change gameplay
