@@ -5484,7 +5484,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a2df3d5c15764c946b24e8f9753871e5, type: 3}
   - {fileID: 8300000, guid: a6fc7e71c379ed3478fe39e2f427358d, type: 3}
   grappleSounds:
-  - {fileID: 8300000, guid: 5f4945fb76ba2314e8b29bcf1a59f6ad, type: 3}
+  - {fileID: 8300000, guid: 54a4d28e5a8dd234eacc5cd43fa82b85, type: 3}
   playerAudioSource: {fileID: 7292544625594989934}
 --- !u!54 &7562826569245713173
 Rigidbody:
