@@ -5475,7 +5475,13 @@ MonoBehaviour:
   lrRope: {fileID: 5462298493919187793}
   playerId: 0
   inAirAfterGrappling: 0
-  jumpSounds: []
+  jumpSounds:
+  - {fileID: 8300000, guid: 43e7242f46e6ed1498fa09390709e5fa, type: 3}
+  - {fileID: 8300000, guid: 9820a750df92ca04e80795bfecbaa1ab, type: 3}
+  - {fileID: 8300000, guid: 829bac9e4f253144cb585b88b4d5c6c8, type: 3}
+  - {fileID: 8300000, guid: a1ca5c109f0b44648bbbb03168d78e19, type: 3}
+  - {fileID: 8300000, guid: a2df3d5c15764c946b24e8f9753871e5, type: 3}
+  - {fileID: 8300000, guid: a6fc7e71c379ed3478fe39e2f427358d, type: 3}
   playerAudioSource: {fileID: 7292544625594989934}
 --- !u!54 &7562826569245713173
 Rigidbody:
