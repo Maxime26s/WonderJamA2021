@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                //End game
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadMenu();
             }
         }
     }
