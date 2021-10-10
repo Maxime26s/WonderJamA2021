@@ -14,6 +14,14 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadMenu()
     {
+        if (GameManager.Instance != null && GameManager.Instance.gameObject != null)
+            Destroy(GameManager.Instance.gameObject);
+        if (PlayerManager.Instance != null && PlayerManager.Instance.gameObject != null)
+            Destroy(PlayerManager.Instance.gameObject);
+
+        GameManager.Instance = null;
+        PlayerManager.Instance = null;
+
         StartCoroutine(LoadScene("Menu"));
     }
 
@@ -32,7 +40,8 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadScene("PlayerSelect"));
     }
 
-    public void PlayButtonSound() {
+    public void PlayButtonSound()
+    {
         if (buttonAudioSource != null && buttonAudioSource.clip != null)
             buttonAudioSource.PlayOneShot(buttonAudioSource.clip);
     }
@@ -57,7 +66,7 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         AsyncOperation asyncOperation;
-        if(sceneName == "")
+        if (sceneName == "")
             asyncOperation = SceneManager.LoadSceneAsync(currentScene + 1);
         else
             asyncOperation = SceneManager.LoadSceneAsync(sceneName);
@@ -66,8 +75,6 @@ public class LevelLoader : MonoBehaviour
         {
             GameManager.Instance.InitMap();
         };
-
-
     }
 
     IEnumerator LoadScene(string scene_name)
