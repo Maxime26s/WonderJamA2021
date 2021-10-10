@@ -14,7 +14,7 @@ public class SelectMenuManager : MonoBehaviour
 
     public void OnPlayerJoined()
     {
-        previewHolder[nbPlayers].sprite = playerPreviews[nbPlayers];
+        /*previewHolder[nbPlayers].sprite = playerPreviews[nbPlayers];*/
         nbPlayers++;
     }
 }

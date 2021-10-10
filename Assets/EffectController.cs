@@ -20,6 +20,8 @@ public class EffectController : MonoBehaviour
     // Start is called before the first frame update
     public void ShakeCamera(float intensity)
     {
+        if (cinemachineVirtualCamera == null)
+            return;
         float calculatedDuration = duration * Mathf.Clamp((intensity - shakeThreshold) / (maxShake - shakeThreshold), 0, 1);
         float calculatedIntensity = magnitude * Mathf.Clamp((intensity - shakeThreshold) / (maxShake - shakeThreshold), 0, 1);
 
