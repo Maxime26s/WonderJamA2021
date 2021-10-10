@@ -79,15 +79,18 @@ public class CharacterController : MonoBehaviour {
         }
     }
 
-    internal void SetColor(int nbPlayer, Color32 color32) {
+
+    public void RagdollPlayer(float time) {
+        StartCoroutine("RagdollPlayerCoroutine", time);
+    }
+
+    internal void SetColor(int nbPlayer, Color32 color32)
+    {
         playerId = nbPlayer;
         text.text = "P" + (nbPlayer + 1);
         text.color = color32;
         mrBody.material.color = PlayerManager.Instance.colors[playerId];
         lrRope.material.SetColor("_EmissionColor", PlayerManager.Instance.colors[playerId]);
-    }
-    public void RagdollPlayer(float time) {
-        StartCoroutine("RagdollPlayerCoroutine", time);
     }
 
     private IEnumerator RagdollPlayerCoroutine(float time) {
@@ -347,6 +350,7 @@ public class CharacterController : MonoBehaviour {
     }
 
     public void MoveToClimbing() {
+        Debug.Log("CLIMBING");
         throwRocksController.enabled = false;
         throwRocksController.disableThrowing = true;
         grappleController.enabled = true;

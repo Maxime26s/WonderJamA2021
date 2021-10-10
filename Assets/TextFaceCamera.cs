@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class TextFaceCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    public Transform playerTransform;
+    public float height;
 
     // Update is called once per frame
     void Update()
     {
         transform.forward = transform.position - Camera.main.transform.position;
-        transform.position = gameObject.GetComponentInParent<Transform>().position + Vector3.up * 20;
+        transform.position = playerTransform.position + Vector3.up * height;
     }
 }
