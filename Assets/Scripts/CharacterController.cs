@@ -106,11 +106,14 @@ public class CharacterController : MonoBehaviour {
         desiredVerticalDirection = input.Get<Vector2>().y;
         if (currentState == PlayerState.OnGround) {
             if (desiredHorizontalDirection < 0) {
-                transform.right = Vector3.right;
+                meshObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
+                //transform.right = Vector3.right;
             } else if (desiredHorizontalDirection > 0) {
-                transform.right = Vector3.left;
+                meshObject.transform.rotation = Quaternion.Euler(-90, 0, -180);
+                //transform.right = Vector3.left;
             } else {
-                transform.right = Vector3.forward;
+                //transform.right = Vector3.forward;
+                meshObject.transform.rotation = Quaternion.Euler(-90, 0, -90);
             }
         } else {
 
@@ -213,7 +216,7 @@ public class CharacterController : MonoBehaviour {
         //meshObject.transform.Rotate(0,5,0);
         //Sidways
         //meshObject.transform.Rotate(5,0,0);
-        meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f,0,0);
+        //meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f, 0, 0);
     }
 
     private bool OverMaxVelocity(Direction direction)

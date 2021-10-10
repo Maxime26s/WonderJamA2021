@@ -78,10 +78,9 @@ public class DividedBoulder : Boulder
         }
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        CancelInvoke();
-        //Summon particles
+        base.OnDestroy();
     }
 
     public void StartCD()

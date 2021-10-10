@@ -7,7 +7,8 @@ public class Boulder : MonoBehaviour
     public float minStartAngle, maxStartAngle;
     public Vector2 startForce;
     public Rigidbody rb;
-    EffectController effectController;
+    public GameObject deathParticle;
+    public bool isHeld = false;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -15,7 +16,6 @@ public class Boulder : MonoBehaviour
         Destroy(gameObject, 12.5f);
         float angle = Mathf.Deg2Rad * Random.Range(minStartAngle, maxStartAngle);
         rb.AddForce(new Vector3(Mathf.Cos(angle) * startForce.x, Mathf.Sin(angle) * startForce.y), ForceMode.Impulse);
-        effectController = Camera.main.gameObject.GetComponent<EffectController>();
     }
 
     // Update is called once per frame
@@ -26,7 +26,14 @@ public class Boulder : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision != null && effectController != null && collision.relativeVelocity.magnitude >= effectController.shakeThreshold)
-            effectController.StartShake(collision.relativeVelocity.magnitude);
+        if (collision != null && collision.relativeVelocity.magnitude >= EffectController.Instance.shakeThreshold)
+            EffectController.Instance.ShakeCamera(collision.relativeVelocity.magnitude);
+    }
+
+    protected virtual void OnDestroy()
+    {
+        CancelInvoke();
+        if(!isHeld && deathParticle != null)
+            Instantiate(deathParticle, transform.position, Quaternion.identity);
     }
 }

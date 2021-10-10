@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2913483103631276956}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.9, z: 0}
-  m_LocalScale: {x: 125.00003, y: 125.000015, z: 200}
+  m_LocalPosition: {x: -0, y: -1.49, z: 0}
+  m_LocalScale: {x: 66, y: 66, z: 100}
   m_Children: []
   m_Father: {fileID: 7562826569245713175}
   m_RootOrder: 2
@@ -5047,6 +5047,7 @@ MonoBehaviour:
   grappleController: {fileID: 2985875634783464466}
   throwRocksController: {fileID: 344412443225711433}
   currentState: 0
+  alive: 1
   meshObject: {fileID: 2913483103631276956}
 --- !u!54 &7562826569245713173
 Rigidbody:

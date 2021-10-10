@@ -94,7 +94,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9214127790817930704, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
       propertyPath: m_VersionIndex
-      value: 2682
+      value: 2685
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214127790817930704, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214127790817930704, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9214127790817930704, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -816,6 +824,10 @@ PrefabInstance:
       propertyPath: m_Tangents.Array.data[59].z
       value: -0.00081852806
       objectReference: {fileID: 0}
+    - target: {fileID: 9214127790817930704, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9214127790817930705, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -887,6 +899,10 @@ PrefabInstance:
     - target: {fileID: 9214127790817930731, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
       propertyPath: m_Name
       value: Flipper
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214127790817930731, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
