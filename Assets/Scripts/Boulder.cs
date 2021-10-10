@@ -28,11 +28,13 @@ public class Boulder : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        if (boulderAudioSource != null && boulderSounds != null && boulderSounds.Count > 0) {
+            boulderAudioSource.volume = Mathf.Clamp(collision.relativeVelocity.magnitude / 50f, 0f, 1f);
+            boulderAudioSource.PlayOneShot(boulderSounds[Random.Range(0, boulderSounds.Count)]);
+        }
         if (collision != null && EffectController.Instance != null && collision.relativeVelocity.magnitude >= EffectController.Instance.shakeThreshold)
         {
             EffectController.Instance.ShakeCamera(collision.relativeVelocity.magnitude);
-            if (boulderAudioSource != null && boulderSounds != null && boulderSounds.Count > 0)
-                boulderAudioSource.PlayOneShot(boulderSounds[Random.Range(0, boulderSounds.Count)]);
             if (collision.gameObject.TryGetComponent(out GrappleController grapple))
                 grapple.EndGrapple();
         }
