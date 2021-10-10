@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         pachinkoSpawnPoint = GameObject.FindGameObjectWithTag("deathSpawn");
 
         tgm = Camera.main.transform.parent.GetComponentInChildren<TargetGroupManager>();
+        tgm.players.Clear();
 
         foreach (var go in playerList)
             go.GetComponent<CharacterController>().MoveToClimbing();
@@ -66,6 +67,8 @@ public class GameManager : MonoBehaviour
             livingPlayers[i].transform.localScale = new Vector3(1f, 1f, 1f);
             tgm.players.Add(livingPlayers[i]);
         }
+
+        tgm.Setup();
     }
 
     private void CleanUp()
@@ -80,13 +83,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddScore(GameObject gameObject)
+    public void AddScore(GameObject gameObject, bool win)
     {
         for (int i = 0; i < playerList.Count; i++)
         {
             if (gameObject == playerList[i])
             {
-                scores[i] += livingPlayers.Count * 50;
+                if (win)
+                    scores[i] += livingPlayers.Count + deadPlayers.Count;
+                else
+                    scores[i] += deadPlayers.Count + 1;
             }
         }
     }
