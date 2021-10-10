@@ -110,10 +110,8 @@ public class CharacterController : MonoBehaviour {
     void OrientPlayerAccordingToRotation() {
         if (desiredHorizontalDirection < 0) {
             meshObject.transform.rotation = Quaternion.Euler(0, 90, 0);
-            //transform.right = Vector3.right;
         } else if (desiredHorizontalDirection > 0) {
             meshObject.transform.rotation = Quaternion.Euler(0, -90, 0);
-            //transform.right = Vector3.left;
         }
     }
 
@@ -207,19 +205,11 @@ public class CharacterController : MonoBehaviour {
         Vector3 direction;
         float turnSpeed = 1f;
 
-        //Vector3 dir = grappleController.joint.connectedAnchor - transform.position;
-        //Quaternion lookRotation = Quaternion.LookRotation(dir);
-        //Vector3 rotation = Quaternion.Lerp(meshObject.transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-        //meshObject.transform.rotation = Quaternion.Euler(0f, 0f, rotation.y);
-
         //find the vector pointing from our position to the target
         direction = (grappleController.joint.connectedAnchor - transform.position).normalized;
 
         //create the rotation we need to be in to look at the target
         meshObject.transform.up = direction;
-
-        //rotate us over time according to speed until we are in the required rotation
-        // meshObject.transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * turnSpeed);
     }
 
     private bool OverMaxVelocity(Direction direction) {
