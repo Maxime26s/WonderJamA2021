@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> wonPlayers;
 
     public List<int> scores;
-    public List<SceneAsset> shuffledList;
+    public List<string> shuffledList;
 
     public List<GameObject> spawnPoints;
     public List<GameObject> pachinkoZones;
@@ -51,12 +51,14 @@ public class GameManager : MonoBehaviour
             CleanUp();
             if(shuffledList.Count > 0)
             {
-                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel(shuffledList[0].name);
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel(shuffledList[0]);
                 shuffledList.Remove(shuffledList[0]);
             }
             else
             {
-                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadMenu();
+                foreach (var player in playerList)
+                    player.GetComponent<UIController>().onScoreboard = true;
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadScoreboard();
             }
         }
     }
@@ -86,7 +88,6 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < pachinkoZones.Count; i++)
             {
-                Debug.Log(pachinkoZones.Count);
                 pachinkoZones[i].SetActive(false);
                 //pachinkoZones[i].gameObject.SetActive(false);
                 //pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, 100);
@@ -97,8 +98,6 @@ public class GameManager : MonoBehaviour
 
     public void SpawnThePachinko()
     {
-        //pachinkoZones = GameObject.FindGameObjectsWithTag("PachinkoZone").ToList();
-        Debug.Log(pachinkoZones.Count);
         for (int i = 0; i < pachinkoZones.Count; i++)
         {
             pachinkoZones[i].SetActive(true);
@@ -116,6 +115,15 @@ public class GameManager : MonoBehaviour
             go.transform.parent = PlayerManager.Instance.gameObject.transform;
             livingPlayers.Add(go);
         }
+
+        foreach (var go in playerList)
+        {
+            go.GetComponent<CharacterController>().MoveToClimbing();
+            go.transform.position = new Vector3(999f, 0, 0);
+        }
+            
+
+
     }
 
     public void AddScore(GameObject gameObject, bool win)

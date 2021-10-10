@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     public List<Color32> colors;
-    public List<SceneAsset> scenes;
+    public List<string> scenes;
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
     public List<GameObject> livingPlayers;
@@ -43,9 +43,8 @@ public class PlayerManager : MonoBehaviour
             livingPlayers.Add(newPlayer.gameObject);
             GameObject newDisplayPlayer = Instantiate(displayPlayer, new Vector3(spawners[nbPlayer].transform.position.x, spawners[nbPlayer].transform.position.y, spawners[nbPlayer].transform.position.z - 5f), transform.rotation);
             newDisplayPlayer.GetComponentInChildren<MeshRenderer>().material.color = colors[nbPlayer];
-            newPlayer.gameObject.GetComponentInChildren<MeshRenderer>().material.color = colors[nbPlayer];
-            newPlayer.transform.position = new Vector3(9999999f, 0, 0);
-            newPlayer.gameObject.GetComponent<CharacterController>().SetText(nbPlayer, colors[nbPlayer]);
+            newPlayer.transform.position = new Vector3(999f, 0, 0);
+            newPlayer.gameObject.GetComponent<CharacterController>().SetColor(nbPlayer, colors[nbPlayer]);
 
             nbPlayer++;
         }
@@ -53,14 +52,17 @@ public class PlayerManager : MonoBehaviour
 
     public void StartGame()
     {
-        gameStarted = true;
-        gameObject.GetComponent<PlayerInputManager>().DisableJoining();
-        LevelLoader levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
-        Debug.Log(levelLoader);
-        int index = Random.Range(0, scenes.Count);
-        string name = scenes[index].name;
-        scenes.Remove(scenes[index]);
+        if (!gameStarted)
+        {
+            gameStarted = true;
+            gameObject.GetComponent<PlayerInputManager>().DisableJoining();
+            LevelLoader levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
+            Debug.Log(levelLoader);
+            int index = Random.Range(0, scenes.Count);
+            string name = scenes[index];
+            scenes.Remove(scenes[index]);
 
-        levelLoader.LoadNextLevel(name);
+            levelLoader.LoadNextLevel(name);
+        }
     }
 }

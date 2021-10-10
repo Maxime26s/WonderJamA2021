@@ -1404,7 +1404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 0}
-  intensity: 5
+  intensity: 40
   randomColor: 0
   flashingSpeed: 0
-  ttl: 0
+  flashOnce: 0

@@ -199,10 +199,6 @@ PrefabInstance:
       propertyPath: fakeWater
       value: 
       objectReference: {fileID: 6000712584829371055}
-    - target: {fileID: 4310166509579001782, guid: d71da8cb8166344478d519981daf28a2, type: 3}
-      propertyPath: riseSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d71da8cb8166344478d519981daf28a2, type: 3}
 --- !u!4 &6000712584957882360 stripped

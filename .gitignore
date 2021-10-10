@@ -59,6 +59,7 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
+/Patchinko_Mountain_v1.0
 
 # Crashlytics generated file
 crashlytics-build.properties

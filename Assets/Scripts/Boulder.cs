@@ -9,6 +9,8 @@ public class Boulder : MonoBehaviour
     public Rigidbody rb;
     public GameObject deathParticle;
     public bool isHeld = false;
+    public List<AudioClip> boulderSounds = null;
+    public AudioSource boulderAudioSource = null;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -26,10 +28,14 @@ public class Boulder : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        if (boulderAudioSource != null && boulderSounds != null && boulderSounds.Count > 0 && EffectController.Instance != null) {
+            boulderAudioSource.volume = Mathf.Clamp(collision.relativeVelocity.magnitude / 50f, 0f, 1f);
+            boulderAudioSource.PlayOneShot(boulderSounds[Random.Range(0, boulderSounds.Count)]);
+        }
         if (collision != null && EffectController.Instance != null && collision.relativeVelocity.magnitude >= EffectController.Instance.shakeThreshold)
         {
             EffectController.Instance.ShakeCamera(collision.relativeVelocity.magnitude);
-            if(collision.gameObject.TryGetComponent(out GrappleController grapple))
+            if (collision.gameObject.TryGetComponent(out GrappleController grapple))
                 grapple.EndGrapple();
         }
     }
