@@ -80,20 +80,19 @@ public class GrappleController : MonoBehaviour {
 
             float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            //if (rbHit) {
-            //    joint.connectedAnchor = grapplePoint;
-            //    joint.connectedBody = rbHit;
-            //    joint.maxDistance = 10f;
-            //} else {
             joint.connectedAnchor = grapplePoint;
             joint.maxDistance = distanceFromPoint / 1.1f;
-            //}
             joint.minDistance = 0.2f;
 
             //edit values to change gameplay
             joint.spring = spring;
             joint.damper = damper;
             joint.massScale = massScale;
+
+            
+            if (characterController.playerAudioSource != null && characterController.grappleSounds != null && characterController.grappleSounds.Count > 0 && EffectController.Instance != null) {
+                characterController.playerAudioSource.PlayOneShot(characterController.grappleSounds[UnityEngine.Random.Range(0, characterController.grappleSounds.Count)]);
+            }
 
             lr.positionCount = 2;
         }

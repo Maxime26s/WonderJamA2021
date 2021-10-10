@@ -63,6 +63,7 @@ public class CharacterController : MonoBehaviour {
     public bool inAirAfterGrappling = false;
 
     public List<AudioClip> jumpSounds = null;
+    public List<AudioClip> grappleSounds = null;
     public AudioSource playerAudioSource = null;
 
     public void SetState(PlayerState newState) {
