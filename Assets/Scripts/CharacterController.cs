@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 
 
-public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker, Walking }
+public enum PlayerState { OnGround, InAir, Grappling, Ragdoll, Pachinker }
 
 public class CharacterController : MonoBehaviour {
     [Header("References")]
@@ -84,8 +84,6 @@ public class CharacterController : MonoBehaviour {
         else if (GetState() == PlayerState.Grappling) {
             Vector3 direction = grappleController.joint.connectedAnchor - transform.position;
             Vector3 dirLeft = new Vector3(-direction.y, direction.x).normalized;
-
-            
 
             if (desiredHorizontalDirection < 0) {
                 rigidbody.AddForce(dirLeft * grapplingSpeed * Time.deltaTime);
@@ -193,12 +191,15 @@ public class CharacterController : MonoBehaviour {
     }
 
     void Update() {
-        if (currentState == PlayerState.OnGround || currentState == PlayerState.Pachinker) {
+        if (currentState == PlayerState.OnGround || currentState == PlayerState.Pachinker)
             ApplyGroundFriction();
-        }
-        if (currentState == PlayerState.OnGround) {
+
+        if (currentState == PlayerState.OnGround)
             AnimateWalking();
-        }
+
+        if (currentState == PlayerState.Grappling)
+            AngleSwingingCharacter();
+
         ManageInputs();
         CheckWalkFX();
         if(currentState != PlayerState.Pachinker)
@@ -212,11 +213,17 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void AnimateWalking() {
-        //forward
-        //meshObject.transform.Rotate(0,5,0);
-        //Sidways
-        //meshObject.transform.Rotate(5,0,0);
-        //meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f, 0, 0);
+        if (Mathf.Abs(rigidbody.velocity.x) > 0.1f && currentState == PlayerState.OnGround)
+            meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f, 0, 0);
+    }
+
+    private void AngleSwingingCharacter() {
+        float turnSpeed = 1f;
+        Vector3 dir = grappleController.joint.connectedAnchor - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(meshObject.transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+        meshObject.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        meshObject.transform.rotation = Quaternion.Euler(-90, 0, -180);
     }
 
     private bool OverMaxVelocity(Direction direction)
