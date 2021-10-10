@@ -168,7 +168,7 @@ public class CharacterController : MonoBehaviour {
     }
 
     void OrientPlayerAccordingToGroundSpeed() {
-        if (currentState != PlayerState.Ragdoll && !inAirAfterGrappling) {
+        if (currentState != PlayerState.Ragdoll /*&& !inAirAfterGrappling*/) {
             if (desiredHorizontalDirection < 0) {
                 meshObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             } else if (desiredHorizontalDirection > 0) {
@@ -207,7 +207,7 @@ public class CharacterController : MonoBehaviour {
             groundRay = new Ray(raypos, Vector3.down);
             if (Physics.Raycast(groundRay, groundCheckLength, groundRaycastLayerMask)) {
 
-                if (currentState == PlayerState.InAir && inAirAfterGrappling) {
+                if (currentState == PlayerState.InAir/* && inAirAfterGrappling*/) {
                     ResetRotation();
                 }
                 SetState(PlayerState.OnGround);
@@ -281,7 +281,7 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void AnimateWalking() {
-        if (currentState == PlayerState.OnGround && !inAirAfterGrappling)
+        if (currentState == PlayerState.OnGround/* && !inAirAfterGrappling*/)
             if (Mathf.Abs(rigidbody.velocity.x) > 0.1f)
                 meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f, 0, 0);
         var rot = Quaternion.FromToRotation(transform.up, Vector3.up);
