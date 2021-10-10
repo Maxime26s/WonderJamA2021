@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
         livingPlayers = PlayerManager.Instance.livingPlayers;
         wonPlayers = PlayerManager.Instance.wonPlayers;
 
-        scores = new List<int>{0,0,0,0};
+        scores = new List<int> { 0, 0, 0, 0 };
 
         int offset = -8;
         Debug.Log(livingPlayers.Count);
@@ -60,8 +61,20 @@ public class GameManager : MonoBehaviour
         Debug.Log("no end");
         if (livingPlayers.Count == 0)// && deadPlayers.Count + wonPlayers.Count == playerList.Count
         {
-            Debug.Log("end");
+            CleanUp();
             GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel();
+        }
+    }
+
+    private void CleanUp()
+    {
+        livingPlayers.Clear();
+        deadPlayers.Clear();
+        wonPlayers.Clear();
+        foreach (var go in playerList)
+        {
+            go.transform.parent = gameObject.transform;
+            livingPlayers.Add(go);
         }
     }
 
