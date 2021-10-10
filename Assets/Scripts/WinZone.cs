@@ -7,11 +7,18 @@ public class WinZone : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out CharacterController characterController))
-            characterController.WinMoveToPachinko();
-        else if (collision.gameObject.TryGetComponent(out Rigidbody rb))
         {
-            Destroy(collision.gameObject);
+            characterController.WinMoveToPachinko();
+            GameManager.Instance.IsLevelEnd();
         }
-        GameManager.Instance.IsLevelEnd();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent(out CharacterController characterController))
+        {
+            characterController.WinMoveToPachinko();
+            GameManager.Instance.IsLevelEnd();
+        }
     }
 }

@@ -11,21 +11,22 @@ public class DeathZone : MonoBehaviour
             if (characterController.currentState == PlayerState.Grappling)
                 characterController.gameObject.GetComponent<GrappleController>().EndGrapple();
             characterController.currentState = PlayerState.OnGround;
-            characterController.MoveToPachinko();
+            characterController.LoseMoveToPachinko();
         }
-            
         else if (collision.gameObject.TryGetComponent(out Rigidbody rb))
-        {
             Destroy(collision.gameObject);
-        }
-        GameManager.Instance.IsLevelEnd();
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent(out CharacterController characterController))
-            characterController.MoveToPachinko();
+        {
+            if (characterController.currentState == PlayerState.Grappling)
+                characterController.gameObject.GetComponent<GrappleController>().EndGrapple();
+            characterController.currentState = PlayerState.OnGround;
+            characterController.LoseMoveToPachinko();
+        }
         else if (other.gameObject.TryGetComponent(out Rigidbody rb))
             Destroy(other.gameObject);
     }
