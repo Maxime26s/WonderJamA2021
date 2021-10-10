@@ -252,6 +252,7 @@ public class CharacterController : MonoBehaviour {
         PlayerManager.Instance.deadPlayers.Add(this.gameObject);
         GameManager.Instance.tgm.players.Remove(this.gameObject);
         transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
     public void WinMoveToPachinko()
     {
@@ -279,6 +280,7 @@ public class CharacterController : MonoBehaviour {
         transform.SetParent(null);
         PlayerManager.Instance.livingPlayers.Add(this.gameObject);
         PlayerManager.Instance.deadPlayers.Remove(this.gameObject);
+        transform.localScale = new Vector3(1f, 1f, 1f);
     }
     
     private bool OverMaxAirVelocity(Direction direction) {

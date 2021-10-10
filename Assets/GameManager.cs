@@ -44,13 +44,14 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in livingPlayers)
         {
             player.transform.position = spawnPoint.transform.position + new Vector3(offset, 0, 0);
-            Debug.Log(player.transform.position);
+            player.transform.localScale = new Vector3(1f, 1f, 1f);
             tgm.players.Add(player);
             offset += 6;
         }
         foreach (GameObject player in deadPlayers)
         {
             player.transform.position = pachinkoSawnPoint.transform.position;
+            player.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
     public void IsLevelEnd()
