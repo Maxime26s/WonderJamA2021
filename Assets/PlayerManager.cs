@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
+    public List<Color32> colors;
     public List<SceneAsset> scenes;
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
@@ -37,6 +38,7 @@ public class PlayerManager : MonoBehaviour
             newPlayer.transform.SetParent(transform);
             playerList.Add(newPlayer.gameObject);
             livingPlayers.Add(newPlayer.gameObject);
+            newPlayer.gameObject.GetComponentInChildren<MeshRenderer>().material.color = colors[nbPlayer];
             nbPlayer++;
         }
     }
