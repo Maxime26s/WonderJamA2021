@@ -54,13 +54,17 @@ public class GameManager : MonoBehaviour
             player.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
+
     public void IsLevelEnd()
     {
-        if (livingPlayers.Count == 0 && deadPlayers.Count + wonPlayers.Count == playerList.Count)
+        Debug.Log("no end");
+        if (livingPlayers.Count == 0)// && deadPlayers.Count + wonPlayers.Count == playerList.Count
         {
+            Debug.Log("end");
             GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel();
         }
     }
+
     public void AddScore(GameObject gameObject)
     {
         for (int i = 0; i < playerList.Count; i++)
