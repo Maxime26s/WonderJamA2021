@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < pachinkoZones.Count; i++)
             {
-                Debug.Log(pachinkoZones.Count);
                 pachinkoZones[i].SetActive(false);
                 //pachinkoZones[i].gameObject.SetActive(false);
                 //pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, 100);
@@ -99,8 +98,6 @@ public class GameManager : MonoBehaviour
 
     public void SpawnThePachinko()
     {
-        //pachinkoZones = GameObject.FindGameObjectsWithTag("PachinkoZone").ToList();
-        Debug.Log(pachinkoZones.Count);
         for (int i = 0; i < pachinkoZones.Count; i++)
         {
             pachinkoZones[i].SetActive(true);
@@ -118,6 +115,9 @@ public class GameManager : MonoBehaviour
             go.transform.parent = PlayerManager.Instance.gameObject.transform;
             livingPlayers.Add(go);
         }
+
+        foreach (var go in playerList)
+            go.GetComponent<CharacterController>().MoveToClimbing();
     }
 
     public void AddScore(GameObject gameObject, bool win)
