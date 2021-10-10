@@ -323,7 +323,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.7
+  m_fontSize: 75.35
   m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.4
+  m_fontSize: 87.6
   m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.4
+  m_fontSize: 87.6
   m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.9
+  m_fontSize: 75.35
   m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.45
+  m_fontSize: 87.65
   m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.9
+  m_fontSize: 75.35
   m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1836,7 +1836,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.9
+  m_fontSize: 75.35
   m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2046,7 +2046,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.45
+  m_fontSize: 87.65
   m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.9
+  m_fontSize: 75.35
   m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2477,6 +2477,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
+      propertyPath: scenes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
+      propertyPath: scenes.Array.data[3]
+      value: 
+      objectReference: {fileID: 102900000, guid: eb55642635a0b504eb2af5f58613905b, type: 3}
     - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
       propertyPath: spawners.Array.data[0]
       value: 

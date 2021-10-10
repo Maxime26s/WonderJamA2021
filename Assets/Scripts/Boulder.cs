@@ -28,7 +28,7 @@ public class Boulder : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (boulderAudioSource != null && boulderSounds != null && boulderSounds.Count > 0) {
+        if (boulderAudioSource != null && boulderSounds != null && boulderSounds.Count > 0 && EffectController.Instance != null) {
             boulderAudioSource.volume = Mathf.Clamp(collision.relativeVelocity.magnitude / 50f, 0f, 1f);
             boulderAudioSource.PlayOneShot(boulderSounds[Random.Range(0, boulderSounds.Count)]);
         }
