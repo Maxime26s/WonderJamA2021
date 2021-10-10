@@ -121,9 +121,10 @@ MonoBehaviour:
   - serializedVersion: 2
     rgba: 4291570043
   scenes:
-  - {fileID: 102900000, guid: 69826ee0c8548c344b0741580ef465f8, type: 3}
-  - {fileID: 102900000, guid: 61e83bee089d4614786d469dee99c533, type: 3}
-  - {fileID: 102900000, guid: 7756d289a57e0764893be66fcd298954, type: 3}
+  - Map 1
+  - Map 2
+  - Map Cave
+  - Map Espace
   playerList: []
   deadPlayers: []
   livingPlayers: []
