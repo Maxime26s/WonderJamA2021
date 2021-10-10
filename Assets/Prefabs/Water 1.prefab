@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7da3ba628bc1f45b6185755b9f2460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeRise: 5
-  riseSpeed: 5
+  timeBeforeRise: 15
+  riseSpeed: 0.6
   timeRunning: 0
   rising: 0
   fakeWater: {fileID: 0}
