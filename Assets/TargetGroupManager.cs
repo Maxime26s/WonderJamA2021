@@ -44,26 +44,6 @@ public class TargetGroupManager : MonoBehaviour
             currentCoroutine = LerpWeight(index, lerpDuration, startValues);
             StartCoroutine(currentCoroutine);
         }
-
-        //for (int i = 0; i < players.Count; i++)
-        //{
-        //    if (targetGroup.m_Targets[i].weight != 0f)
-        //    {
-        //        if (index == i)
-        //        {
-        //            targetGroup.m_Targets[i].weight = Mathf.Lerp(targetGroup.m_Targets[i].weight, players.Count * 0.8f, timeElapsed/lerpDuration);
-        //            //targetGroup.m_Targets[i].weight = players.Count * 0.8f;
-        //        }
-
-        //        else
-        //        {
-        //            targetGroup.m_Targets[i].weight = Mathf.Lerp(targetGroup.m_Targets[i].weight, 1f, timeElapsed / lerpDuration);
-        //            //timeElapsed += Time.deltaTime;
-        //            //targetGroup.m_Targets[i].weight = 1f;
-        //        }
-        //        timeElapsed += Time.deltaTime;
-        //    }
-        //}
     }
 
     IEnumerator LerpWeight(float main, float duration, List<float> startValues)

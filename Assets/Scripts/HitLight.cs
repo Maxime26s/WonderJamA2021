@@ -20,7 +20,12 @@ public class HitLight : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        foreach(GameObject hitLight in hitLights)
+        Hit();
+    }
+
+    public void Hit()
+    {
+        foreach (GameObject hitLight in hitLights)
         {
             hitLight.GetComponent<LEDLight>().HitFlash();
         }
