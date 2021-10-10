@@ -7,6 +7,9 @@ public class Pachinko : MonoBehaviour
     public float power;
     public GameObject flipParticles = null;
 
+    public AudioSource boingAudioSource = null;
+    public List<AudioClip> boingAudioClips = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,8 @@ public class Pachinko : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        boingAudioSource.PlayOneShot(boingAudioClips[Random.Range(0,boingAudioClips.Count)]);
+
         if (collision.gameObject.TryGetComponent(out Rigidbody rb))
         {
             Vector3 point = collision.contacts[0].point;

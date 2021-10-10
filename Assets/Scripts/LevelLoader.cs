@@ -40,6 +40,11 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadScene("PlayerSelect"));
     }
 
+    public void LoadScoreboard()
+    {
+        StartCoroutine(LoadScene("Scoreboard"));
+    }
+
     public void PlayButtonSound()
     {
         if (buttonAudioSource != null && buttonAudioSource.clip != null)
