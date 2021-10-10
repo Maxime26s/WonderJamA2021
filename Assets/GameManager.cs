@@ -56,7 +56,9 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadMenu();
+                foreach (var player in playerList)
+                    player.GetComponent<UIController>().onScoreboard = true;
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadScoreboard();
             }
         }
     }
