@@ -35,12 +35,12 @@ public class LevelLoader : MonoBehaviour
         animCanvas.gameObject.SetActive(false);
     }
 
-    public void LoadNextLevel()
+    public void LoadNextLevel(string sceneName = "")
     {
-        StartCoroutine(LoadNextLevelCo());
+        StartCoroutine(LoadNextLevelCo(sceneName));
     }
 
-    IEnumerator LoadNextLevelCo()
+    IEnumerator LoadNextLevelCo(string sceneName = "")
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         animCanvas.gameObject.SetActive(true);
@@ -49,7 +49,12 @@ public class LevelLoader : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene + 1);
+        AsyncOperation asyncOperation;
+        if(sceneName == "")
+            asyncOperation = SceneManager.LoadSceneAsync(currentScene + 1);
+        else
+            asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+
         asyncOperation.completed += (_) =>
         {
             GameManager.Instance.InitMap();

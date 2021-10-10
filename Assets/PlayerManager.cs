@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-
+    public List<SceneAsset> scenes;
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
     public List<GameObject> livingPlayers;
@@ -46,6 +47,11 @@ public class PlayerManager : MonoBehaviour
         gameObject.GetComponent<PlayerInputManager>().DisableJoining();
         LevelLoader levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
         Debug.Log(levelLoader);
-        levelLoader.LoadNextLevel();
+
+        int index = Random.Range(0, scenes.Count);
+        string name = scenes[index].name;
+        scenes.Remove(scenes[index]);
+
+        levelLoader.LoadNextLevel(name);
     }
 }
