@@ -62,6 +62,9 @@ public class CharacterController : MonoBehaviour {
 
     public bool inAirAfterGrappling = false;
 
+    public List<AudioClip> jumpSounds = null;
+    public AudioSource playerAudioSource = null;
+
     public void SetState(PlayerState newState) {
         if (currentState == newState || currentState == PlayerState.Ragdoll)
             return;
@@ -78,6 +81,7 @@ public class CharacterController : MonoBehaviour {
             meshObject.transform.localScale = new Vector3(Mathf.Abs(meshObject.transform.localScale.x), Mathf.Abs(meshObject.transform.localScale.y), Mathf.Abs(meshObject.transform.localScale.z));
         }
     }
+
 
 
     public void RagdollPlayer(float time) {
@@ -222,6 +226,10 @@ public class CharacterController : MonoBehaviour {
             return;
         if (resetVelocityOnJump)
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, 0f);
+
+        if (playerAudioSource != null && jumpSounds != null && jumpSounds.Count > 0 && EffectController.Instance != null) {
+            playerAudioSource.PlayOneShot(jumpSounds[UnityEngine.Random.Range(0, jumpSounds.Count)]);
+        }
         inAirAfterGrappling = false;
         rigidbody.AddForce(0f, jumpHeight, 0f);
         PlayJumpFX();
