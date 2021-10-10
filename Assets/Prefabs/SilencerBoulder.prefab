@@ -144,7 +144,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f1cfce35ebc737744a204ade074c5fd2, type: 3}
   - {fileID: 8300000, guid: 77e8028b4aa440043b3d3b3ff21d0ec6, type: 3}
   boulderAudioSource: {fileID: 3288394941161096946}
-  silenceDuration: 2.5
+  silenceDuration: 1.5
 --- !u!82 &3288394941161096946
 AudioSource:
   m_ObjectHideFlags: 0
