@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,15 +10,16 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; set; }
 
-
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
     public List<GameObject> livingPlayers;
     public List<GameObject> wonPlayers;
 
     public List<int> scores;
+    public List<SceneAsset> shuffledList;
 
     public List<GameObject> spawnPoints;
+    public List<GameObject> pachinkoZones;
     public GameObject pachinkoSpawnPoint;
     public TargetGroupManager tgm;
 
@@ -31,13 +33,14 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            playerList = new List<GameObject>();
             playerList = PlayerManager.Instance.playerList;
+            Debug.Log(playerList.Count);
             deadPlayers = PlayerManager.Instance.deadPlayers;
             livingPlayers = PlayerManager.Instance.livingPlayers;
             wonPlayers = PlayerManager.Instance.wonPlayers;
             InitMap();
             scores = new List<int> { 0, 0, 0, 0 };
+            shuffledList = PlayerManager.Instance.scenes.OrderBy(x => UnityEngine.Random.value).ToList();
         }
     }
 
@@ -46,14 +49,23 @@ public class GameManager : MonoBehaviour
         if (livingPlayers.Count == 0)// && deadPlayers.Count + wonPlayers.Count == playerList.Count
         {
             CleanUp();
-            GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel();
+            if(shuffledList.Count > 0)
+            {
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel(shuffledList[0].name);
+                shuffledList.Remove(shuffledList[0]);
+            }
+            else
+            {
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadMenu();
+            }
         }
     }
 
     public void InitMap()
     {
         spawnPoints = GameObject.FindGameObjectsWithTag("spawnpoint").ToList();
-        pachinkoSpawnPoint = GameObject.FindGameObjectWithTag("deathSpawn");
+        pachinkoSpawnPoint = Camera.main.gameObject.GetComponent<ObjectHolder>().sp;
+        pachinkoZones = Camera.main.gameObject.GetComponent<ObjectHolder>().GOs;
 
         tgm = Camera.main.transform.parent.GetComponentInChildren<TargetGroupManager>();
         tgm.players.Clear();
@@ -69,6 +81,29 @@ public class GameManager : MonoBehaviour
         }
 
         tgm.Setup();
+
+        if (deadPlayers.Count == 0)
+        {
+            for (int i = 0; i < pachinkoZones.Count; i++)
+            {
+                Debug.Log(pachinkoZones.Count);
+                pachinkoZones[i].SetActive(false);
+                //pachinkoZones[i].gameObject.SetActive(false);
+                //pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, 100);
+            }
+        }
+        Debug.Log("end"+ pachinkoZones.Count);
+    }
+
+    public void SpawnThePachinko()
+    {
+        //pachinkoZones = GameObject.FindGameObjectsWithTag("PachinkoZone").ToList();
+        Debug.Log(pachinkoZones.Count);
+        for (int i = 0; i < pachinkoZones.Count; i++)
+        {
+            pachinkoZones[i].SetActive(true);
+            //pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, -100);
+        }
     }
 
     private void CleanUp()

@@ -10,8 +10,18 @@ public class LevelLoader : MonoBehaviour
     public float transitionTime = 1f;
     public Canvas animCanvas;
 
+    public AudioSource buttonAudioSource = null;
+
     public void LoadMenu()
     {
+        if (GameManager.Instance != null && GameManager.Instance.gameObject != null)
+            Destroy(GameManager.Instance.gameObject);
+        if (PlayerManager.Instance != null && PlayerManager.Instance.gameObject != null)
+            Destroy(PlayerManager.Instance.gameObject);
+
+        GameManager.Instance = null;
+        PlayerManager.Instance = null;
+
         StartCoroutine(LoadScene("Menu"));
     }
 
@@ -30,17 +40,23 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadScene("PlayerSelect"));
     }
 
+    public void PlayButtonSound()
+    {
+        if (buttonAudioSource != null && buttonAudioSource.clip != null)
+            buttonAudioSource.PlayOneShot(buttonAudioSource.clip);
+    }
+
     public void Disable()
     {
         animCanvas.gameObject.SetActive(false);
     }
 
-    public void LoadNextLevel()
+    public void LoadNextLevel(string sceneName = "")
     {
-        StartCoroutine(LoadNextLevelCo());
+        StartCoroutine(LoadNextLevelCo(sceneName));
     }
 
-    IEnumerator LoadNextLevelCo()
+    IEnumerator LoadNextLevelCo(string sceneName = "")
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         animCanvas.gameObject.SetActive(true);
@@ -49,13 +65,16 @@ public class LevelLoader : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene + 1);
+        AsyncOperation asyncOperation;
+        if (sceneName == "")
+            asyncOperation = SceneManager.LoadSceneAsync(currentScene + 1);
+        else
+            asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+
         asyncOperation.completed += (_) =>
         {
             GameManager.Instance.InitMap();
         };
-
-
     }
 
     IEnumerator LoadScene(string scene_name)
