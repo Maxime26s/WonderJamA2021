@@ -414,8 +414,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 2039549396}
+    m_SelectOnDown: {fileID: 1681897941}
     m_SelectOnLeft: {fileID: 1681897941}
     m_SelectOnRight: {fileID: 2039549396}
   m_Transition: 2
@@ -947,8 +947,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1231655090}
+    m_SelectOnDown: {fileID: 2039549396}
     m_SelectOnLeft: {fileID: 2039549396}
     m_SelectOnRight: {fileID: 1231655090}
   m_Transition: 2
@@ -1293,8 +1293,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1681897941}
+    m_SelectOnDown: {fileID: 1231655090}
     m_SelectOnLeft: {fileID: 1231655090}
     m_SelectOnRight: {fileID: 1681897941}
   m_Transition: 2
@@ -1395,6 +1395,7 @@ GameObject:
   - component: {fileID: 2069943060}
   - component: {fileID: 2069943062}
   - component: {fileID: 2069943061}
+  - component: {fileID: 2069943063}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1464,6 +1465,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069943059}
   m_CullTransparentMesh: 1
+--- !u!114 &2069943063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069943059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8726666e9970d584eab6655378427696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  play: {fileID: 1681897941}
+  quit: {fileID: 1231655090}
+  inst: {fileID: 2039549396}
+  es: {fileID: 1277993310}
 --- !u!1001 &6940823987414703301
 PrefabInstance:
   m_ObjectHideFlags: 0
