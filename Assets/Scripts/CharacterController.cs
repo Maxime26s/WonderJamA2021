@@ -229,23 +229,15 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void AngleSwingingCharacter() {
-        /*
-        Quaternion lookRotation;
-        Vector3 direction;
-        float turnSpeed = 1f;
-        */
-        //find the vector pointing from our position to the target
-        //direction = (grappleController.joint.connectedAnchor - transform.position).normalized;
-        meshObject.transform.right = -rigidbody.velocity;
-        if (rigidbody.velocity.x <= 0f)
-        {
-            meshObject.transform.localScale = new Vector3(1f, 0.64251f, 1f);
+        if (currentState == PlayerState.Grappling) {
+            meshObject.transform.right = -rigidbody.velocity;
+            if (rigidbody.velocity.x <= 0f) {
+                meshObject.transform.localScale = new Vector3(1f, 0.64251f, 1f);
+            }
+            if (rigidbody.velocity.x > 0f) {
+                meshObject.transform.localScale = new Vector3(1f, -0.64251f, 1f);
+            }
         }
-        if (rigidbody.velocity.x > 0f)
-        {
-            meshObject.transform.localScale = new Vector3(1f, -0.64251f, 1f);
-        }
-
     }
 
     private bool OverMaxVelocity(Direction direction) {
