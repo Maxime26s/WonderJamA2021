@@ -47,6 +47,9 @@ public class GrappleController : MonoBehaviour {
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
         if (FanShappedRayCast(transform.position, aimDirection, out hit, maxDistance, 100, 20)) {
+            if (hit.transform.tag == "Wall") {
+                return;
+            }
             characterController.SetState(PlayerState.Grappling);
             grapplePoint = hit.point;
             //ropeRef = Instantiate(rope);
