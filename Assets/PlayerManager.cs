@@ -52,14 +52,17 @@ public class PlayerManager : MonoBehaviour
 
     public void StartGame()
     {
-        gameStarted = true;
-        gameObject.GetComponent<PlayerInputManager>().DisableJoining();
-        LevelLoader levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
-        Debug.Log(levelLoader);
-        int index = Random.Range(0, scenes.Count);
-        string name = scenes[index].name;
-        scenes.Remove(scenes[index]);
+        if (!gameStarted)
+        {
+            gameStarted = true;
+            gameObject.GetComponent<PlayerInputManager>().DisableJoining();
+            LevelLoader levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
+            Debug.Log(levelLoader);
+            int index = Random.Range(0, scenes.Count);
+            string name = scenes[index].name;
+            scenes.Remove(scenes[index]);
 
-        levelLoader.LoadNextLevel(name);
+            levelLoader.LoadNextLevel(name);
+        }
     }
 }
