@@ -5,6 +5,7 @@ using UnityEngine;
 public class BombBoulder : Boulder
 {
     public AudioSource boomAudioSource = null;
+    public AudioClip boomSound = null;
     public int life;
     public float ttl, radius, power;
     int maxLife;
@@ -39,6 +40,8 @@ public class BombBoulder : Boulder
 
     protected override void OnDestroy()
     {
+        if (boomAudioSource != null && boomSound != null)
+            boomAudioSource.PlayOneShot(boomSound);
         base.OnDestroy();
         if (!isHeld)
         {
@@ -48,7 +51,6 @@ public class BombBoulder : Boulder
                 if (hit.TryGetComponent(out Rigidbody rb))
                     rb.AddExplosionForce(power, transform.position, radius);
             }
-            boomAudioSource.PlayOneShot(boomAudioSource.clip);
             EffectController.Instance.ShakeCamera(50);
         }
     }
