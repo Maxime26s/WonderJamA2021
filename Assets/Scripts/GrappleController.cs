@@ -65,7 +65,7 @@ public class GrappleController : MonoBehaviour {
         //Rigidbody rbHit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
         if (FanShappedRayCast(transform.position, aimDirection, maxDistance, 100, 20, out hit)) {
-            target = hit.rigidbody.gameObject;
+            target = hit.transform.gameObject;
             characterController.SetState(PlayerState.Grappling);
 
             joint = gameObject.AddComponent<SpringJoint>();
