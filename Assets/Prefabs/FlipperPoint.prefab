@@ -44,7 +44,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.075
   angle: -20
-  power: 20
+  power: 50
   restAngle: 0
   flipping: 0
   endPoint: {fileID: 6701676701665875134}
