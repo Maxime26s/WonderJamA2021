@@ -1826,5 +1826,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
+      propertyPath: scenes.Array.data[0]
+      value: 
+      objectReference: {fileID: 102900000, guid: eb55642635a0b504eb2af5f58613905b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}

@@ -39,6 +39,7 @@ public class PlayerManager : MonoBehaviour
             playerList.Add(newPlayer.gameObject);
             livingPlayers.Add(newPlayer.gameObject);
             newPlayer.gameObject.GetComponentInChildren<MeshRenderer>().material.color = colors[nbPlayer];
+            newPlayer.gameObject.GetComponent<LineRenderer>().materials[0].color = colors[nbPlayer];
             nbPlayer++;
         }
     }
