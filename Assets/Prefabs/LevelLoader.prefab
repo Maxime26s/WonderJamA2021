@@ -224,6 +224,7 @@ MonoBehaviour:
   transition: {fileID: 604915628}
   transitionTime: 1
   animCanvas: {fileID: 6940823986210151347}
+  buttonAudioSource: {fileID: 0}
 --- !u!95 &604915628
 Animator:
   serializedVersion: 3
