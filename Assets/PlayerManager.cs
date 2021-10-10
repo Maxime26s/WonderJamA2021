@@ -43,9 +43,8 @@ public class PlayerManager : MonoBehaviour
             livingPlayers.Add(newPlayer.gameObject);
             GameObject newDisplayPlayer = Instantiate(displayPlayer, new Vector3(spawners[nbPlayer].transform.position.x, spawners[nbPlayer].transform.position.y, spawners[nbPlayer].transform.position.z - 5f), transform.rotation);
             newDisplayPlayer.GetComponentInChildren<MeshRenderer>().material.color = colors[nbPlayer];
-            newPlayer.gameObject.GetComponentInChildren<MeshRenderer>().material.color = colors[nbPlayer];
-            newPlayer.transform.position = new Vector3(9999999f, 0, 0);
-            newPlayer.gameObject.GetComponent<CharacterController>().SetText(nbPlayer, colors[nbPlayer]);
+            newPlayer.transform.position = new Vector3(999f, 0, 0);
+            newPlayer.gameObject.GetComponent<CharacterController>().SetColor(nbPlayer, colors[nbPlayer]);
 
             nbPlayer++;
         }
