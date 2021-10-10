@@ -49,12 +49,12 @@ public class GrappleController : MonoBehaviour {
 
     private void ChangeAnchorPoint()
     {
-        if (target != null)
+        if (target != null && joint != null)
         {
             grapplePoint = target.transform.position + offset;
             joint.connectedAnchor = grapplePoint;
         }
-        else
+        else if(characterController.currentState == PlayerState.Grappling)
         {
             EndGrapple();
         }
