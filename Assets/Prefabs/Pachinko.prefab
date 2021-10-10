@@ -128,7 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f446fc3681b26104aa4b5ded9745f117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitLight: {fileID: 8730008266586880078}
+  hitLights:
+  - {fileID: 8730008266586880078}
 --- !u!1001 &5917262962139977011
 PrefabInstance:
   m_ObjectHideFlags: 0
