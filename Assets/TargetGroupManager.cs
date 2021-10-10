@@ -11,12 +11,6 @@ public class TargetGroupManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //players = GetPlayers
-        Target[] targets = new Target[players.Count];
-        for (int i = 0; i < players.Count; i++)
-        {
-            targetGroup.AddMember(players[i].transform, 1, 0);
-        }
     }
 
 
@@ -27,12 +21,7 @@ public class TargetGroupManager : MonoBehaviour
         int index = -1;
         for (int i = 0; i < players.Count; i++)
         {
-            if (players[i] == null)
-            {
-                players.RemoveAt(i);
-                break;
-            }
-            if (players[i].transform.position.y > maxHeight)
+            if (players[i].transform.position.y > maxHeight && targetGroup.m_Targets[i].weight != 0f)
             {
                 maxHeight = players[i].transform.position.y;
                 index = i;
@@ -48,6 +37,15 @@ public class TargetGroupManager : MonoBehaviour
                 else
                     targetGroup.m_Targets[i].weight = 1f;
             }
+        }
+    }
+
+    public void Setup()
+    {
+        targetGroup.m_Targets = null;
+        foreach (var player in players)
+        {
+            targetGroup.AddMember(player.transform, 1, 0);
         }
     }
 }
