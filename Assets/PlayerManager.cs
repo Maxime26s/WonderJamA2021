@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     public List<Color32> colors;
-    public List<SceneAsset> scenes;
+    public List<string> scenes;
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
     public List<GameObject> livingPlayers;
@@ -59,7 +59,7 @@ public class PlayerManager : MonoBehaviour
             LevelLoader levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
             Debug.Log(levelLoader);
             int index = Random.Range(0, scenes.Count);
-            string name = scenes[index].name;
+            string name = scenes[index];
             scenes.Remove(scenes[index]);
 
             levelLoader.LoadNextLevel(name);
