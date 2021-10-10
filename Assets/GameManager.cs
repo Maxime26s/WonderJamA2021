@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public List<int> scores;
 
     public List<GameObject> spawnPoints;
+    public List<GameObject> pachinkoZones;
     public GameObject pachinkoSpawnPoint;
     public TargetGroupManager tgm;
 
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         spawnPoints = GameObject.FindGameObjectsWithTag("spawnpoint").ToList();
         pachinkoSpawnPoint = GameObject.FindGameObjectWithTag("deathSpawn");
+        pachinkoZones = GameObject.FindGameObjectsWithTag("PachinkoZone").ToList();
 
         tgm = Camera.main.transform.parent.GetComponentInChildren<TargetGroupManager>();
 
@@ -65,6 +67,24 @@ public class GameManager : MonoBehaviour
             livingPlayers[i].transform.position = spawnPoints[i].transform.position;
             livingPlayers[i].transform.localScale = new Vector3(1f, 1f, 1f);
             tgm.players.Add(livingPlayers[i]);
+        }
+
+        if (deadPlayers.Count == 0)
+        {
+            for (int i = 0; i < pachinkoZones.Count; i++)
+            {
+                Debug.Log(pachinkoZones.Count);
+                pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, 100);
+            }
+        }
+    }
+
+    public void SpawnThePachinko()
+    {
+        Debug.Log("SPAWN PACHINI");
+        for (int i = 0; i < pachinkoZones.Count; i++)
+        {
+            pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, -100);
         }
     }
 
