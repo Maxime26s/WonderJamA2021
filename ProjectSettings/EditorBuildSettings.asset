@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayerSelect.unity
     guid: 9e744b3600e298947a5979475080d95e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Map 1.unity
     guid: 61e83bee089d4614786d469dee99c533
   - enabled: 0
@@ -23,8 +23,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/proto.unity
     guid: e7f41f7d064f6ee439aa716ea19c3124
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/newProto.unity
     guid: 1f50fdc695ad2e34d8bf9ec524c75f24
+  - enabled: 1
+    path: Assets/Scenes/Map Cave.unity
+    guid: 7756d289a57e0764893be66fcd298954
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9f4abe5d543e7224da2e20dcf7daf062, type: 2}
