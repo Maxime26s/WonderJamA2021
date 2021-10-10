@@ -15,7 +15,7 @@ public class ObstacleSlider : MonoBehaviour
         direction = new Vector3(direction.x, direction.y).normalized;
         obstacle.transform.position = point1.transform.position;
         toggle = false;
-        distance = ((Vector2)(point1.transform.position - transform.position)).magnitude;
+        distance = ((Vector2)(point1.transform.position - transform.parent.transform.position)).magnitude;
         stopTimer = Mathf.Infinity;
     }
 
@@ -29,7 +29,7 @@ public class ObstacleSlider : MonoBehaviour
         else if (toggle)
         {
             obstacle.transform.position += direction * speed * Time.deltaTime;
-            Vector2 distance2d = (obstacle.transform.position - transform.position);
+            Vector2 distance2d = (obstacle.transform.position - transform.parent.transform.position);
             if (distance < distance2d.magnitude)
             {
                 obstacle.transform.position = new Vector3(point1.transform.position.x, point1.transform.position.y, obstacle.transform.position.z);
@@ -40,10 +40,10 @@ public class ObstacleSlider : MonoBehaviour
         else if (!toggle)
         {
             obstacle.transform.position -= direction * speed * Time.deltaTime;
-            Vector2 distance2d = (obstacle.transform.position - transform.position);
+            Vector2 distance2d = (obstacle.transform.position - transform.parent.transform.position);
             if (distance < distance2d.magnitude)
             {
-                obstacle.transform.position = new Vector3(point2.transform.position.x, point1.transform.position.y, obstacle.transform.position.z);
+                obstacle.transform.position = new Vector3(point2.transform.position.x, point2.transform.position.y, obstacle.transform.position.z);
                 toggle = true;
                 stopTimer = 0;
             }

@@ -111,7 +111,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d134f9d4a0faf6b4b83c1e6292cbd245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colors:
+  - serializedVersion: 2
+    rgba: 4279729894
+  - serializedVersion: 2
+    rgba: 4280929321
+  - serializedVersion: 2
+    rgba: 4291611689
+  - serializedVersion: 2
+    rgba: 4291570043
+  scenes:
+  - {fileID: 102900000, guid: 69826ee0c8548c344b0741580ef465f8, type: 3}
+  - {fileID: 102900000, guid: 61e83bee089d4614786d469dee99c533, type: 3}
+  - {fileID: 102900000, guid: 7756d289a57e0764893be66fcd298954, type: 3}
   playerList: []
+  deadPlayers: []
+  livingPlayers: []
+  wonPlayers: []
   nbPlayer: 0
   maxPlayers: 4
   gameStarted: 0
