@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> wonPlayers;
 
     public List<int> scores;
-    public List<SceneAsset> shuffledList;
+    public List<string> shuffledList;
 
     public List<GameObject> spawnPoints;
     public List<GameObject> pachinkoZones;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
             CleanUp();
             if(shuffledList.Count > 0)
             {
-                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel(shuffledList[0].name);
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel(shuffledList[0]);
                 shuffledList.Remove(shuffledList[0]);
             }
             else
