@@ -29,9 +29,11 @@ public class ThrowRocksController : MonoBehaviour
 
             disableThrowing = true;
             GameObject newRock = Instantiate(rocks[nextRock]);
-            newRock.transform.position = transform.position + offset;
-            newRock.transform.position = new Vector3(newRock.transform.position.x, newRock.transform.position.y, 0);
             newRock.transform.position = Camera.main.transform.position + direction * multiplier;
+
+            newRock.transform.position = new Vector3(newRock.transform.position.x, transform.position.y + offset.y, 0);
+
+            newRock.transform.localScale *= 1.5f;
 
             StartCoroutine(CoolDown());
             nextRock = Random.Range(0, rocks.Count);
