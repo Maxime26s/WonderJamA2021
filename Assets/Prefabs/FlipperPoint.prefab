@@ -44,7 +44,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.075
   angle: -20
-  power: 50
+  power: 100
   restAngle: 0
   flipping: 0
   endPoint: {fileID: 6701676701665875134}
@@ -105,6 +105,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8680272306697967911}
     m_Modifications:
+    - target: {fileID: 739048083297357250, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806917343380900631, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710929771178484773, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669548395846345456, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9214127790817930704, guid: e0b883baa01ee5f42a372fda67f421eb, type: 3}
       propertyPath: m_Mesh
       value: 
