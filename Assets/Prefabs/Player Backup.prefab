@@ -274,8 +274,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6644860702830373479}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.022205, z: 0}
-  m_LocalScale: {x: 1, y: 0.64251, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7204268865706293251}
   - {fileID: 2595606111233480639}
@@ -5159,7 +5159,7 @@ GameObject:
   - component: {fileID: 344412443225711433}
   - component: {fileID: 475079470}
   m_Layer: 6
-  m_Name: Player
+  m_Name: Player Backup
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5174,7 +5174,7 @@ Transform:
   m_GameObject: {fileID: 7562826569245713171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.5, z: 0.8}
   m_Children:
   - {fileID: 1598619176069143943}
   - {fileID: 9122389971367747639}
@@ -5205,7 +5205,7 @@ MonoBehaviour:
   groundRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  groundCheckLength: 1.5
+  groundCheckLength: 1.1
   groundRayCount: 5
   airSpeed: 1500
   maxAirVelocity: 4
@@ -5245,8 +5245,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1504021, y: 1.328918, z: 1.0217149}
-  m_Center: {x: -0.006007254, y: -0.05573073, z: -0.024330497}
+  m_Size: {x: 1.2387558, y: 2, z: 1.4304965}
+  m_Center: {x: -0.044671483, y: 0, z: -0.02193354}
 --- !u!120 &5462298493919187793
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -5366,8 +5366,6 @@ MonoBehaviour:
   massScale: 15
   rope: {fileID: 0}
   ropeRef: {fileID: 0}
-  target: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &-2071673051017158774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5435,7 +5433,7 @@ MonoBehaviour:
   disableThrowing: 1
   rockHolding: {fileID: 0}
   topBar: {fileID: 0}
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: -1, z: 0}
 --- !u!75 &475079470
 ConstantForce:
   m_ObjectHideFlags: 0
