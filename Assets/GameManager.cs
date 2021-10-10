@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> livingPlayers;
     public List<GameObject> wonPlayers;
 
+    public List<int> scores;
+
     public GameObject spawnPoint;
     public GameObject pachinkoSawnPoint;
     public TargetGroupManager tgm;
@@ -35,6 +37,8 @@ public class GameManager : MonoBehaviour
         livingPlayers = PlayerManager.Instance.livingPlayers;
         wonPlayers = PlayerManager.Instance.wonPlayers;
 
+        scores = new List<int>{0,0,0,0};
+
         int offset = -8;
         Debug.Log(livingPlayers.Count);
         foreach (GameObject player in livingPlayers)
@@ -54,6 +58,16 @@ public class GameManager : MonoBehaviour
         if (livingPlayers.Count == 0 && deadPlayers.Count + wonPlayers.Count == playerList.Count)
         {
             GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel();
+        }
+    }
+    public void AddScore(GameObject gameObject)
+    {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            if (gameObject == playerList[i])
+            {
+                scores[i] += livingPlayers.Count * 50;
+            }
         }
     }
 }
