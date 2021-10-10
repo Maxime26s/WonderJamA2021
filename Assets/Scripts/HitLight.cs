@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitLight : MonoBehaviour
 {
-    public GameObject hitLight;
+    public List<GameObject> hitLights;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,9 @@ public class HitLight : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        hitLight.GetComponent<LEDLight>().HitFlash();
+        foreach(GameObject hitLight in hitLights)
+        {
+            hitLight.GetComponent<LEDLight>().HitFlash();
+        }
     }
 }
