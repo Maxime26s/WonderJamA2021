@@ -160,5 +160,12 @@ public class Intro : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         canvas.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        OnStartAction();
+    }
+
+    public void OnStartAction()
+    {
+        GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadMenu();
     }
 }
