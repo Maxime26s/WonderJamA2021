@@ -12,6 +12,7 @@ TagManager:
   - spawnpoint
   - deathSpawn
   - PachinkoZone
+  - ExplosionIntro
   layers:
   - Default
   - TransparentFX
