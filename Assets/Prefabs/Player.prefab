@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2913483103631276956}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -1.49, z: 0}
+  m_LocalPosition: {x: -0, y: -1.075, z: 0}
   m_LocalScale: {x: 66, y: 66, z: 100}
   m_Children: []
   m_Father: {fileID: 7562826569245713175}
@@ -5135,22 +5135,13 @@ LineRenderer:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: -0.20083334
-        outSlope: -0.20083334
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.19917011
-        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.5660378, g: 0.22308649, b: 0, a: 1}
-      key1: {r: 0.26415092, g: 0.22587119, b: 0.16571732, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
