@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 725546070716989645}
   m_Layer: 0
   m_Name: Flipper
-  m_TagString: Untagged
+  m_TagString: prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
