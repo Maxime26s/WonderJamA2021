@@ -5468,6 +5468,9 @@ MonoBehaviour:
   alive: 1
   meshObject: {fileID: 6644860702830373479}
   text: {fileID: 5474736059021981699}
+  mrBody: {fileID: 5768515288280170851}
+  lrRope: {fileID: 5462298493919187793}
+  playerId: 0
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
