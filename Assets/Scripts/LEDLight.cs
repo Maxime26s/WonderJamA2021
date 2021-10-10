@@ -32,6 +32,11 @@ public class LEDLight : MonoBehaviour
             StartCoroutine("Flash");
     }
 
+    public void HitFlash()
+    {
+        StartCoroutine("Flash");
+    }
+
     public IEnumerator Flash()
     {
         flashing = true;
