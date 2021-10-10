@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7021c27cf528f45b7f40ebfa2fa7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minStartAngle: -125
-  maxStartAngle: -55
+  minStartAngle: -90
+  maxStartAngle: -90
   startForce: {x: 250, y: 500}
   rb: {fileID: 4941482925960248108}
   deathParticle: {fileID: 3123075737211501182, guid: 21a082ac71a2cd64a9c7aa7b6d9f5f74, type: 3}
