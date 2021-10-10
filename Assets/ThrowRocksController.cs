@@ -47,7 +47,8 @@ public class ThrowRocksController : MonoBehaviour
         rockHolding = Instantiate(rocks[rockIndex]);
         rockHolding.GetComponent<Boulder>().enabled = false;
         rockHolding.GetComponent<Boulder>().isHeld = true;
-        rockHolding.transform.position = transform.position + new Vector3(0, 1f, 0);
+        rockHolding.transform.position = transform.position + new Vector3(0, 0.5f, 0);
+        rockHolding.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         rockHolding.transform.SetParent(transform);
         rockHolding.GetComponent<Collider>().enabled = false;
         rockHolding.GetComponent<Rigidbody>().isKinematic = true;

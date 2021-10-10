@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
     public List<GameObject> livingPlayers;
+    public List<GameObject> wonPlayers;
     public static PlayerManager Instance { get; set; }
     public int nbPlayer = 0;
     public int maxPlayers = 0;
