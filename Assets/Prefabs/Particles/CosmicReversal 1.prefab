@@ -4906,6 +4906,7 @@ GameObject:
   - component: {fileID: 3123075737211501168}
   - component: {fileID: 3123075737211501183}
   - component: {fileID: 445206246050001146}
+  - component: {fileID: 247916638796753856}
   m_Layer: 0
   m_Name: CosmicReversal 1
   m_TagString: Untagged
@@ -9842,6 +9843,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &247916638796753856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3123075737211501182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d2585ade72aaa46a7a4fa794e9aaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 445206246050001146}
 --- !u!1 &3123075737462815356
 GameObject:
   m_ObjectHideFlags: 0
