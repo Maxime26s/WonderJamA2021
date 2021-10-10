@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    
+
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
     public List<GameObject> livingPlayers;
@@ -17,9 +17,9 @@ public class PlayerManager : MonoBehaviour
 
     public void Awake()
     {
-        if(Instance != null)
+        if (Instance != null && Instance != this)
         {
-
+            Destroy(this);
         }
         else
         {

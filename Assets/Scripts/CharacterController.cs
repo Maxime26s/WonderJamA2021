@@ -11,13 +11,13 @@ public class CharacterController : MonoBehaviour {
     public new Rigidbody rigidbody = null;
 
     [Header("Horizontal Speed")]
-    public float speed = 2f;
-    public float maxVelocity = 2f;
-    public float groundFriction = 1f;
+    public float speed = 5000f;
+    public float maxVelocity = 5f;
+    public float groundFriction = 30f;
 
     [Header("Vertical Speed")]
-    public float jumpHeight = 10f;
-    public float gravityMultiplier = 4f;
+    public float jumpHeight = 500f;
+    public float gravityMultiplier = 1f;
     public bool resetVelocityOnJump = false;
     public bool disableJump = false;
 
@@ -71,7 +71,6 @@ public class CharacterController : MonoBehaviour {
             meshObject.transform.rotation = Quaternion.Euler(0, yRotation, 0);
             meshObject.transform.localScale = new Vector3(Mathf.Abs(meshObject.transform.localScale.x), Mathf.Abs(meshObject.transform.localScale.y), Mathf.Abs(meshObject.transform.localScale.z));
         }
-
     }
 
     private IEnumerator RagdollPlayer(float time) {
@@ -238,10 +237,12 @@ public class CharacterController : MonoBehaviour {
         //find the vector pointing from our position to the target
         //direction = (grappleController.joint.connectedAnchor - transform.position).normalized;
         meshObject.transform.right = -rigidbody.velocity;
-        if (rigidbody.velocity.x <= 0f) {
+        if (rigidbody.velocity.x <= 0f)
+        {
             meshObject.transform.localScale = new Vector3(1f, 0.64251f, 1f);
         }
-        if (rigidbody.velocity.x > 0f) {
+        if (rigidbody.velocity.x > 0f)
+        {
             meshObject.transform.localScale = new Vector3(1f, -0.64251f, 1f);
         }
 
@@ -267,7 +268,6 @@ public class CharacterController : MonoBehaviour {
                 break;
             }
         }
-        GameManager.Instance.tgm.players.Remove(gameObject);
         grappleController.EndGrapple();
         throwRocksController.enabled = true;
         throwRocksController.disableThrowing = false;
@@ -275,22 +275,26 @@ public class CharacterController : MonoBehaviour {
         disableJump = true;
         rigidbody.velocity = Vector3.zero;
         transform.SetParent(Camera.main.gameObject.transform);
-        transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
-        PlayerManager.Instance.livingPlayers.Remove(gameObject);
-        transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
+        transform.position = GameManager.Instance.pachinkoSpawnPoint.transform.position;
+        transform.position = GameManager.Instance.pachinkoSpawnPoint.transform.position;
         transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         GetComponent<Collider>().enabled = false;
         currentState = PlayerState.Pachinker;
+        GameManager.Instance.livingPlayers.Remove(gameObject);
         GameManager.Instance.IsLevelEnd();
     }
 
-    public void LoseMoveToPachinko() {
+    public void LoseMoveToPachinko()
+    {
+        GameManager.Instance.AddScore(gameObject, false);
         PlayerManager.Instance.deadPlayers.Add(gameObject);
         MoveToPachinko();
     }
 
-    public void WinMoveToPachinko() {
+    public void WinMoveToPachinko()
+    {
+        GameManager.Instance.AddScore(gameObject, true);
         PlayerManager.Instance.wonPlayers.Add(gameObject);
         MoveToPachinko();
     }
@@ -301,13 +305,12 @@ public class CharacterController : MonoBehaviour {
         grappleController.enabled = true;
         disableJump = false;
         rigidbody.velocity = Vector3.zero;
-        transform.SetParent(null);
-        PlayerManager.Instance.livingPlayers.Add(gameObject);
-        PlayerManager.Instance.deadPlayers.Remove(gameObject);
         transform.localScale = new Vector3(1f, 1f, 1f);
         rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         GetComponent<Collider>().enabled = true;
-        GameManager.Instance.IsLevelEnd();
+        currentState = PlayerState.OnGround;
+        if (throwRocksController.rockHolding != null)
+            Destroy(throwRocksController.rockHolding);
     }
 
     private bool OverMaxAirVelocity(Direction direction) {
