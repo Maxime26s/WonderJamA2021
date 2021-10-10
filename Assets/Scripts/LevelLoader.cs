@@ -10,6 +10,8 @@ public class LevelLoader : MonoBehaviour
     public float transitionTime = 1f;
     public Canvas animCanvas;
 
+    public AudioSource buttonAudioSource = null;
+
     public void LoadMenu()
     {
         StartCoroutine(LoadScene("Menu"));
@@ -28,6 +30,11 @@ public class LevelLoader : MonoBehaviour
     public void LoadSelect()
     {
         StartCoroutine(LoadScene("PlayerSelect"));
+    }
+
+    public void PlayButtonSound() {
+        if (buttonAudioSource != null && buttonAudioSource.clip != null)
+            buttonAudioSource.PlayOneShot(buttonAudioSource.clip);
     }
 
     public void Disable()
