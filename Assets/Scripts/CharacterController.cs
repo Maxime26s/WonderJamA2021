@@ -268,6 +268,9 @@ public class CharacterController : MonoBehaviour {
                 break;
             }
         }
+        //if (GameManager.Instance.deadPlayers.Count == 0)
+        GameManager.Instance.SpawnThePachinko();
+        GameManager.Instance.tgm.players.Remove(gameObject);
         grappleController.EndGrapple();
         throwRocksController.enabled = true;
         throwRocksController.disableThrowing = false;
