@@ -59,11 +59,18 @@ public class CharacterController : MonoBehaviour
 
     public void SetState(PlayerState newState)
     {
-        currentState = newState;
+        if (currentState == newState)
+            return;
 
+        currentState = newState;
+        
         if (currentState == PlayerState.InAir || currentState == PlayerState.OnGround) {
+            float yRotation = meshObject.transform.rotation.eulerAngles.y;
             meshObject.transform.up = Vector3.up;
+            meshObject.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+            meshObject.transform.localScale = new Vector3(Mathf.Abs(meshObject.transform.localScale.x), Mathf.Abs(meshObject.transform.localScale.y), Mathf.Abs(meshObject.transform.localScale.z));
         }
+        
     }
 
     public PlayerState GetState()
@@ -118,9 +125,9 @@ public class CharacterController : MonoBehaviour
 
     void OrientPlayerAccordingToRotation() {
         if (desiredHorizontalDirection < 0) {
-            meshObject.transform.rotation = Quaternion.Euler(0, 90, 0);
+            meshObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         } else if (desiredHorizontalDirection > 0) {
-            meshObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+            meshObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
@@ -145,8 +152,8 @@ public class CharacterController : MonoBehaviour
                 SetState(PlayerState.OnGround);
                 return;
             }
-            SetState(PlayerState.InAir);
         }
+        SetState(PlayerState.InAir);
     }
 
     private void HandleJump()
@@ -215,15 +222,21 @@ public class CharacterController : MonoBehaviour
     }
 
     private void AngleSwingingCharacter() {
+        /*
         Quaternion lookRotation;
         Vector3 direction;
         float turnSpeed = 1f;
-
+        */
         //find the vector pointing from our position to the target
-        direction = (grappleController.joint.connectedAnchor - transform.position).normalized;
+        //direction = (grappleController.joint.connectedAnchor - transform.position).normalized;
+        meshObject.transform.right = -rigidbody.velocity;
+        if (rigidbody.velocity.x <= 0f) {
+            meshObject.transform.localScale = new Vector3(1f, 0.64251f, 1f);
+        }
+        if (rigidbody.velocity.x > 0f) {
+            meshObject.transform.localScale = new Vector3(1f, -0.64251f, 1f);
+        }
 
-        //create the rotation we need to be in to look at the target
-        meshObject.transform.up = direction;
     }
 
     private bool OverMaxVelocity(Direction direction) {
