@@ -254,6 +254,21 @@ public class CharacterController : MonoBehaviour {
         transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
         transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
+    public void WinMoveToPachinko()
+    {
+        throwRocksController.enabled = true;
+        throwRocksController.disableThrowing = false;
+        grappleController.enabled = false;
+        disableJump = true;
+        rigidbody.velocity = Vector3.zero;
+        transform.SetParent(Camera.main.gameObject.transform);
+        transform.localPosition = new Vector3(0, 11.25f, 25);
+        currentState = PlayerState.Pachinker;
+        PlayerManager.Instance.livingPlayers.Remove(this.gameObject);
+        PlayerManager.Instance.wonPlayers.Add(this.gameObject);
+        GameManager.Instance.tgm.players.Remove(this.gameObject);
+        transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
+    }
 
     public void MoveToClimbing()
     {
