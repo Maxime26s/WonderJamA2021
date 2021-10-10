@@ -2478,6 +2478,10 @@ PrefabInstance:
       value: PlayerManager
       objectReference: {fileID: 0}
     - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
+      propertyPath: scenes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853914101045899797, guid: 47644b44c28ce4647acb8e1dfd55afbe, type: 3}
       propertyPath: spawners.Array.data[0]
       value: 
       objectReference: {fileID: 888125392}
