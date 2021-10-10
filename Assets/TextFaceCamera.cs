@@ -14,5 +14,6 @@ public class TextFaceCamera : MonoBehaviour
     void Update()
     {
         transform.forward = transform.position - Camera.main.transform.position;
+        transform.position = gameObject.GetComponentInParent<Transform>().position + Vector3.up * 20;
     }
 }
