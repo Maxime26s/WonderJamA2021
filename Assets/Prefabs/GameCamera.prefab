@@ -81,8 +81,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080564096}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.9, z: 4.848004}
-  m_LocalScale: {x: 60, y: 0.5628803, z: 5.7448254}
+  m_LocalPosition: {x: 0, y: 1.9, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2361369604775589771}
   m_RootOrder: 5
@@ -788,6 +788,7 @@ Transform:
   - {fileID: 2140118992}
   - {fileID: 4823366614261364767}
   - {fileID: 1080564097}
+  - {fileID: 7507211542232559962}
   m_Father: {fileID: 2361369604357135347}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -941,6 +942,59 @@ MonoBehaviour:
   - {fileID: 2361369602794252475}
   - {fileID: 2140118991}
   sp: {fileID: 1080564096}
+--- !u!1 &4754854474610991719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7507211542232559962}
+  - component: {fileID: 5238861866672631863}
+  m_Layer: 0
+  m_Name: RockSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7507211542232559962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4754854474610991719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2361369604775589771}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5238861866672631863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4754854474610991719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 800f0197943f0b44a9cb0314451b1c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0
+  cd: 6
+  rocks:
+  - {fileID: 4941482925960248107, guid: ce964c00ca41ab048a090a576506a885, type: 3}
+  - {fileID: 4941482925960248107, guid: 76cb9da799aa50f478359dc0048573b8, type: 3}
+  - {fileID: 4941482925960248107, guid: 47d606e3973e5cf478c3c8ae51bd0d56, type: 3}
+  - {fileID: 4941482925960248107, guid: d82348e071e556c439b0eb4ca479eaf8, type: 3}
+  - {fileID: 4941482925960248107, guid: 9df9161e2593b92489c7e3914622d3c6, type: 3}
+  - {fileID: 4941482925960248107, guid: fb553ba003faa92449757f487148abb0, type: 3}
+  offset: {x: 0, y: 2, z: 0}
 --- !u!1001 &449835395166676073
 PrefabInstance:
   m_ObjectHideFlags: 0
