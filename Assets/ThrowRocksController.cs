@@ -34,7 +34,7 @@ public class ThrowRocksController : MonoBehaviour
             newRock.transform.position = Camera.main.transform.position + direction * multiplier;
 
             StartCoroutine(CoolDown());
-            nextRock = Random.Range(0, 5);
+            nextRock = Random.Range(0, rocks.Count);
 
             Physics.IgnoreCollision(newRock.GetComponent<Collider>(), HoldRock(nextRock).GetComponent<Collider>());
             Physics.IgnoreCollision(newRock.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
@@ -46,6 +46,7 @@ public class ThrowRocksController : MonoBehaviour
     {
         rockHolding = Instantiate(rocks[rockIndex]);
         rockHolding.GetComponent<Boulder>().enabled = false;
+        rockHolding.GetComponent<Boulder>().isHeld = true;
         rockHolding.transform.position = transform.position + new Vector3(0, 1f, 0);
         rockHolding.transform.SetParent(transform);
         rockHolding.GetComponent<Collider>().enabled = false;
