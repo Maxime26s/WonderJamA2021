@@ -136,9 +136,11 @@ public class GrappleController : MonoBehaviour {
     }
 
     public void EndGrapple() {
+        characterController.inAirAfterGrappling = true;
         characterController.SetState(PlayerState.InAir);
         lr.positionCount = 0;
         Destroy(joint);
+       characterController.BeginAirSpinAfterGrapple();
         //Destroy(ropeRef);
     }
 

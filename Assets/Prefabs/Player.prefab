@@ -495,6 +495,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404fcaf5585d656439709ac37d0cf92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 7562826569245713175}
+  height: 1.5
 --- !u!1 &6644860702830373479
 GameObject:
   m_ObjectHideFlags: 0
@@ -5471,6 +5473,7 @@ MonoBehaviour:
   mrBody: {fileID: 5768515288280170851}
   lrRope: {fileID: 5462298493919187793}
   playerId: 0
+  inAirAfterGrappling: 0
 --- !u!54 &7562826569245713173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5665,6 +5668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameStarted: 0
+  onScoreboard: 0
 --- !u!114 &344412443225711433
 MonoBehaviour:
   m_ObjectHideFlags: 0
