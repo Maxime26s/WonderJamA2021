@@ -47,9 +47,7 @@ public class GrappleController : MonoBehaviour {
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit, maxDistance)) {
         if (FanShappedRayCast(transform.position, aimDirection, out hit, maxDistance, 100, 20)) {
-            if (hit.transform.tag == "Wall") {
-                return;
-            }
+
             characterController.SetState(PlayerState.Grappling);
             grapplePoint = hit.point;
             //ropeRef = Instantiate(rope);
@@ -78,7 +76,8 @@ public class GrappleController : MonoBehaviour {
 
         //Debug.DrawRay(origin, direction * 50, Color.cyan, 5f);
         if (Physics.Raycast(origin, direction, out hitInfo, maxDistance))
-            return true;
+            if (hitInfo.transform.tag != "Wall")
+                return true;
 
         direction = new Vector3(direction.x, -direction.y, direction.z);
         float anglePerLeftCast = arcAngle / numberOfRaycast * Mathf.Deg2Rad;
@@ -99,9 +98,11 @@ public class GrappleController : MonoBehaviour {
             //Debug.DrawRay(origin, iterationDirectionRight * 50, Color.red, 5f);
 
             if (Physics.Raycast(origin, iterationDirectionLeft, out  hitInfo, maxDistance))
-                return true;
+                if (hitInfo.transform.tag != "Wall")
+                    return true;
             if (Physics.Raycast(origin, iterationDirectionRight, out hitInfo, maxDistance))
-                return true;
+                if (hitInfo.transform.tag != "Wall")
+                    return true;
         }
         return false;
     }
