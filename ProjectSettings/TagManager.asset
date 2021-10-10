@@ -8,6 +8,7 @@ TagManager:
   - LevelLoadr
   - LevelLoader
   - prop
+  - Wall
   layers:
   - Default
   - TransparentFX
