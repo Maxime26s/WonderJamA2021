@@ -45,6 +45,7 @@ public class PlayerManager : MonoBehaviour
             newDisplayPlayer.GetComponentInChildren<MeshRenderer>().material.color = colors[nbPlayer];
             newPlayer.gameObject.GetComponentInChildren<MeshRenderer>().material.color = colors[nbPlayer];
             newPlayer.transform.position = new Vector3(9999999f, 0, 0);
+            newPlayer.gameObject.GetComponent<CharacterController>().SetText(nbPlayer, colors[nbPlayer]);
 
             nbPlayer++;
         }
