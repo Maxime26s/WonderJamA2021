@@ -23,6 +23,15 @@ public class SilencerBoulder : Boulder
         base.OnCollisionEnter(collision);
 
         if(collision.gameObject.TryGetComponent(out GrappleController controller))
+        {
             controller.SilenceGrapple(silenceDuration);
+            //Destroy(gameObject);
+        }
+        Destroy(gameObject);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
     }
 }

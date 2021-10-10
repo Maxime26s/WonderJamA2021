@@ -7,6 +7,7 @@ TagManager:
   - SpawnPoint
   - LevelLoadr
   - LevelLoader
+  - prop
   layers:
   - Default
   - TransparentFX

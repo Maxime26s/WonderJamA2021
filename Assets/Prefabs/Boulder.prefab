@@ -111,10 +111,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32dcc33828611f49b61203f2326436d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minStartAngle: -125
-  maxStartAngle: -55
+  minStartAngle: -90
+  maxStartAngle: -90
   startForce: {x: 250, y: 500}
   rb: {fileID: 4941482925960248108}
+  deathParticle: {fileID: 0}
+  isHeld: 0
 --- !u!54 &4941482925960248108
 Rigidbody:
   m_ObjectHideFlags: 0
