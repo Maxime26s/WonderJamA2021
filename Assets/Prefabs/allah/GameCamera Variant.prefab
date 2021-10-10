@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1080564097, guid: f9f1b047710749a4795755974ba50526, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.102
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1080564097, guid: f9f1b047710749a4795755974ba50526, type: 3}
       propertyPath: m_LocalPosition.y
@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2361369604357135356, guid: f9f1b047710749a4795755974ba50526, type: 3}
       propertyPath: m_Name
-      value: GameCamera
+      value: GameCamera Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2361369604357135356, guid: f9f1b047710749a4795755974ba50526, type: 3}
       propertyPath: m_IsActive
