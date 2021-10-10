@@ -48,14 +48,17 @@ public class Flipper : MonoBehaviour
         }
         if (!flipping)
         {
-            StartCoroutine(Flip(duration, angle, restAngle));
             if (collision.gameObject.TryGetComponent(out Rigidbody rb))
             {
-                Vector3 calculatedForce = CalculateForce(collision.transform.position, collision.contacts[0].point);
-                calculatedForce = new Vector3(calculatedForce.x, calculatedForce.y, 0f);
-                GameObject particles = Instantiate(flipParticles, collision.contacts[0].point, Quaternion.identity);
-                particles.transform.forward = calculatedForce;
-                rb.AddForce(calculatedForce, ForceMode.VelocityChange);
+                if ((collision.transform.position - collision.contacts[0].point).y > 0)
+                {
+                    StartCoroutine(Flip(duration, angle, restAngle));
+                    Vector3 calculatedForce = CalculateForce(collision.transform.position, collision.contacts[0].point);
+                    calculatedForce = new Vector3(calculatedForce.x, calculatedForce.y, 0f);
+                    GameObject particles = Instantiate(flipParticles, collision.contacts[0].point, Quaternion.identity);
+                    particles.transform.forward = calculatedForce;
+                    rb.AddForce(calculatedForce, ForceMode.VelocityChange);
+                }
             }
         }
     }
