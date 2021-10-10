@@ -49,7 +49,13 @@ public class LevelLoader : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(currentScene + 1);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene + 1);
+        asyncOperation.completed += (_) =>
+        {
+            GameManager.Instance.InitMap();
+        };
+
+
     }
 
     IEnumerator LoadScene(string scene_name)

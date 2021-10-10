@@ -9,6 +9,8 @@ TagManager:
   - LevelLoader
   - prop
   - Wall
+  - spawnpoint
+  - deathSpawn
   layers:
   - Default
   - TransparentFX
