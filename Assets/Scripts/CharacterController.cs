@@ -57,6 +57,9 @@ public class CharacterController : MonoBehaviour
 
     public GameObject meshObject;
     public TextMeshProUGUI text;
+    public MeshRenderer mrBody;
+    public LineRenderer lrRope;
+    public int playerId;
 
 
     public void SetState(PlayerState newState)
@@ -78,10 +81,13 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    internal void SetText(int nbPlayer, Color32 color32)
+    internal void SetColor(int nbPlayer, Color32 color32)
     {
+        playerId = nbPlayer;
         text.text = "P" + (nbPlayer + 1);
         text.color = color32;
+        mrBody.material.color = PlayerManager.Instance.colors[playerId];
+        lrRope.material.SetColor("_EmissionColor", PlayerManager.Instance.colors[playerId]);
     }
 
     private IEnumerator RagdollPlayer(float time)
@@ -374,6 +380,7 @@ public class CharacterController : MonoBehaviour
 
     public void MoveToClimbing()
     {
+        Debug.Log("CLIMBING");
         throwRocksController.enabled = false;
         throwRocksController.disableThrowing = true;
         grappleController.enabled = true;
