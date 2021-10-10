@@ -5431,7 +5431,7 @@ MonoBehaviour:
   - {fileID: 4941482925960248107, guid: 9df9161e2593b92489c7e3914622d3c6, type: 3}
   - {fileID: 4941482925960248107, guid: fb553ba003faa92449757f487148abb0, type: 3}
   nextRock: 0
-  rocksCoolDown: 1
+  rocksCoolDown: 1.8
   disableThrowing: 1
   rockHolding: {fileID: 0}
   topBar: {fileID: 0}
