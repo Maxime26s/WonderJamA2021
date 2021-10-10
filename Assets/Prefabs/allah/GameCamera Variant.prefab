@@ -295,6 +295,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -5
       objectReference: {fileID: 0}
+    - target: {fileID: 5238861866672631863, guid: f9f1b047710749a4795755974ba50526, type: 3}
+      propertyPath: offset.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5244971163659445795, guid: f9f1b047710749a4795755974ba50526, type: 3}
       propertyPath: shakeThreshold
       value: 10
