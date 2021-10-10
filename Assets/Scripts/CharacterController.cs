@@ -90,19 +90,25 @@ public class CharacterController : MonoBehaviour
             {
                 rigidbody.AddForce(desiredHorizontalDirection * speed * Time.deltaTime, 0f, 0f);
             }
-        } else if (GetState() == PlayerState.InAir) {
-            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left)) {
+        }
+        else if (GetState() == PlayerState.InAir)
+        {
+            if (desiredHorizontalDirection < 0 && !OverMaxAirVelocity(Direction.Left))
+            {
                 rigidbody.AddForce(desiredHorizontalDirection * airSpeed * Time.deltaTime, 0f, 0f);
             }
             if (desiredHorizontalDirection > 0 && !OverMaxAirVelocity(Direction.Right))
             {
                 rigidbody.AddForce(desiredHorizontalDirection * airSpeed * Time.deltaTime, 0f, 0f);
             }
-        } else if (GetState() == PlayerState.Grappling) {
+        }
+        else if (GetState() == PlayerState.Grappling)
+        {
             Vector3 direction = grappleController.joint.connectedAnchor - transform.position;
             Vector3 dirLeft = new Vector3(-direction.y, direction.x).normalized;
 
-            if (desiredHorizontalDirection < 0) {
+            if (desiredHorizontalDirection < 0)
+            {
                 rigidbody.AddForce(dirLeft * grapplingSpeed * Time.deltaTime);
                 Debug.DrawRay(transform.position, dirLeft * grapplingSpeed);
             }
@@ -116,7 +122,8 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void OnMove(InputValue input) {
+    public void OnMove(InputValue input)
+    {
         desiredHorizontalDirection = input.Get<Vector2>().x;
         desiredVerticalDirection = input.Get<Vector2>().y;
         if (currentState != PlayerState.Ragdoll)
@@ -131,8 +138,10 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void OnJump() {
-        if (!disableJump) {
+    public void OnJump()
+    {
+        if (!disableJump)
+        {
             HandleJump();
         }
     }
@@ -143,7 +152,8 @@ public class CharacterController : MonoBehaviour
         if (GetState() == PlayerState.Grappling)
             return;
 
-        for (int i = 0; i < groundRayCount; i++) {
+        for (int i = 0; i < groundRayCount; i++)
+        {
             Vector3 raypos = transform.position + new Vector3(-(transform.localScale.x / 2f) + i * (transform.localScale.x / (groundRayCount - 1)), 0f, 0f);
             Debug.DrawRay(raypos, Vector3.down * groundCheckLength, Color.red);
             groundRay = new Ray(raypos, Vector3.down);
@@ -167,14 +177,18 @@ public class CharacterController : MonoBehaviour
         SetState(PlayerState.InAir);
     }
 
-    private void ApplyGroundFriction() {
-        if (rigidbody.velocity.x > 0) { // Going Right
+    private void ApplyGroundFriction()
+    {
+        if (rigidbody.velocity.x > 0)
+        { // Going Right
             float verification = rigidbody.velocity.x - groundFriction * Time.deltaTime;
             if (verification < 0)
                 rigidbody.velocity -= new Vector3(rigidbody.velocity.x, 0, 0);
             else
                 rigidbody.velocity -= new Vector3(groundFriction, 0, 0) * Time.deltaTime;
-        } else {                                        // Going Left
+        }
+        else
+        {                                        // Going Left
             float verification = rigidbody.velocity.x + groundFriction * Time.deltaTime;
             if (verification > 0)
                 rigidbody.velocity -= new Vector3(rigidbody.velocity.x, 0, 0);
@@ -189,17 +203,21 @@ public class CharacterController : MonoBehaviour
         {
             var em = walkParticles.emission;
             em.enabled = true;
-        } else {
+        }
+        else
+        {
             var em = walkParticles.emission;
             em.enabled = false;
         }
     }
 
-    void PlayJumpFX() {
+    void PlayJumpFX()
+    {
         jumpParticles.Play();
     }
 
-    void Update() {
+    void Update()
+    {
         if (currentState == PlayerState.OnGround || currentState == PlayerState.Pachinker)
             ApplyGroundFriction();
 
@@ -211,16 +229,18 @@ public class CharacterController : MonoBehaviour
 
         ManageInputs();
         CheckWalkFX();
-        if (currentState != PlayerState.Pachinker) {
+        if (currentState != PlayerState.Pachinker)
+        {
             CheckGrounded();
         }
     }
 
-    private void AnimateWalking() {
+    private void AnimateWalking()
+    {
         if (Mathf.Abs(rigidbody.velocity.x) > 0.1f && currentState == PlayerState.OnGround)
             meshObject.transform.Rotate(Mathf.Sin(Time.time * 10f) / 10f, 0, 0);
     }
-
+	
     private void AngleSwingingCharacter() {
         /*
         Quaternion lookRotation;
@@ -239,13 +259,19 @@ public class CharacterController : MonoBehaviour
 
     }
 
-    private bool OverMaxVelocity(Direction direction) {
-        if (direction == Direction.Left) {
-            if (rigidbody.velocity.x <= -maxVelocity) {
+    private bool OverMaxVelocity(Direction direction)
+    {
+        if (direction == Direction.Left)
+        {
+            if (rigidbody.velocity.x <= -maxVelocity)
+            {
                 return true;
             }
-        } else {
-            if (rigidbody.velocity.x >= maxVelocity) {
+        }
+        else
+        {
+            if (rigidbody.velocity.x >= maxVelocity)
+            {
                 return true;
             }
         }
@@ -263,6 +289,7 @@ public class CharacterController : MonoBehaviour
             }
         }
         GameManager.Instance.tgm.players.Remove(gameObject);
+        grappleController.EndGrapple();
         throwRocksController.enabled = true;
         throwRocksController.disableThrowing = false;
         grappleController.enabled = false;
@@ -270,44 +297,29 @@ public class CharacterController : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
         transform.SetParent(Camera.main.gameObject.transform);
         transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
-        currentState = PlayerState.Pachinker;
         PlayerManager.Instance.livingPlayers.Remove(gameObject);
-        PlayerManager.Instance.deadPlayers.Add(gameObject);
         transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
         transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         GetComponent<Collider>().enabled = false;
+        currentState = PlayerState.Pachinker;
+        GameManager.Instance.IsLevelEnd();
+    }
+
+    public void LoseMoveToPachinko()
+    {
+        PlayerManager.Instance.deadPlayers.Add(gameObject);
+        MoveToPachinko();
     }
 
     public void WinMoveToPachinko()
     {
-        PlayerManager.Instance.deadPlayers.Add(gameObject);
-        for (int i = 0; i < GameManager.Instance.tgm.players.Count; i++)
-        {
-            if (gameObject == GameManager.Instance.tgm.players[i])
-            {
-                GameManager.Instance.tgm.targetGroup.m_Targets[i].weight = 0;
-                break;
-            }
-        }
-        GameManager.Instance.tgm.players.Remove(gameObject);
-        throwRocksController.enabled = true;
-        throwRocksController.disableThrowing = false;
-        grappleController.enabled = false;
-        disableJump = true;
-        rigidbody.velocity = Vector3.zero;
-        transform.SetParent(Camera.main.gameObject.transform);
-        transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
-        currentState = PlayerState.Pachinker;
-        PlayerManager.Instance.livingPlayers.Remove(gameObject);
         PlayerManager.Instance.wonPlayers.Add(gameObject);
-        transform.position = GameManager.Instance.pachinkoSawnPoint.transform.position;
-        transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-        rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        GetComponent<Collider>().enabled = false;
+        MoveToPachinko();
     }
 
-    public void MoveToClimbing() {
+    public void MoveToClimbing()
+    {
         throwRocksController.enabled = false;
         throwRocksController.disableThrowing = true;
         grappleController.enabled = true;
@@ -319,11 +331,15 @@ public class CharacterController : MonoBehaviour
         transform.localScale = new Vector3(1f, 1f, 1f);
         rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         GetComponent<Collider>().enabled = true;
+        GameManager.Instance.IsLevelEnd();
     }
 
-    private bool OverMaxAirVelocity(Direction direction) {
-        if (direction == Direction.Left) {
-            if (rigidbody.velocity.x <= -maxAirVelocity) {
+    private bool OverMaxAirVelocity(Direction direction)
+    {
+        if (direction == Direction.Left)
+        {
+            if (rigidbody.velocity.x <= -maxAirVelocity)
+            {
                 return true;
             }
         }

@@ -41,10 +41,13 @@ public class TargetGroupManager : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            if (index == i)
-                targetGroup.m_Targets[i].weight = players.Count * 1.5f;
-            else
-                targetGroup.m_Targets[i].weight = 1f;
+            if (targetGroup.m_Targets[i].weight != 0f)
+            {
+                if (index == i)
+                    targetGroup.m_Targets[i].weight = players.Count * 1.5f;
+                else
+                    targetGroup.m_Targets[i].weight = 1f;
+            }
         }
     }
 }
