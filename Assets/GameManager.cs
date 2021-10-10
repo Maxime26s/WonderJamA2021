@@ -115,7 +115,13 @@ public class GameManager : MonoBehaviour
         }
 
         foreach (var go in playerList)
+        {
             go.GetComponent<CharacterController>().MoveToClimbing();
+            go.transform.position = new Vector3(999f, 0, 0);
+        }
+            
+
+
     }
 
     public void AddScore(GameObject gameObject, bool win)
