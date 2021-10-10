@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class SlowDown : MonoBehaviour
 {
-    public float slowDownRatio = 2;
-    
+    public float speed;
+    public float jump;
+
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<CharacterController>().speed = 2500f;
-            other.GetComponent<CharacterController>().jumpHeight = 250f;
+            other.GetComponent<CharacterController>().speed = speed;
+            other.GetComponent<CharacterController>().jumpHeight =jump;
         }
     }
     public void OnTriggerExit(Collider other)
