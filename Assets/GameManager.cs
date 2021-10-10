@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour
     public void InitMap()
     {
         spawnPoints = GameObject.FindGameObjectsWithTag("spawnpoint").ToList();
-        pachinkoSpawnPoint = GameObject.FindGameObjectWithTag("deathSpawn");
-        pachinkoZones = GameObject.FindGameObjectsWithTag("PachinkoZone").ToList();
+        pachinkoSpawnPoint = Camera.main.gameObject.GetComponent<ObjectHolder>().sp;
+        pachinkoZones = Camera.main.gameObject.GetComponent<ObjectHolder>().GOs;
 
         tgm = Camera.main.transform.parent.GetComponentInChildren<TargetGroupManager>();
         tgm.players.Clear();
@@ -77,17 +77,22 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < pachinkoZones.Count; i++)
             {
                 Debug.Log(pachinkoZones.Count);
-                pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, 100);
+                pachinkoZones[i].SetActive(false);
+                //pachinkoZones[i].gameObject.SetActive(false);
+                //pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, 100);
             }
         }
+        Debug.Log("end"+ pachinkoZones.Count);
     }
 
     public void SpawnThePachinko()
     {
-        Debug.Log("SPAWN PACHINI");
+        //pachinkoZones = GameObject.FindGameObjectsWithTag("PachinkoZone").ToList();
+        Debug.Log(pachinkoZones.Count);
         for (int i = 0; i < pachinkoZones.Count; i++)
         {
-            pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, -100);
+            pachinkoZones[i].SetActive(true);
+            //pachinkoZones[i].transform.position += new Vector3(pachinkoZones[i].transform.position.x, pachinkoZones[i].transform.position.y, -100);
         }
     }
 
