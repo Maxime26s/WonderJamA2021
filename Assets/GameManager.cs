@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
     public List<GameObject> livingPlayers;
+    public List<GameObject> wonPlayers;
 
     public GameObject spawnPoint;
     public GameObject pachinkoSawnPoint;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
         playerList = PlayerManager.Instance.playerList;
         deadPlayers = PlayerManager.Instance.deadPlayers;
         livingPlayers = PlayerManager.Instance.livingPlayers;
+        wonPlayers = PlayerManager.Instance.wonPlayers;
 
         int offset = -8;
         Debug.Log(livingPlayers.Count);
@@ -45,6 +47,13 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in deadPlayers)
         {
             player.transform.position = pachinkoSawnPoint.transform.position;
+        }
+    }
+    public void IsLevelEnd()
+    {
+        if (livingPlayers.Count == 0 && deadPlayers.Count + wonPlayers.Count == playerList.Count)
+        {
+            GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel();
         }
     }
 }

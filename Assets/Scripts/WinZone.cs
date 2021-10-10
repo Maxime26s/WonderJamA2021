@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathZone : MonoBehaviour
+public class WinZone : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out CharacterController characterController))
-            characterController.MoveToPachinko();
+            characterController.WinMoveToPachinko();
         else if (collision.gameObject.TryGetComponent(out Rigidbody rb))
         {
             Destroy(collision.gameObject);
