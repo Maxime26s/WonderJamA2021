@@ -135,10 +135,11 @@ MonoBehaviour:
   deathParticle: {fileID: 0}
   isHeld: 0
   boulderSounds:
-  - {fileID: 8300000, guid: 3e7fc28dd33a8874baf6c4aaeae2848a, type: 3}
-  - {fileID: 8300000, guid: 5f4945fb76ba2314e8b29bcf1a59f6ad, type: 3}
-  - {fileID: 8300000, guid: c1d0d2937eaeee6478eb75fdd81afc1d, type: 3}
-  - {fileID: 8300000, guid: 7ec1e31577346254abb7615e3cc3633b, type: 3}
+  - {fileID: 8300000, guid: b5d94de723cfb3c409e6545ed6081e8e, type: 3}
+  - {fileID: 8300000, guid: 692e2f5eebf4af74eaf70dca6bfef06e, type: 3}
+  - {fileID: 8300000, guid: 1d571e6a9337e5646a4ecd6cca439ef1, type: 3}
+  - {fileID: 8300000, guid: a34cdbacd371b3f41934d3fa2649a31d, type: 3}
+  - {fileID: 8300000, guid: fd37a7846d0dafa4085ce6d5a7620e65, type: 3}
   boulderAudioSource: {fileID: 1931441886149561214}
   bounceMultiplier: 0.25
 --- !u!114 &7612269106985664061
