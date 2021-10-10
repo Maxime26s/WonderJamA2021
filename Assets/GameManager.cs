@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,13 +10,13 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; set; }
 
-
     public List<GameObject> playerList;
     public List<GameObject> deadPlayers;
     public List<GameObject> livingPlayers;
     public List<GameObject> wonPlayers;
 
     public List<int> scores;
+    public List<SceneAsset> shuffledList;
 
     public List<GameObject> spawnPoints;
     public List<GameObject> pachinkoZones;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
             wonPlayers = PlayerManager.Instance.wonPlayers;
             InitMap();
             scores = new List<int> { 0, 0, 0, 0 };
+            shuffledList = PlayerManager.Instance.scenes.OrderBy(x => UnityEngine.Random.value).ToList();
         }
     }
 
@@ -47,7 +49,15 @@ public class GameManager : MonoBehaviour
         if (livingPlayers.Count == 0)// && deadPlayers.Count + wonPlayers.Count == playerList.Count
         {
             CleanUp();
-            GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel();
+            if(shuffledList.Count > 0)
+            {
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadNextLevel(shuffledList[0].name);
+                shuffledList.Remove(shuffledList[0]);
+            }
+            else
+            {
+                GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>().LoadMenu();
+            }
         }
     }
 
