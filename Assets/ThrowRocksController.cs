@@ -24,7 +24,8 @@ public class ThrowRocksController : MonoBehaviour
             if (topBar == null || rockHolding == null && Camera.main != null)
             {
                 HoldRock(0);
-                topBar = Camera.main.transform.GetComponent<ObjectHolder>().GOs[0];
+                if (Camera.main.transform.TryGetComponent(out ObjectHolder objectHolder))
+                    topBar = objectHolder.GOs[0];
             }
 
             Destroy(rockHolding);

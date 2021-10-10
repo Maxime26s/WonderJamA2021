@@ -21,9 +21,11 @@ public class GrappleController : MonoBehaviour {
     public GameObject ropeRef;
     public GameObject target;
     public Vector3 offset;
+    public Material material;
 
     private void Start() {
         aimDirection = new Vector3(0, maxDistance, 0);
+        gameObject.GetComponent<MeshRenderer>().material = material;
     }
     // Update is called once per frame
     void Update() {

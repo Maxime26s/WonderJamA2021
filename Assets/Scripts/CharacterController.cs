@@ -56,6 +56,9 @@ public class CharacterController : MonoBehaviour {
 
     public GameObject meshObject;
     public TextMeshProUGUI text;
+    public MeshRenderer mrBody;
+    public LineRenderer lrRope;
+    public int playerId;
 
     public bool inAirAfterGrappling = false;
 
@@ -76,6 +79,13 @@ public class CharacterController : MonoBehaviour {
         }
     }
 
+    internal void SetColor(int nbPlayer, Color32 color32) {
+        playerId = nbPlayer;
+        text.text = "P" + (nbPlayer + 1);
+        text.color = color32;
+        mrBody.material.color = PlayerManager.Instance.colors[playerId];
+        lrRope.material.SetColor("_EmissionColor", PlayerManager.Instance.colors[playerId]);
+    }
     public void RagdollPlayer(float time) {
         StartCoroutine("RagdollPlayerCoroutine", time);
     }
