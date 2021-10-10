@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
         scores = new List<int> { 0, 0, 0, 0 };
 
         int offset = -8;
-        Debug.Log(livingPlayers.Count);
         foreach (GameObject player in livingPlayers)
         {
             player.transform.position = spawnPoint.transform.position + new Vector3(offset, 0, 0);
@@ -58,7 +57,6 @@ public class GameManager : MonoBehaviour
 
     public void IsLevelEnd()
     {
-        Debug.Log("no end");
         if (livingPlayers.Count == 0)// && deadPlayers.Count + wonPlayers.Count == playerList.Count
         {
             CleanUp();
