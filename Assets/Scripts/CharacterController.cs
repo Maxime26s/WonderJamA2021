@@ -11,13 +11,13 @@ public class CharacterController : MonoBehaviour {
     public new Rigidbody rigidbody = null;
 
     [Header("Horizontal Speed")]
-    public float speed = 2f;
-    public float maxVelocity = 2f;
-    public float groundFriction = 1f;
+    public float speed = 5000f;
+    public float maxVelocity = 5f;
+    public float groundFriction = 30f;
 
     [Header("Vertical Speed")]
-    public float jumpHeight = 10f;
-    public float gravityMultiplier = 4f;
+    public float jumpHeight = 500f;
+    public float gravityMultiplier = 1f;
     public bool resetVelocityOnJump = false;
     public bool disableJump = false;
 
