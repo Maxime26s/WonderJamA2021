@@ -28,16 +28,9 @@ public class ThrowRocksController : MonoBehaviour
             }
 
             Destroy(rockHolding);
-
-            Vector3 direction = rockHolding.transform.position - Camera.main.transform.position;
-            direction.Normalize();
-            float multiplier = (0 - Camera.main.transform.position.z) / direction.z;
-
             disableThrowing = true;
-            GameObject newRock = Instantiate(rocks[nextRock]);
-            newRock.transform.position = Camera.main.transform.position + direction * multiplier;
 
-            newRock.transform.position = new Vector3(newRock.transform.position.x, transform.position.y + offset.y, 0);
+            GameObject newRock = ProjectBoulder(rockHolding.transform.position, rocks, offset, nextRock);
 
             newRock.transform.localScale *= 1.5f;
 
@@ -67,5 +60,18 @@ public class ThrowRocksController : MonoBehaviour
     {
         yield return new WaitForSeconds(rocksCoolDown);
         disableThrowing = false;
+    }
+
+    public static GameObject ProjectBoulder(Vector3 rockPosition, List<GameObject> rocks, Vector3 offset, int nextRock = -1)
+    {
+        Vector3 direction = rockPosition - Camera.main.transform.position;
+        direction.Normalize();
+        float multiplier = (0 - Camera.main.transform.position.z) / direction.z;
+        if (nextRock == -1)
+            nextRock = Random.Range(0, rocks.Count);
+        GameObject newRock = Instantiate(rocks[nextRock]);
+        newRock.transform.position = Camera.main.transform.position + direction * multiplier;
+        newRock.transform.position = new Vector3(newRock.transform.position.x, rockPosition.y + offset.y, 0);
+        return newRock;
     }
 }
