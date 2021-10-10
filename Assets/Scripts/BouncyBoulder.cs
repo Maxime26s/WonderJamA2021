@@ -32,4 +32,9 @@ public class BouncyBoulder : Boulder
             otherRb.AddForce(velocity * bounceMultiplier, ForceMode.VelocityChange);
         }
     }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+    }
 }

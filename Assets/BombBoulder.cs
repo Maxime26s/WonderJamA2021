@@ -36,14 +36,18 @@ public class BombBoulder : Boulder
         }
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        CancelInvoke();
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-        foreach (Collider hit in colliders)
+        base.OnDestroy();
+        if (!isHeld)
         {
-            if (hit.TryGetComponent(out Rigidbody rb))
-                rb.AddExplosionForce(power, transform.position, radius);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+            foreach (Collider hit in colliders)
+            {
+                if (hit.TryGetComponent(out Rigidbody rb))
+                    rb.AddExplosionForce(power, transform.position, radius);
+            }
+            EffectController.Instance.ShakeCamera(50);
         }
     }
 }
