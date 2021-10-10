@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            playerList = new List<GameObject>();
             playerList = PlayerManager.Instance.playerList;
+            Debug.Log(playerList.Count);
             deadPlayers = PlayerManager.Instance.deadPlayers;
             livingPlayers = PlayerManager.Instance.livingPlayers;
             wonPlayers = PlayerManager.Instance.wonPlayers;

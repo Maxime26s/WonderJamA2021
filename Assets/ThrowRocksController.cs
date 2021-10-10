@@ -21,10 +21,10 @@ public class ThrowRocksController : MonoBehaviour
     {
         if (!disableThrowing)
         {
-            if(topBar == null || rockHolding == null)
+            if (topBar == null || rockHolding == null && Camera.main != null)
             {
-                topBar = Camera.main.transform.GetComponentInChildren<PlaneCalculator>().gameObject;
                 HoldRock(0);
+                topBar = Camera.main.transform.GetComponent<ObjectHolder>().GOs[0];
             }
 
             Destroy(rockHolding);

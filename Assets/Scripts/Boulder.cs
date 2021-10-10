@@ -26,7 +26,7 @@ public class Boulder : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision != null && collision.relativeVelocity.magnitude >= EffectController.Instance.shakeThreshold)
+        if (collision != null && EffectController.Instance != null && collision.relativeVelocity.magnitude >= EffectController.Instance.shakeThreshold)
         {
             EffectController.Instance.ShakeCamera(collision.relativeVelocity.magnitude);
             if(collision.gameObject.TryGetComponent(out GrappleController grapple))
